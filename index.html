@@ -27,6 +27,9 @@ body[data-r="guld"]{background-image:linear-gradient(180deg,#221a04 0 16%,#2e230
 body[data-r="vm"]{background-image:linear-gradient(180deg,#2a1208 0 16%,#38180b 16% 32%,#461f0f 32% 48%,#552713 48% 64%,#652f17 64% 80%,#75381c 80%)}
 body[data-r="trivia"]{background-image:linear-gradient(180deg,#081a24 0 16%,#0b2330 16% 32%,#0f2d3c 32% 48%,#133748 48% 64%,#184255 64% 80%,#1d4d62 80%)}
 body[data-r="straff"]{background-image:linear-gradient(180deg,#04221a 0 16%,#062e22 16% 32%,#083a2b 32% 48%,#0a4734 48% 64%,#0d543e 64% 80%,#106248 80%)}
+body[data-r="varld"]{background-image:linear-gradient(180deg,#2a1208 0 16%,#38180b 16% 32%,#461f0f 32% 48%,#552713 48% 64%,#652f17 64% 80%,#75381c 80%)}
+body[data-r="blagult"]{background-image:linear-gradient(180deg,#041a3a 0 16%,#06224a 16% 32%,#082b5a 32% 48%,#0a356a 48% 64%,#0d3f7a 64% 80%,#104a8a 80%)}
+body[data-r="ute"]{background-image:linear-gradient(180deg,#081a24 0 16%,#0b2330 16% 32%,#0f2d3c 32% 48%,#133748 48% 64%,#184255 64% 80%,#1d4d62 80%)}
 body::after{content:"";position:fixed;left:0;right:0;bottom:0;height:56px;z-index:-1;background:repeating-linear-gradient(90deg,#1e7a3a 0 32px,#23893f 32px 64px);border-top:4px solid var(--cream);box-shadow:0 -4px 0 #000}
 body.noscroll{overflow:hidden}
 h1,h2,h3{font-family:var(--px);font-weight:400;margin:0;letter-spacing:0}
@@ -2521,20 +2524,16 @@ const PROGRAM=[
     fact:"Seven Nation Army med The White Stripes. Club Brugges fans började sjunga riffet mot Milan 2003, och sedan tog Italien med sig det hela vägen till VM-guldet 2006."}]},
 
  {id:"lakt", title:"Läktarkören", short:"Omgång 2",
-  intro:"Omgång två: Läktarkören. Ni hör låtar som fansen har gjort till sina. Skriv svaret i telefonen. Vem som helst i laget kan föreslå, och när mer än halva laget har godkänt samma förslag så låses det. En av frågorna är en dubbelfråga, då ger varje rätt del en poäng.",
+  intro:"Omgång två: Läktarkören. Ni hör låtar som fansen har gjort till sina. Skriv svaret i telefonen. Vem som helst i laget kan föreslå, och när mer än halva laget har godkänt samma förslag så låses det. En av frågorna är en dubbelfråga. Då ger varje rätt del en poäng.",
   qs:[
    {type:"text", q:"Vilken klubb förknippas mest med den här låten?", clips:[{t:"You'll Never Walk Alone",a:"Gerry & The Pacemakers"}],
     ans:"Liverpool", alt:["liverpool","liverpool fc","lfc","the reds"], fact:"Liverpool, ända sedan 1963. Celtic och Dortmund har också snott den."},
    {type:"text", q:"Vilken klubbs fans sjunger den här låten?", clips:[{t:"Blue Moon",a:"The Marcels"}],
     ans:"Manchester City", alt:["manchester city","man city","city","mcfc"], fact:"Manchester City. Blå måne, blå tröjor."},
-   {type:"text", q:"Vilken London-klubb spelar den här låten när laget springer in på planen?", clips:[{t:"Glad All Over",a:"The Dave Clark Five"}],
-    ans:"Crystal Palace", alt:["crystal palace","palace","cpfc"], fact:"Crystal Palace, på Selhurst Park."},
    {type:"text2", q:"Dubbelfråga: Arsenals fans sjunger One nil to the Arsenal till den här melodin. Vilken grupp spelade in låten först, och vilket år?", clips:[{t:"Go West",a:"Pet Shop Boys"}],
     parts:[P("Grupp","Village People",["village people","the village people"]),P("År","1979",["1979"],{year:1})], fact:"Village People, 1979. Pet Shop Boys gjorde covern 1993."},
    {type:"text", q:"Under EM 2016 sjöng hela Europa den här låten om en nordirländsk spelare som var on fire. Vad heter han?", clips:[{t:"Freed from Desire",a:"Gala"}],
-    ans:"Will Grigg", alt:["will grigg","grigg","william grigg"], fact:"Will Grigg. Han spelade inte en enda minut i hela EM. Ändå var han i brand."},
-   {type:"text", q:"Vilken spansk klubb kallas Den gula ubåten?", clips:[{t:"Yellow Submarine",a:"The Beatles"}],
-    ans:"Villarreal", alt:["villarreal","villareal","villarreal cf","villa real"], fact:"Villarreal. Gula tröjor, och fansen sjunger Beatles."}]},
+    ans:"Will Grigg", alt:["will grigg","grigg","william grigg"], fact:"Will Grigg. Han spelade inte en enda minut i hela EM. Ändå var han i brand."}]},
 
  {id:"vem", title:"Vem där?", short:"Omgång 3",
   intro:"Omgång tre: Vem där? Ni hör två låtar, och under tiden kommer fem ledtrådar, en i taget. Alla pekar på samma fotbollsperson. Ju tidigare ni låser ert svar, desto fler poäng. Fem poäng efter första ledtråden, en poäng efter den sista. Fel svar ger noll.",
@@ -2551,18 +2550,14 @@ const PROGRAM=[
     ans:"Manchester", alt:["manchester"], fact:"Manchester. The Smiths och Joy Division kommer därifrån. Och United och City."}]},
 
  {id:"off", title:"Offside eller inte?", short:"Omgång 5",
-  intro:"Omgång fem: Offside eller inte. Ni ser ett påstående om låten ni hör. Stämmer det, välj onside. Är det fel, välj offside. Här finns bara två svar, så det finns ingen ursäkt.",
+  intro:"Omgång fem: Offside eller inte. Ni ser ett påstående som hör ihop med låten ni hör. Stämmer det, välj onside. Är det fel, välj offside. Här finns bara två svar, så det finns ingen ursäkt.",
   qs:[
    {type:"tf", q:"Påstående: Englands fans sjöng den här låten genom hela EM 2021.", clips:[{t:"Sweet Caroline",a:"Neil Diamond"}], opts:OS, a:0,
     fact:"Onside. Sweet Caroline följde England hela vägen till finalen. Där tog det slut."},
    {type:"tf", q:"Påstående: Bröderna Gallagher i Oasis håller på Manchester United.", clips:[{t:"Wonderwall",a:"Oasis"}], opts:OS, a:1,
     fact:"Offside! De håller på Manchester City."},
-   {type:"tf", q:"Påstående: Elton John har varit ordförande i Watford.", clips:[{t:"Your Song",a:"Elton John"}], opts:OS, a:0,
-    fact:"Onside. Elton John var ordförande och ägare i Watford i två omgångar."},
-   {type:"tf", q:"Påstående: Rod Stewart håller på Rangers.", clips:[{t:"Da Ya Think I'm Sexy?",a:"Rod Stewart"}], opts:OS, a:1,
-    fact:"Offside. Rod Stewart är Celtic ut i fingerspetsarna."},
-   {type:"tf", q:"Påstående: Det här var Sveriges VM-låt 1994, och Sverige tog silver det året.", clips:[{t:"När vi gräver guld i USA",a:"Glenmark Eriksson Strömstedt"}], opts:OS, a:1,
-    fact:"Offside. Sverige tog brons 1994. Låten, med Glenmark Eriksson Strömstedt, låg etta på topplistan i 40 veckor."},
+   {type:"tf", q:"Påstående: Det här var Sveriges VM-låt 1994. I bronsmatchen det året vann Sverige med 4–0 mot Bulgarien.", clips:[{t:"När vi gräver guld i USA",a:"Glenmark Eriksson Strömstedt"}], opts:OS, a:0,
+    fact:"Onside. 4–0 mot Bulgarien i Pasadena, och brons till Sverige."},
    {type:"tf", q:"Påstående: Shakira träffade Gerard Piqué när videon till den här låten spelades in.", clips:[{t:"Waka Waka (This Time for Africa)",a:"Shakira"}], opts:OS, a:0,
     fact:"Onside. De träffades vid inspelningen av Waka Waka 2010."}]},
 
@@ -2571,44 +2566,54 @@ const PROGRAM=[
   qs:[
    {type:"guld", q:"Passa, få guldboll och skjut över linjen!", clips:[{t:"Samba de Janeiro",a:"Bellini"},{t:"Tubthumping",a:"Chumbawamba"},{t:"Pump It",a:"Black Eyed Peas"},{t:"Mr. Brightside",a:"The Killers"}], dur:120}]},
 
- {id:"vm", title:"VM-året", short:"Omgång 6",
-  intro:"Omgång sex: VM-året. Ni hör låtar som hör ihop med ett fotbolls-VM. Skriv vilket år. Första frågan är en dubbelfråga.",
+ {id:"varld", title:"Världen runt", short:"Omgång 6",
+  intro:"Omgång sex: Världen runt. Nu blir det andra låtar än fotbollslåtar, men frågorna handlar om fotboll. Låten är en ledtråd. Flera är dubbelfrågor, och varje rätt del ger en poäng.",
   qs:[
-   {type:"text2", q:"Dubbelfråga: Vilket år var VM:et som den här låten gjordes till, och vilken engelsk landslagsspelare rappar i den?", clips:[{t:"World in Motion",a:"New Order"}],
-    parts:[P("År","1990",["1990"],{year:1}),P("Spelare","John Barnes",["john barnes","barnes"])], fact:"1990 i Italien, och John Barnes rappar. Det bästa en fotbollsspelare har gjort i en studio."},
-   {type:"text", year:1, q:"Vilket års VM var det här den officiella låten till?", clips:[{t:"La Copa de la Vida",a:"Ricky Martin"}], ans:"1998", alt:["1998"],
-    fact:"1998 i Frankrike, och Frankrike vann."},
-   {type:"text", year:1, q:"Coca-Cola gjorde den här låten till sin VM-hymn. Vilket år?", clips:[{t:"Wavin' Flag",a:"K'naan"}], ans:"2010", alt:["2010"],
-    fact:"2010 i Sydafrika. Spanien vann, och vuvuzelorna vann över allas trumhinnor."},
-   {type:"text", year:1, q:"Vilket års VM var det här den officiella låten till?", clips:[{t:"We Are One (Ole Ola)",a:"Pitbull"}], ans:"2014", alt:["2014"],
-    fact:"2014 i Brasilien. Tyskland vann semifinalen mot Brasilien med sju–ett."}]},
+   {type:"text", q:"Låten kommer från Norge. Vilken norrman vann Premier Leagues skytteliga säsongen 2025/26?", clips:[{t:"Take On Me",a:"a-ha"}],
+    ans:"Erling Haaland", alt:["erling haaland","haaland","erling braut haaland"], fact:"Erling Haaland, med 27 mål för Manchester City. Hans rekord är 36 mål på en säsong."},
+   {type:"text2", q:"Dubbelfråga: Vilken egyptier vann Premier Leagues skytteliga 2024/25, och vilken klubb vann ligan samma säsong?", clips:[{t:"Walk Like an Egyptian",a:"The Bangles"}],
+    parts:[P("Spelare","Mohamed Salah",["mohamed salah","mo salah","salah","mohammed salah"]),P("Klubb","Liverpool",["liverpool","liverpool fc","lfc"])], fact:"Mohamed Salah, och Liverpool."},
+   {type:"text2", q:"Dubbelfråga: Vilken klubb vann Champions League-finalen 2025, och vilket lag förlorade med 5–0?", clips:[{t:"Les Champs-Élysées",a:"Joe Dassin"}],
+    parts:[P("Vinnare","Paris Saint-Germain",["paris saint germain","psg","paris sg","paris"]),P("Förlorare","Inter",["inter","internazionale","inter milan","inter milano","fc inter"])], fact:"Paris Saint-Germain, som krossade Inter med 5–0 i München."},
+   {type:"text2", q:"Dubbelfråga: Bandet kommer från en stad vars klubb vann Premier League 2016 som 5000 mot 1 skrällar. Vilken klubb, och vem var tränare?", clips:[{t:"Fire",a:"Kasabian"}],
+    parts:[P("Klubb","Leicester City",["leicester","leicester city","foxes"]),P("Tränare","Claudio Ranieri",["claudio ranieri","ranieri"])], fact:"Leicester City med Claudio Ranieri. Fotbollens största skräll."},
+   {type:"text2", q:"Dubbelfråga: Vem var Argentinas lagkapten när de vann VM 2022, och vilket land slog de i finalen?", clips:[{t:"Don't Cry for Me Argentina",a:"Madonna"}],
+    parts:[P("Lagkapten","Lionel Messi",["lionel messi","messi","leo messi"]),P("Land","Frankrike",["frankrike","france"])], fact:"Lionel Messi, och Frankrike efter straffar."},
+   {type:"text2", q:"Dubbelfråga: Vilket land vann VM 2026, och vem gjorde det enda målet i finalen?", clips:[{t:"Bailando",a:"Enrique Iglesias"}],
+    parts:[P("Land","Spanien",["spanien","spain","espana"]),P("Målskytt","Ferran Torres",["ferran torres","torres","ferran"])], fact:"Spanien, 1–0 mot Argentina efter förlängning. Ferran Torres i 106:e minuten."}]},
 
  {id:"blagult", title:"Blågult", short:"Omgång 7",
-  intro:"Omgång sju: Blågult. Svenska låtar med fotbollskoppling. Flera av frågorna är dubbelfrågor, och varje rätt del ger en poäng. Här ska ni vara starka, för det är ju vår musik.",
+  intro:"Omgång sju: Blågult. Svenska låtar, och frågor om svensk fotbollshistoria. Ni känner igen låtarna. Frågorna är svårare. Det är meningen.",
   qs:[
-   {type:"text2", q:"Dubbelfråga: Det här var landslagets officiella låt till ett VM. Vem sjunger, och vilket år var VM:et?", clips:[{t:"Vi ska till VM",a:"Magnus Uggla"}],
-    parts:[P("Artist","Magnus Uggla",["magnus uggla","uggla"]),P("År","2002",["2002"],{year:1})], fact:"Magnus Uggla, till VM 2002 i Japan och Sydkorea. Låten gick upp på förstaplatsen."},
-   {type:"text2", anyOrder:1, q:"Dubbelfråga: Två svenska artister sjunger den här fotbollslåten från 2006. Vilka?", clips:[{t:"Mera mål",a:"Markoolio"}],
-    parts:[P("Artist 1","Markoolio",["markoolio","marko lehtosalo"]),P("Artist 2","Linda Bengtzing",["linda bengtzing","bengtzing"])], fact:"Markoolio och Linda Bengtzing. Mera mål, och mera Markoolio."},
-   {type:"text2", q:"Dubbelfråga: Det här var den officiella låten till EM 2000. Vem sjunger, och vilket land arrangerade EM:et tillsammans med Nederländerna?", clips:[{t:"Campione 2000",a:"E-Type"}],
-    parts:[P("Artist","E-Type",["e type","etype","e-type","bo martin erikson"]),P("Land","Belgien",["belgien","belgium","belgique"])], fact:"E-Type, och Belgien. Låten gick tvåa på den svenska topplistan."},
-   {type:"text", q:"Vilken svensk klubb har gjort den här låten till sin hymn?", clips:[{t:"Just idag är jag stark",a:"Kenta"}],
-    ans:"Hammarby", alt:["hammarby","hammarby if","bajen","hif"], fact:"Hammarby. Kenta höll själv på Bajen."}]},
+   {type:"text2", q:"Dubbelfråga: Det här var landslagets låt till VM 2002. I åttondelsfinalen åkte Sverige ut. Mot vilket land, och på vilket sätt avgjordes matchen?", clips:[{t:"Vi ska till VM",a:"Magnus Uggla"}],
+    parts:[P("Land","Senegal",["senegal"]),P("Avgjordes","Golden goal",["golden goal","gyllene mal","sudden death","guldmal","golden goal i forlangningen"])], fact:"Senegal, på golden goal av Henri Camara i förlängningen."},
+   {type:"text2", q:"Dubbelfråga: Låten kom inför VM 2006. Sverige åkte ut mot värdnationen i åttondelen. Vilket land, och vem gjorde båda deras mål?", clips:[{t:"Mera mål",a:"Markoolio"}],
+    parts:[P("Land","Tyskland",["tyskland","germany"]),P("Målskytt","Lukas Podolski",["lukas podolski","podolski"])], fact:"Tyskland, och Lukas Podolski gjorde båda målen."},
+   {type:"text", q:"Det här var den officiella låten till EM 2000. Patrick Kluivert delade skytteligan med en annan spelare på fem mål. Vem?", clips:[{t:"Campione 2000",a:"E-Type"}],
+    ans:"Savo Milošević", alt:["savo milosevic","milosevic","savo milošević"], fact:"Savo Milošević från Jugoslavien."},
+   {type:"text", year:1, q:"Det här är Hammarbys hymn. Hammarby har vunnit Allsvenskan en enda gång. Vilket år?", clips:[{t:"Just idag är jag stark",a:"Kenta"}], ans:"2001", alt:["2001"],
+    fact:"2001. Kenta höll själv på Bajen."},
+   {type:"text2", q:"Dubbelfråga: Det senaste svenska laget som vann en europeisk cup kommer från den här stan. Vilken klubb, och vilket år?", clips:[{t:"Känn ingen sorg för mig Göteborg",a:"Håkan Hellström"}],
+    parts:[P("Klubb","IFK Göteborg",["ifk goteborg","ifk","goteborg","blavitt"]),P("År","1987",["1987"],{year:1})], fact:"IFK Göteborg vann UEFA-cupen 1987, mot Dundee United."},
+   {type:"text", q:"The winner takes it all. Vilken klubb vann Allsvenskan 2025, för första gången någonsin?", clips:[{t:"The Winner Takes It All",a:"ABBA"}],
+    ans:"Mjällby AIF", alt:["mjallby","mjallby aif","mjällby"], fact:"Mjällby AIF, från Hällevik i Blekinge. Deras första SM-guld."}]},
 
- {id:"trivia", title:"Matchprogrammet", short:"Omgång 8",
-  intro:"Omgång åtta: Matchprogrammet. Musik med fotbollstrivia, och två dubbelfrågor. Det här är den svåra delen, så skyll gärna på domaren.",
+ {id:"ute", title:"Svenskar i världen", short:"Omgång 8",
+  intro:"Omgång åtta: Svenskar i världen. Låtarna är ledtrådar till städerna där svenska stjärnor har spelat. Två av frågorna är dubbelfrågor.",
   qs:[
-   {type:"text2", q:"Dubbelfråga: Football's coming home! Vilket år var mästerskapet som Three Lions skrevs till, och vilket land arrangerade det?", clips:[{t:"Three Lions",a:"The Lightning Seeds"}],
-    parts:[P("År","1996",["1996"],{year:1}),P("Land","England",["england","storbritannien","uk"])], fact:"EM 1996 i England. Football's coming home. Det gjorde den inte."},
-   {type:"text", q:"Keith Allen sjunger här. Han är pappa till en brittisk popstjärna. Vem?", clips:[{t:"Vindaloo",a:"Fat Les"}],
-    ans:"Lily Allen", alt:["lily allen","lilly allen","lily"], fact:"Lily Allen. Musik går i arv. Fotbollstalang tydligen inte."},
-   {type:"text2", q:"Dubbelfråga: Det här är ledmotivet till en tv-serie om en amerikansk tränare i England. Vad heter serien, och vilken klubb tränar han?", clips:[{t:"Ted Lasso Theme",a:"Marcus Mumford"}],
-    parts:[P("Serie","Ted Lasso",["ted lasso","lasso"]),P("Klubb","AFC Richmond",["afc richmond","richmond","richmond afc"])], fact:"Ted Lasso, som tränar AFC Richmond. Han kan ingenting om fotboll. Låter som någon i Obbola IK."}]},
+   {type:"text2", q:"Dubbelfråga: Låten handlar om floden i Newcastle. Vilken svensk anfallare sålde Newcastle för ett brittiskt rekordbelopp 2025, och till vilken klubb?", clips:[{t:"Fog on the Tyne",a:"Lindisfarne"}],
+    parts:[P("Spelare","Alexander Isak",["alexander isak","isak"]),P("Klubb","Liverpool",["liverpool","liverpool fc","lfc"])], fact:"Alexander Isak, till Liverpool."},
+   {type:"text2", q:"Dubbelfråga: Vilken Londonklubb vann Premier League 2025/26, och vilken svensk anfallare värvade klubben från Sporting sommaren 2025?", clips:[{t:"London Calling",a:"The Clash"}],
+    parts:[P("Klubb","Arsenal",["arsenal","the gunners","afc"]),P("Spelare","Viktor Gyökeres",["viktor gyokeres","gyokeres","gyökeres"])], fact:"Arsenal, och Viktor Gyökeres."},
+   {type:"text", q:"Vilken svensk har vunnit Serie A med både Inter och AC Milan?", clips:[{t:"Dolce Vita",a:"Ryan Paris"}],
+    ans:"Zlatan Ibrahimović", alt:["zlatan ibrahimovic","zlatan","ibrahimovic","ibra"], fact:"Zlatan Ibrahimović. Han vann med Inter tre gånger och med Milan två."},
+   {type:"text", q:"Vilken svensk kom in som inhoppare i Champions League-finalen 2006 och slog passningarna till båda Barcelonas mål?", clips:[{t:"Barcelona",a:"Montserrat Caballé"}],
+    ans:"Henrik Larsson", alt:["henrik larsson","larsson","henke"], fact:"Henrik Larsson. Barcelona vann med 2–1 mot Arsenal."}]},
 
  {id:"straff", title:"Straffläggning", short:"Final",
   intro:"Final: Straffläggning! Fem straffar. Ni hör en kort bit av en arenalåt och skriver vad låten heter. Rätt svar är mål. Fel svar är räddning, och då blir jag besviken. På riktigt.",
   qs:[
-   {type:"text", pen:1, q:"Straff ett: Vad heter låten?", clips:[{t:"We Will Rock You",a:"Queen"}], play:15, open:30, ans:"We Will Rock You", alt:["we will rock you"], fact:"We Will Rock You, Queen."},
+   {type:"text", pen:1, q:"Straff ett: Vad heter låten?", clips:[{t:"Eye of the Tiger",a:"Survivor"}], play:15, open:30, ans:"Eye of the Tiger", alt:["eye of the tiger"], fact:"Eye of the Tiger, Survivor."},
    {type:"text", pen:2, q:"Straff två: Vad heter låten?", clips:[{t:"The Final Countdown",a:"Europe"}], play:15, open:30, ans:"The Final Countdown", alt:["the final countdown","final countdown"], fact:"The Final Countdown, Europe."},
    {type:"text", pen:3, q:"Straff tre: Vad heter låten?", clips:[{t:"Jump Around",a:"House of Pain"}], play:15, open:30, ans:"Jump Around", alt:["jump around"], fact:"Jump Around, House of Pain."},
    {type:"text", pen:4, q:"Straff fyra: Vad heter låten?", clips:[{t:"Song 2",a:"Blur"}], play:15, open:30, ans:"Song 2", alt:["song 2","song two","song2","woo hoo"], fact:"Song 2, Blur."},

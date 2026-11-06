@@ -2976,9 +2976,9 @@ function onState(prevK,prevSi){
 const PPRES={talk:"data:image/gif;base64,"+PRES_B64[0], cheer:"data:image/gif;base64,"+PRES_B64[1], angry:"data:image/gif;base64,"+PRES_B64[2]};
 let pIdle=null, pMissing=false;
 function updatePres(){ const box=$("pPres"); if(!box) return; const show = ME && ST && ST.players && ST.players[ME.pid] && ST.k!=="game" && !pMissing; box.hidden=!show; if(!show) return;
-  const m=ST.mood||"idle", img=$("pPresImg"); box.className="ppres "+m; const s=$("pSay"); if(s.textContent!==(ST.sayPart||ST.say||"")) s.textContent=ST.sayPart||ST.say||"";
-  if(m==="idle" && pIdle){ img.hidden=true; pIdle.hidden=false; return; }
-  if(pIdle) pIdle.hidden=true; img.hidden=false; const src = m==="angry"?PPRES.angry : (m==="cheer"||m==="dance")?PPRES.cheer : PPRES.talk; if(img.dataset.src!==src){ img.dataset.src=src; img.src=src; } }
+  let m=ST.mood||"idle"; if(m==="idle" && ["welcome","round","ask"].includes(ST.k)) m="talk"; const img=$("pPresImg"); box.className="ppres "+m; const s=$("pSay"); if(s.textContent!==(ST.sayPart||ST.say||"")) s.textContent=ST.sayPart||ST.say||"";
+  if(m==="idle" && pIdle){ img.hidden=true; pIdle.hidden=false; img.dataset.m="idle"; return; }
+  if(pIdle) pIdle.hidden=true; img.hidden=false; const src = m==="angry"?PPRES.angry : (m==="cheer"||m==="dance")?PPRES.cheer : PPRES.talk; if(img.dataset.m!==m){ img.dataset.m=m; img.src=""; img.src=src; } }
 function setupPPres(){ const img=$("pPresImg"); img.onerror=()=>{};
   const t=new Image(); t.onload=()=>{ try{ const c=document.createElement("canvas"); c.width=t.naturalWidth; c.height=t.naturalHeight; c.getContext("2d").drawImage(t,0,0); c.hidden=true; img.after(c); pIdle=c; updatePres(); }catch(e){} }; t.src=PPRES.talk; }
 

@@ -2631,8 +2631,56 @@ const LINES={
  noSong:"Låten vägrade spela. Typiskt. Svara ändå.",
  end:"Det var allt för ikväll. Grattis {W}, ni är Obbola IK QuizChampions 2026! Jag hade vunnit om jag fick vara med, men någon måste vara värd. Och lagkapten. Ni andra: det finns alltid nästa år. Tack för att ni spelade. Gå hem försiktigt."
 };
-LINES.brag=["Jag hade klarat den med förbundna ögon. Lagkapten, ni vet.","Som lagkapten kan jag säga att det där var svagt.","Jag har kaptensbindel. Ni har inte kaptensbindel. Det säger allt.","Jag var bäst i Obbola IK på den frågan. Och på alla andra.","Fruktansvärt duktig, det är vad jag är. Det är en börda.","Kaptensbindeln sitter inte där av en slump.","När jag var i er ålder hade jag redan vunnit det här quizet. Två gånger.","Jag tränar varje dag. På att vara bättre än er."];
 LINES.teams="Lagen är lottade. Döp ert lag nu. Något roligt, tack. Inte Lag ett. Och ingen får heta Lagkaptenen, det namnet är upptaget.";
+/* ---------- fler repliker, så att han inte upprepar sig ---------- */
+LINES.brag=[
+ "Jag gör så många mål att målvakterna i division fem har startat en stödgrupp.",
+ "Linjedomarna i division fem hinner inte med mig. Därför blir jag dömd för offside. Varje gång. Felaktigt.",
+ "Jag är aldrig offside. Jag är bara snabbare än linjedomarens hjärna.",
+ "När jag slutar spela borde Obbola IK pensionera nummer sju. Och sex. Och åtta. För säkerhets skull.",
+ "Jag är väldigt vacker för min ålder. Och för alla andra åldrar också.",
+ "Folk frågar hur jag ser ut så här. Svaret är enkelt. I woke up like this.",
+ "Förbundet har föreslagit att motståndarna får byta in en extra spelare när jag är i straffområdet. Jag tycker att det är rimligt.",
+ "Jag nickar bättre än de flesta skjuter.",
+ "Jag har aldrig missat en straff. Jag har bara låtit målvakten tro att han hade en chans.",
+ "Jag värmer inte upp. Planen värmer upp inför mig.",
+ "Mitt skott är så hårt att målnätet har sjukskrivit sig.",
+ "Jag springer så fort att GPS-västen visar fel.",
+ "Min frisyr har aldrig förlorat en nickduell.",
+ "När jag gör mål jublar till och med motståndarnas mammor.",
+ "Jag är lagkapten för att ingen annan klarade av att vara så här bra.",
+ "Kaptensbindeln sitter inte där av en slump. Den sitter där för att den vill.",
+ "Jag har så bra spelförståelse att jag förstår matchen innan den har börjat.",
+ "Ni tror att ni är bra. Jag vet att jag är det. Det är skillnaden.",
+ "Jag är inte bara lagkapten. Jag är hela laget. Resten är statister.",
+ "Jag har aldrig fått ett gult kort. Domarna vågar inte.",
+ "Jag dribblar så bra att jag ibland dribblar bort mig själv. Ett lyxproblem.",
+ "När jag slår en hörna applåderar hörnflaggan.",
+ "Jag tränar inte. Jag repeterar perfektion.",
+ "Jag är så snygg i matchtröjan att sponsorerna vill betala extra.",
+ "Om jag hade spelat i Allsvenskan hade Allsvenskan blivit bättre.",
+ "Mina passningar är så exakta att bollen ber om ursäkt om den hamnar fel.",
+ "Jag föddes inte. Jag värvades.",
+ "Obbola IK:s klubbstuga borde döpas om till Lagkaptenens lounge.",
+ "Jag har sett er spela. Jag har förlåtit er.",
+ "Målvakterna i division fem har mitt namn på en lapp i handsken. Det står: spring.",
+ "Det finns en staty av mig i Obbola. Den är inte byggd än, men den finns. I mitt hjärta.",
+ "Jag gjorde ett hattrick en gång. Sen gjorde jag ett till, för att hatten skulle få sällskap.",
+ "Mina benskydd är försäkrade. Det är benen också.",
+ "När jag tar av mig tröjan efter ett mål får jag aldrig gult. Domaren förstår.",
+ "Jag skjuter inte bollen i mål. Bollen följer bara med mig in."
+];
+LINES.allRight=["Alla hade rätt. Misstänkt. Jag kollar VAR.","Rätt allihop. Den var tydligen för lätt. Mitt fel.","Alla rätt. Jag är nästan imponerad. Nästan.","Fullt hus. Det här har inte hänt sedan jag gjorde fyra mål i en halvlek.","Alla lag rätt. Ni har tydligen tjuvlyssnat när jag tränar.","Alla hade rätt. Nu blir jag orolig att jag inte är den enda som är bra."];
+LINES.someRight=["{T} hade rätt. Ni andra: snyggt försök. Nej förresten, inte snyggt.","Poäng till {T}. Resten kan börja värma upp inför nästa fråga.","{T} visste. Ni andra gissade. Det syntes.","{T} får poäng. Ni andra får min medkänsla. Den är gratis.","{T} satte den. Som jag gör från tjugo meter.","{T} hade rätt. Jag hade också haft rätt. Bara så ni vet."];
+LINES.noneRight=["Ingen. Inte ett enda lag. Jag skäms å era vägnar.","Noll rätt. Gå och duscha. Ingen bastu.","Ingen hade rätt. Jag får tänka över min karriär som quizvärd.","Ingen? På riktigt? Det här är sämre än vårt försvar en blöt tisdag i Obbola.","Inte ett lag. Jag hade klarat den sovande. I woke up like this, och då kunde jag den.","Noll. Samma antal som målvakterna brukar hålla när jag spelar."];
+LINES.hurry=["Tio sekunder! Bestäm er!","Kom igen, det här är inget styrelsemöte!","Tio sekunder. Rösta nu, prata sen.","Tick tack. Domaren tittar på klockan.","Snabbare! Jag hade redan gjort mål på den här tiden.","Tio sekunder kvar. Ni är långsammare än en linjedomare i division fem.","Bestäm er nu, annars bestämmer jag. Och jag är jävig."];
+LINES.score=["{L} leder. Njut medan det varar.","{L} ligger först. {B} ligger sist. Det är också en placering.","Ställningen just nu. {B}, det här är er påminnelse om att ni fortfarande är med. Typ.","{L} toppar tabellen. Som Obbola IK gör i mina drömmar.","{B} ligger sist, men ni har gott hjärta. Det räknas inte, men ändå.","{L} leder. Om jag hade varit med i ett lag hade det sett annorlunda ut."];
+LINES.gameGood=["Bra spelat {T}. Jag hade gjort det bättre, men bra.","{T} har snabba tummar. Oroande snabba.","{T} spelade nästan som jag. Nästan.","Snyggt {T}. Ni får provträna med A-laget. Som bollkallar."];
+LINES.gameBad=["Det där var ingen höjdare. Gå och duscha, ingen bastu.","Jag såg det där. Alla såg det där.","Det där var så dåligt att jag vill gå tillbaka i tiden och spela själv.","Jag har sett bättre fotboll i ett kafferep."];
+LINES.goal=["Mål!","Mål! Bollen i nät!","Den sitter!","Mål! Nästan lika snyggt som när jag gör det.","Rakt upp i krysset!"];
+LINES.save=["Räddad!","Målvakten tar den!","Nej, nej, nej!","Räddning! Det hade aldrig hänt mig.","Utanför! Som en linjedomares bedömning."];
+LINES.lobby=["Kom igen nu, logga in. Jag har inte hela kvällen. Jo, det har jag.","Skriv ditt namn. Ditt riktiga. Inte Zlatan.","Fler spelare, tack. Det här är ett lagquiz, inte en terapisession.","Logga in nu. Jag har redan värmt upp. Två gånger.","Välkommen in. Ta det lugnt, det är bara jag som är perfekt här."];
+LINES.noAnswer=["Några lag svarade inte ens. Det är också ett val. Ett dåligt.","Inget svar? Ni vet att man får gissa, va?","Blankt? Det är som att stå still i straffområdet. Det gör inte jag."];
 const TEAMNAMES=["Bastuklubben","Offsidefällan","Bänkvärmarna","Hörnflaggorna","Gräsklipparna","Straffkommittén","Målvaktshandskarna","Avbytarbänken","Ribbträffarna","Läktarlejonen"];
 
 /* ================= gemensamt ================= */
@@ -2710,7 +2758,7 @@ function onAct(d){ if(!d||!d.pid||typeof d.pid!=="string") return; const pid=d.p
         Object.values(H.votes||{}).forEach(tv=>{ if(tv[oid]){ tv[pid]=tv[oid]; delete tv[oid]; } });
         Object.values(H.game||{}).forEach(g=>{ if(g[oid]){ g[pid]=g[oid]; delete g[oid]; } });
         saveH(); pub(); renderHost(); return; } }
-    if(!p){ p=H.players[pid]={name, team:null}; if(H.drawn) assignLate(pid); if(H.si<0 && Object.keys(H.players).length%4===0 && !speakingNow) say(rnd(LINES.lobby),"angry"); }
+    if(!p){ p=H.players[pid]={name, team:null}; if(H.drawn) assignLate(pid); if(H.si<0 && Object.keys(H.players).length%4===0 && !speakingNow) say(pick("lobby"),"angry"); }
     else p.name=name;
     saveH(); pub(); renderHost(); return; }
   if(!p) return;
@@ -2812,6 +2860,8 @@ function speak(text){ return new Promise(res=>{ const tok=++speakTok; speakingNo
 function stopSpeak(){ speakTok++; speakingNow=false; try{ speechSynthesis.cancel(); }catch(e){} duck(false); }
 async function say(text,mood,after){ H.say=text; setMood("talk"); pub(); renderPres(); await speak(text); if(after!==undefined) setMood(after); else setMood(mood==="talk"?"idle":mood); renderPres(); }
 
+/* ---------- repliker utan upprepning ---------- */
+const DECKS={}; function pick(k){ const all=LINES[k]; if(!Array.isArray(all)) return all||""; let d=DECKS[k]; if(!d||!d.length){ d=DECKS[k]=all.slice().sort(()=>Math.random()-.5); } return d.pop(); }
 /* ---------- presentatören ---------- */
 let presMood="idle", idleCanvas=null, presMissing=false;
 function setMood(m){ presMood=m; H.mood=m; renderPres(); pub(); }
@@ -2841,7 +2891,7 @@ async function runStep(i){ const tok=++runTok; stopSpeak(); const st=stepAt(i); 
         const lockedAll=allLocked(); if(!lockedAll){ H.say=`Ledtråd ${ci+1}: ${c}`; speak(H.say).then(()=>{ if(alive()&&stepAt(H.si).k==="play") setMood("dance"); }); setMood("talk"); } }, ci*(Q.clueEvery||11)*1000+300)); }
     let hurried=false, allAt=0;
     await waitUntil(tok,()=>{ const left=H.deadline-Date.now();
-      if(!hurried && left<10500 && !allLocked()){ hurried=true; H.say=rnd(LINES.hurry); setMood("angry"); speak(H.say).then(()=>{ if(alive() && stepAt(H.si).k==="play") setMood("dance"); }); pub(); }
+      if(!hurried && left<10500 && !allLocked()){ hurried=true; H.say=pick("hurry"); setMood("angry"); speak(H.say).then(()=>{ if(alive() && stepAt(H.si).k==="play") setMood("dance"); }); pub(); }
       if(allLocked()){ if(!allAt) allAt=Date.now(); if(Date.now()-allAt>1500) return true; }
       return left<=0; });
     if(!alive()) return; stopAudio(); finalizeLocks(); }
@@ -2850,9 +2900,9 @@ async function runStep(i){ const tok=++runTok; stopSpeak(); const st=stepAt(i); 
     await waitUntil(tok,()=>Date.now()>=H.deadline); if(!alive()) return; stopAudio(); }
   else if(st.k==="gameres"){ H.say="Räknar ihop …"; pub(true); renderPres(); await sleep(3000); if(!alive()) return; computeGres(i); pub(true); renderHost();
     const g=H.gres[i]||{}, good=activeTeams().filter(t=>(g[t.id]||{}).pts>=2).map(t=>t.name);
-    if(good.length) await say(rnd(LINES.gameGood).replace("{T}",listNames(good)),"cheer"); else await say(rnd(LINES.gameBad)+" "+rnd(LINES.brag),"angry"); await sleep(2500); }
+    if(good.length) await say(pick("gameGood").replace("{T}",listNames(good)),"cheer"); else await say(pick("gameBad")+" "+pick("brag"),"angry"); await sleep(2500); }
   else if(st.k==="score"){ const s=standings(); const L=s.length?s[0].name:"", B=s.length?s[s.length-1].name:"";
-    await say(rnd(LINES.score).replace("{L}",L).replace("{B}",B)+" "+rnd(LINES.brag), s.length>1?"cheer":"talk"); await sleep(3500); }
+    await say(pick("score").replace("{L}",L).replace("{B}",B)+" "+pick("brag"), s.length>1?"cheer":"talk"); await sleep(3500); }
   else if(st.k==="end"){ const s=standings(); await say(LINES.end.replace("{W}",s.length?s[0].name:"alla"),"cheer"); setMood("cheer"); return; }
   if(!alive()) return; if(!(await gate(tok))) return; runStep(i+1); }
 function listNames(a){ return a.length<=1 ? (a[0]||"") : a.slice(0,-1).join(", ")+" och "+a[a.length-1]; }
@@ -2864,12 +2914,12 @@ async function doReveal(i,tok){ const st=stepAt(i), Q=qOf(st); const fresh=!H.re
   const right=activeTeams().filter(t=>res[t.id]&&res[t.id].ok).map(t=>t.name+(Q.type==="clues"?` med ${res[t.id].pts} poäng`:"")), none=activeTeams().filter(t=>!res[t.id]||res[t.id].ans==null).length;
   const alive=()=>tok===runTok;
   if(Q.pen){ const wrong=activeTeams().filter(t=>!(res[t.id]&&res[t.id].ok)).map(t=>t.name);
-    await say(`${Q.fact} ${right.length?rnd(LINES.goal)+" för "+listNames(right)+".":""}`, right.length?"cheer":"angry", right.length?"cheer":"angry"); if(!alive()) return;
-    if(wrong.length){ await say(`${rnd(LINES.save)} ${listNames(wrong)} missar.`,"angry","angry"); } await sleep(1800); return; }
+    await say(`${Q.fact} ${right.length?pick("goal")+" för "+listNames(right)+".":""}`, right.length?"cheer":"angry", right.length?"cheer":"angry"); if(!alive()) return;
+    if(wrong.length){ await say(`${pick("save")} ${listNames(wrong)} missar.`,"angry","angry"); } await sleep(1800); return; }
   await say(`Rätt svar: ${facit(Q)}. ${Q.fact||""}`,"talk","talk"); if(!alive()) return;
-  const all=activeTeams().length; let quip = right.length===all&&all>0 ? rnd(LINES.allRight) : right.length ? rnd(LINES.someRight).replace("{T}",listNames(right)) : rnd(LINES.noneRight);
-  if(none && right.length<all) quip+=" "+rnd(LINES.noAnswer);
-  if(Math.random()<0.45) quip+=" "+rnd(LINES.brag);
+  const all=activeTeams().length; let quip = right.length===all&&all>0 ? pick("allRight") : right.length ? pick("someRight").replace("{T}",listNames(right)) : pick("noneRight");
+  if(none && right.length<all) quip+=" "+pick("noAnswer");
+  if(Math.random()<0.6) quip+=" "+pick("brag");
   await say(quip, right.length?"cheer":"angry", right.length?"cheer":"angry"); await sleep(1600); }
 function toggleRes(tid){ const st=stepAt(H.si); if(!st||st.k!=="reveal") return; const Q=qOf(st), r=(H.res[H.si]||{})[tid], t=H.teams.find(x=>x.id===tid); if(!r||!t) return;
   r.ok=!r.ok; const np = r.ok ? (Q.type==="clues"?Math.max(1,6-(r.lc||5)):1) : 0; t.score+=np-r.pts; r.pts=np;

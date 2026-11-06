@@ -128,6 +128,15 @@ label.lab{font-family:var(--px);font-size:8px;color:var(--soft)}
 .hopt{background:var(--cream);color:var(--ink);border:4px solid #000;box-shadow:6px 6px 0 #000;padding:16px;font-size:clamp(20px,2vw,32px);font-weight:700;display:flex;gap:12px;align-items:center}
 .hopt b{font-family:var(--px);font-weight:400;font-size:.7em;background:var(--sun);border:3px solid #000;padding:6px 8px}
 .hopt.right{background:var(--mint)} .hopt.wrong{opacity:.4}
+.hclues{display:flex;flex-direction:column;gap:10px}
+.hclue{display:flex;gap:14px;align-items:center;background:var(--cream);color:var(--ink);border:4px solid #000;box-shadow:5px 5px 0 #000;padding:10px 14px;font-size:clamp(18px,1.7vw,28px);font-weight:700}
+.hclue b{font-family:var(--px);font-weight:400;font-size:.7em;background:var(--sun);border:3px solid #000;padding:6px 8px} .hclue i{margin-left:auto;font-style:normal;font-family:var(--px);font-size:.55em;color:#4a4368}
+.hclue.dim{opacity:.5}
+.hans{display:flex;flex-direction:column;gap:6px;background:var(--mint);color:var(--ink);border:4px solid #000;box-shadow:6px 6px 0 #000;padding:16px 20px}
+.hans b{font-size:clamp(28px,3vw,52px)} .hans .eyebrow{color:#0b3a22}
+.pclue{display:flex;gap:10px;align-items:flex-start;background:var(--cream);color:var(--ink);border:3px solid #000;padding:8px 10px;font-weight:600;font-size:16px}
+.pclue b{font-family:var(--px);font-size:9px;background:var(--sun);border:2px solid #000;padding:3px 5px;font-weight:400}
+.ansrow{display:flex;gap:8px} .ansrow .input{flex:1;min-width:0}
 .hcount{font-family:var(--px);font-size:min(30vh,220px);color:var(--sun);text-shadow:10px 10px 0 #000;text-align:center;line-height:1;margin:auto}
 .teamrow{display:flex;flex-wrap:wrap;gap:12px}
 .tbox{background:var(--panel);border:4px solid #000;box-shadow:inset 0 0 0 3px var(--line),5px 5px 0 #000;padding:10px 14px;min-width:170px;display:flex;flex-direction:column;gap:4px}
@@ -2497,65 +2506,67 @@ var qrcode = function() {
 </script>
 <script>
 /* ================= Kvällens program: Obbola IK QuizChampions 2026 =================
-   type: "choice" = flerval (laget röstar), "kick" = Kick Beat, "guld" = Guldboll
-   clips: låtar som spelas medan laget svarar. a = index för rätt svar. say = det värden läser upp. fact = läses vid facit. */
+   type: "text" = laget skriver svaret, "tf" = onside/offside, "clues" = ledtrådar en i taget (lås tidigt = fler poäng),
+   "kick" = Kick Beat, "guld" = Guldboll. ans = facit som visas, alt = godkända stavningar. */
 const OS=["ONSIDE (sant)","OFFSIDE (falskt)"];
 const PROGRAM=[
  {id:"kick", title:"Kick Beat", short:"Omgång 1",
   intro:"Omgång ett: Kick Beat. Alla spelar på sin egen telefon. Tryck för att hoppa över motståndarna, tryck igen i luften för dubbelhopp, och plocka noter i takt med musiken. Lagets poäng blir ert snitt. Så den som är dålig drar ner hela laget. Inga påtryckningar.",
   qs:[
    {type:"kick", q:"Dribbla i takt med låten!", clips:[{t:"Seven Nation Army",a:"The White Stripes"}], dur:30, bpm:124},
-   {type:"choice", q:"Vilken låt dribblade ni nyss till?", clips:[{t:"Seven Nation Army",a:"The White Stripes"}], play:20, open:30,
-    opts:["Seven Nation Army – The White Stripes","Lonely Boy – The Black Keys","Use Somebody – Kings of Leon","Song 2 – Blur"], a:0,
-    fact:"Seven Nation Army. Club Brugges fans började sjunga riffet mot Milan 2003, och sedan tog Italien med sig det hela vägen till VM-guldet 2006."}]},
+   {type:"text", q:"Vad heter låten ni nyss dribblade till?", clips:[{t:"Seven Nation Army",a:"The White Stripes"}], play:20, open:40,
+    ans:"Seven Nation Army", alt:["seven nation army","seven nations army","7 nation army"],
+    fact:"Seven Nation Army med The White Stripes. Club Brugges fans började sjunga riffet mot Milan 2003, och sedan tog Italien med sig det hela vägen till VM-guldet 2006."}]},
 
  {id:"lakt", title:"Läktarkören", short:"Omgång 2",
-  intro:"Omgång två: Läktarkören. Ni hör en låt som fansen har gjort till sin. Svara på frågan om den. Alla i laget röstar, och när mer än halva laget har godkänt samma svar så låses det. Har ni varit på en fotbollsmatch någon gång så klarar ni det här. Eller sett en på tv. Eller gått förbi en sportbar.",
+  intro:"Omgång två: Läktarkören. Ni hör en låt som fansen har gjort till sin. Skriv svaret på frågan i telefonen. Vem som helst i laget kan skriva ett förslag, och när mer än halva laget har godkänt samma förslag så låses det. Har ni varit på en fotbollsmatch någon gång så klarar ni det här.",
   qs:[
-   {type:"choice", q:"Vilken klubb förknippas mest med den här låten?", clips:[{t:"You'll Never Walk Alone",a:"Gerry & The Pacemakers"}],
-    opts:["Liverpool","Everton","Manchester United","Leeds United"], a:0,
+   {type:"text", q:"Vilken klubb förknippas mest med den här låten?", clips:[{t:"You'll Never Walk Alone",a:"Gerry & The Pacemakers"}],
+    ans:"Liverpool", alt:["liverpool","liverpool fc","lfc","the reds"],
     fact:"Liverpool, ända sedan 1963. Celtic och Dortmund har också snott den, men det pratar vi inte om."},
-   {type:"choice", q:"Vilken klubbs fans sjunger den här låten?", clips:[{t:"Blue Moon",a:"The Marcels"}],
-    opts:["Chelsea","Manchester City","Everton","Aston Villa"], a:1,
+   {type:"text", q:"Vilken klubbs fans sjunger den här låten?", clips:[{t:"Blue Moon",a:"The Marcels"}],
+    ans:"Manchester City", alt:["manchester city","man city","city","mcfc"],
     fact:"Manchester City. Blå måne, blå tröjor, och i många år även blått humör."},
-   {type:"choice", q:"Arsenals fans sjunger One nil to the Arsenal till den här melodin. Men vem spelade in låten först?", clips:[{t:"Go West",a:"Pet Shop Boys"}],
-    opts:["Pet Shop Boys","Village People","Boney M","Bee Gees"], a:1,
-    fact:"Village People, 1979. Pet Shop Boys gjorde sin cover 1993. Så nu vet ni det."},
-   {type:"choice", q:"Under EM 2016 sjöng hela Europa den här låten om en spelare som var on fire. Vem?", clips:[{t:"Freed from Desire",a:"Gala"}],
-    opts:["Jamie Vardy","Gareth Bale","Will Grigg","Harry Kane"], a:2,
-    fact:"Will Grigg från Nordirland. Han spelade inte en enda minut i hela EM. Ändå var han i brand. Det kallar jag effektivitet."},
-   {type:"choice", q:"Vilken klubb kallas Den gula ubåten?", clips:[{t:"Yellow Submarine",a:"The Beatles"}],
-    opts:["Norwich City","Watford","Villarreal","Borussia Dortmund"], a:2,
+   {type:"text", q:"Arsenals fans sjunger One nil to the Arsenal till den här melodin. Men vilken grupp spelade in låten först?", clips:[{t:"Go West",a:"Pet Shop Boys"}],
+    ans:"Village People", alt:["village people","the village people"],
+    fact:"Village People, 1979. Pet Shop Boys gjorde sin cover 1993."},
+   {type:"text", q:"Under EM 2016 sjöng hela Europa den här låten om en nordirländsk spelare som var on fire. Vad heter han?", clips:[{t:"Freed from Desire",a:"Gala"}],
+    ans:"Will Grigg", alt:["will grigg","grigg","william grigg"],
+    fact:"Will Grigg. Han spelade inte en enda minut i hela EM. Ändå var han i brand. Det kallar jag effektivitet."},
+   {type:"text", q:"Vilken klubb kallas Den gula ubåten?", clips:[{t:"Yellow Submarine",a:"The Beatles"}],
+    ans:"Villarreal", alt:["villarreal","villareal","villarreal cf","villa real"],
     fact:"Villarreal. Gula tröjor, och fansen sjunger Beatles. Jag har sett sämre idéer."}]},
 
  {id:"vem", title:"Vem där?", short:"Omgång 3",
-  intro:"Omgång tre: Vem där? Ni hör två låtar. Båda är ledtrådar till en och samma fotbollsperson. Vem är det? Det är inte jag, även om jag förstår att man kan tro det.",
+  intro:"Omgång tre: Vem där? Ni hör två låtar, och under tiden kommer fem ledtrådar, en i taget. Alla pekar på samma fotbollsperson. Ju tidigare ni låser ert svar, desto fler poäng. Fem poäng efter första ledtråden, en poäng efter den sista. Men svarar ni fel får ni noll. Så våga, men inte för mycket.",
   qs:[
-   {type:"choice", q:"Vem pekar låtarna på? Ledtråd: har spelat i Manchester United, Real Madrid, LA Galaxy och PSG.", clips:[{t:"Wannabe",a:"Spice Girls"},{t:"No Sleep till Brooklyn",a:"Beastie Boys"}], play:30, open:40,
-    opts:["Wayne Rooney","David Beckham","Gary Neville","Michael Owen"], a:1,
-    fact:"David Beckham. Han är gift med en Spice Girl, och hans äldste son heter Brooklyn. Vem döper sitt barn efter en stadsdel? Jo, Becks."}]},
+   {type:"clues", q:"Vem är det?", clips:[{t:"Wannabe",a:"Spice Girls"},{t:"No Sleep till Brooklyn",a:"Beastie Boys"}], play:60, open:66, clueEvery:11,
+    clues:["Döpte sitt första barn efter en stadsdel i New York.","Är delägare i en fotbollsklubb i Miami.","Blev utvisad mot Argentina i VM 1998.","Har spelat i Manchester United, Real Madrid, LA Galaxy och PSG.","Gift med en Spice Girl."],
+    ans:"David Beckham", alt:["david beckham","beckham","becks","david robert joseph beckham"],
+    fact:"David Beckham. Gift med Posh Spice, och äldste sonen heter Brooklyn."}]},
 
  {id:"vart", title:"Vart är vi på väg?", short:"Omgång 4",
-  intro:"Omgång fyra: Vart är vi på väg? Två låtar från samma stad, och en ledtråd. Vilken stad? Ingen av er får googla. Jag ser er.",
+  intro:"Omgång fyra: Vart är vi på väg? Två låtar från samma stad, och fem ledtrådar som kommer en i taget. Vilken stad? Lås tidigt för fler poäng. Ingen googling. Jag ser er.",
   qs:[
-   {type:"choice", q:"Vilken stad? Ledtråd: Världens första järnvägsstation för passagerare öppnade här 1830, och stadens två storlag spelar i himmelsblått och rött.", clips:[{t:"This Charming Man",a:"The Smiths"},{t:"Love Will Tear Us Apart",a:"Joy Division"}], play:30, open:40,
-    opts:["Liverpool","Leeds","Manchester","Sheffield"], a:2,
-    fact:"Manchester. The Smiths och Joy Division kommer därifrån. Och United och City, men de spelar mindre bra musik."}]},
+   {type:"clues", q:"Vilken stad?", clips:[{t:"This Charming Man",a:"The Smiths"},{t:"Love Will Tear Us Apart",a:"Joy Division"}], play:60, open:66, clueEvery:11,
+    clues:["Världens första järnvägsstation för passagerare öppnade här 1830.","Världens första dator med lagrat program kördes här 1948.","Ernest Rutherford klöv atomen här 1917.","Stadens symbol är ett arbetsbi.","Stadens två stora lag spelar i himmelsblått och rött."],
+    ans:"Manchester", alt:["manchester"],
+    fact:"Manchester. The Smiths och Joy Division kommer därifrån. Och United och City, men de spelar sämre musik."}]},
 
  {id:"off", title:"Offside eller inte?", short:"Omgång 5",
-  intro:"Omgång fem: Offside eller inte. Jag läser upp ett påstående om låten ni hör. Stämmer det, svara onside. Är det fel, svara offside. Precis som i verkligheten kommer ni att bråka om det efteråt.",
+  intro:"Omgång fem: Offside eller inte. Jag läser upp ett påstående om låten ni hör. Stämmer det, välj onside. Är det fel, välj offside. Här finns bara två svar, så det finns ingen ursäkt.",
   qs:[
-   {type:"choice", q:"Påstående: Englands fans sjöng den här låten genom hela EM 2021.", clips:[{t:"Sweet Caroline",a:"Neil Diamond"}], opts:OS, a:0,
+   {type:"tf", q:"Påstående: Englands fans sjöng den här låten genom hela EM 2021.", clips:[{t:"Sweet Caroline",a:"Neil Diamond"}], opts:OS, a:0,
     fact:"Onside. Sweet Caroline följde England hela vägen till finalen. Där tog det slut. Både låten och turen."},
-   {type:"choice", q:"Påstående: Bröderna Gallagher i Oasis håller på Manchester United.", clips:[{t:"Wonderwall",a:"Oasis"}], opts:OS, a:1,
+   {type:"tf", q:"Påstående: Bröderna Gallagher i Oasis håller på Manchester United.", clips:[{t:"Wonderwall",a:"Oasis"}], opts:OS, a:1,
     fact:"Offside! De håller på Manchester City. Säg inte United till en Gallagher. Om ni vill leva."},
-   {type:"choice", q:"Påstående: Elton John har varit ordförande i Watford.", clips:[{t:"Your Song",a:"Elton John"}], opts:OS, a:0,
+   {type:"tf", q:"Påstående: Elton John har varit ordförande i Watford.", clips:[{t:"Your Song",a:"Elton John"}], opts:OS, a:0,
     fact:"Onside. Elton John var ordförande och ägare i Watford i två omgångar. Rocket Man i styrelserummet."},
-   {type:"choice", q:"Påstående: Rod Stewart håller på Rangers.", clips:[{t:"Da Ya Think I'm Sexy?",a:"Rod Stewart"}], opts:OS, a:1,
+   {type:"tf", q:"Påstående: Rod Stewart håller på Rangers.", clips:[{t:"Da Ya Think I'm Sexy?",a:"Rod Stewart"}], opts:OS, a:1,
     fact:"Offside. Rod Stewart är Celtic ut i fingerspetsarna. Han har gråtit på läktaren. Flera gånger."},
-   {type:"choice", q:"Påstående: Det här var Sveriges VM-låt 1994, och Sverige tog silver det året.", clips:[{t:"När vi gräver guld i USA",a:"Gyllene Tider"}], opts:OS, a:1,
+   {type:"tf", q:"Påstående: Det här var Sveriges VM-låt 1994, och Sverige tog silver det året.", clips:[{t:"När vi gräver guld i USA",a:"Gyllene Tider"}], opts:OS, a:1,
     fact:"Offside. Sverige tog brons 1994. Silver hade vi i VM 1958. Bronset firades ändå som ett guld, och det är mycket svenskt."},
-   {type:"choice", q:"Påstående: Shakira träffade Gerard Piqué när videon till den här låten spelades in.", clips:[{t:"Waka Waka (This Time for Africa)",a:"Shakira"}], opts:OS, a:0,
+   {type:"tf", q:"Påstående: Shakira träffade Gerard Piqué när videon till den här låten spelades in.", clips:[{t:"Waka Waka (This Time for Africa)",a:"Shakira"}], opts:OS, a:0,
     fact:"Onside. De träffades vid inspelningen av Waka Waka 2010. Hur det slutade vet ni. Hon skrev en låt om det."}]},
 
  {id:"guld", title:"Guldboll", short:"Halvtid",
@@ -2564,50 +2575,41 @@ const PROGRAM=[
    {type:"guld", q:"Passa, få guldboll och skjut över linjen!", clips:[{t:"Samba de Janeiro",a:"Bellini"},{t:"Tubthumping",a:"Chumbawamba"},{t:"Pump It",a:"Black Eyed Peas"},{t:"Mr. Brightside",a:"The Killers"}], dur:120}]},
 
  {id:"vm", title:"VM-året", short:"Omgång 6",
-  intro:"Omgång sex: VM-året. Ni hör en låt som hör ihop med ett fotbolls-VM. Vilket år? Och nej, att Zlatan inte var med räknas inte som ledtråd.",
+  intro:"Omgång sex: VM-året. Ni hör en låt som hör ihop med ett fotbolls-VM. Skriv vilket år. Och nej, att Zlatan inte var med räknas inte som ledtråd.",
   qs:[
-   {type:"choice", q:"Vilket VM spelades den här låten in till?", clips:[{t:"World in Motion",a:"New Order"}],
-    opts:["1986","1990","1994","1998"], a:1,
+   {type:"text", year:1, q:"Vilket år spelades VM som den här låten gjordes till?", clips:[{t:"World in Motion",a:"New Order"}], ans:"1990", alt:["1990"],
     fact:"1990 i Italien. Englandsspelaren John Barnes rappar i den. Det är fortfarande det bästa en fotbollsspelare har gjort i en studio."},
-   {type:"choice", q:"Vilket år sjöng Shakira den här låten på VM-finalens avslutningsceremoni?", clips:[{t:"Hips Don't Lie",a:"Shakira"}],
-    opts:["2002","2006","2010","2014"], a:1,
+   {type:"text", year:1, q:"Vilket år sjöng Shakira den här låten på VM-finalens avslutningsceremoni?", clips:[{t:"Hips Don't Lie",a:"Shakira"}], ans:"2006", alt:["2006"],
     fact:"2006 i Berlin. Italien vann. Zidane skallade. Shakiras höfter ljög inte."},
-   {type:"choice", q:"Vilket VM var det här den officiella låten till?", clips:[{t:"La Copa de la Vida",a:"Ricky Martin"}],
-    opts:["1994","1998","2002","2006"], a:1,
+   {type:"text", year:1, q:"Vilket års VM var det här den officiella låten till?", clips:[{t:"La Copa de la Vida",a:"Ricky Martin"}], ans:"1998", alt:["1998"],
     fact:"1998 i Frankrike, och Frankrike vann. Ricky Martin vann också. Alla vann utom Brasilien."},
-   {type:"choice", q:"Vilket VM var det här den officiella låten till?", clips:[{t:"We Are One (Ole Ola)",a:"Pitbull"}],
-    opts:["2010","2014","2018","2022"], a:1,
+   {type:"text", year:1, q:"Vilket års VM var det här den officiella låten till?", clips:[{t:"We Are One (Ole Ola)",a:"Pitbull"}], ans:"2014", alt:["2014"],
     fact:"2014 i Brasilien. Tyskland vann semifinalen mot Brasilien med sju–ett. Det enda som var ett där var låten."}]},
 
  {id:"trivia", title:"Matchprogrammet", short:"Omgång 7",
-  intro:"Omgång sju: Matchprogrammet. Musikfrågor med fotbollstrivia. Lyssna på låten och svara på frågan. Det här är den svåra delen, så skyll gärna på domaren.",
+  intro:"Omgång sju: Matchprogrammet. Musikfrågor med fotbollstrivia. Lyssna på låten och skriv svaret. Det här är den svåra delen, så skyll gärna på domaren.",
   qs:[
-   {type:"choice", q:"Football's coming home! Vilket mästerskap skrevs Three Lions till?", clips:[{t:"Three Lions",a:"Baddiel, Skinner & The Lightning Seeds"}],
-    opts:["VM 1990","EM 1996","VM 1998","EM 2000"], a:1,
+   {type:"text", q:"Football's coming home! Vilket år var mästerskapet som Three Lions skrevs till?", clips:[{t:"Three Lions",a:"Baddiel, Skinner & The Lightning Seeds"}],
+    ans:"1996 (EM i England)", alt:["1996","em 1996","em 96","euro 96","euro 1996"],
     fact:"EM 1996 i England. Football's coming home. Det gjorde den inte. Den har fortfarande inte kommit hem."},
-   {type:"choice", q:"Keith Allen i Fat Les sjunger här. Han är pappa till vilken popstjärna?", clips:[{t:"Vindaloo",a:"Fat Les"}],
-    opts:["Kate Nash","Adele","Lily Allen","Duffy"], a:2,
+   {type:"text", q:"Keith Allen sjunger här. Han är pappa till en brittisk popstjärna. Vem?", clips:[{t:"Vindaloo",a:"Fat Les"}],
+    ans:"Lily Allen", alt:["lily allen","lilly allen","lily"],
     fact:"Lily Allen. Musik går i arv. Fotbollstalang tydligen inte."},
-   {type:"choice", q:"Det här är ledmotivet till Ted Lasso. Vilken klubb tränar Ted i serien?", clips:[{t:"Ted Lasso Theme",a:"Marcus Mumford"}],
-    opts:["AFC Richmond","Crystal Palace","AFC Wimbledon","Fulham"], a:0,
-    fact:"AFC Richmond. En amerikansk fotbollstränare som inte kan fotboll. Låter som någon i Obbola IK."},
-   {type:"choice", q:"Den spelas på varje cupfinal. Vilket år kom We Are the Champions?", clips:[{t:"We Are the Champions",a:"Queen"}],
-    opts:["1972","1977","1981","1985"], a:1,
-    fact:"1977. Samma år som Liverpool vann sin första Europacup. Slump? Ja."}]},
+   {type:"text", q:"Det här är ledmotivet till en tv-serie om en amerikansk fotbollstränare i England. Vad heter serien?", clips:[{t:"Ted Lasso Theme",a:"Marcus Mumford"}],
+    ans:"Ted Lasso", alt:["ted lasso","lasso"],
+    fact:"Ted Lasso. Han tränar AFC Richmond, och kan ingenting om fotboll. Låter som någon i Obbola IK."},
+   {type:"text", q:"Den spelas på varje cupfinal. Vilket band är det?", clips:[{t:"We Are the Champions",a:"Queen"}],
+    ans:"Queen", alt:["queen"],
+    fact:"Queen. We Are the Champions kom 1977, samma år som Liverpool vann sin första Europacup. Slump? Ja."}]},
 
  {id:"straff", title:"Straffläggning", short:"Final",
-  intro:"Final: Straffläggning! Fem straffar. Ni hör en kort bit av en arenalåt och väljer vilken låt det är. Rätt svar är mål. Fel svar är räddning, och då blir jag besviken. På riktigt.",
+  intro:"Final: Straffläggning! Fem straffar. Ni hör en kort bit av en arenalåt och skriver vad låten heter. Rätt svar är mål. Fel svar är räddning, och då blir jag besviken. På riktigt.",
   qs:[
-   {type:"choice", pen:1, q:"Straff ett: Vilken låt?", clips:[{t:"We Will Rock You",a:"Queen"}], play:12, open:20,
-    opts:["We Are the Champions – Queen","We Will Rock You – Queen","Another One Bites the Dust – Queen","Radio Ga Ga – Queen"], a:1, fact:"We Will Rock You."},
-   {type:"choice", pen:2, q:"Straff två: Vilken låt?", clips:[{t:"The Final Countdown",a:"Europe"}], play:12, open:20,
-    opts:["Carrie – Europe","Jump – Van Halen","The Final Countdown – Europe","Eye of the Tiger – Survivor"], a:2, fact:"The Final Countdown, Europe. Svenskt. Snyggt."},
-   {type:"choice", pen:3, q:"Straff tre: Vilken låt?", clips:[{t:"Jump Around",a:"House of Pain"}], play:12, open:20,
-    opts:["Jump Around – House of Pain","Insane in the Brain – Cypress Hill","Jump – Kris Kross","Pump It – Black Eyed Peas"], a:0, fact:"Jump Around, House of Pain."},
-   {type:"choice", pen:4, q:"Straff fyra: Vilken låt?", clips:[{t:"Song 2",a:"Blur"}], play:12, open:20,
-    opts:["Parklife – Blur","Seven Nation Army – The White Stripes","Song 2 – Blur","Wonderwall – Oasis"], a:2, fact:"Song 2, Blur. Woo hoo."},
-   {type:"choice", pen:5, q:"Sista straffen: Vilken låt?", clips:[{t:"Sandstorm",a:"Darude"}], play:12, open:20,
-    opts:["Children – Robert Miles","Sandstorm – Darude","Blue – Eiffel 65","Better Off Alone – Alice Deejay"], a:1, fact:"Sandstorm, Darude. Du du du du duuu."}]}
+   {type:"text", pen:1, q:"Straff ett: Vad heter låten?", clips:[{t:"We Will Rock You",a:"Queen"}], play:15, open:30, ans:"We Will Rock You", alt:["we will rock you","we will we will rock you"], fact:"We Will Rock You, Queen."},
+   {type:"text", pen:2, q:"Straff två: Vad heter låten?", clips:[{t:"The Final Countdown",a:"Europe"}], play:15, open:30, ans:"The Final Countdown", alt:["the final countdown","final countdown"], fact:"The Final Countdown, Europe. Svenskt. Snyggt."},
+   {type:"text", pen:3, q:"Straff tre: Vad heter låten?", clips:[{t:"Jump Around",a:"House of Pain"}], play:15, open:30, ans:"Jump Around", alt:["jump around"], fact:"Jump Around, House of Pain."},
+   {type:"text", pen:4, q:"Straff fyra: Vad heter låten?", clips:[{t:"Song 2",a:"Blur"}], play:15, open:30, ans:"Song 2", alt:["song 2","song two","song2","woo hoo"], fact:"Song 2, Blur. Woo hoo."},
+   {type:"text", pen:5, q:"Sista straffen: Vad heter låten?", clips:[{t:"Sandstorm",a:"Darude"}], play:15, open:30, ans:"Sandstorm", alt:["sandstorm","sand storm"], fact:"Sandstorm, Darude. Du du du du duuu."}]}
 ];
 
 /* värdens repliker: dryg men kärleksfull */
@@ -2652,7 +2654,7 @@ function qOf(st){ return st && st.q!=null ? PROGRAM[st.r].qs[st.q] : null; }
 const STEPS=(()=>{ const s=[{k:"welcome"}];
   PROGRAM.forEach((R,r)=>{ s.push({k:"round",r});
     R.qs.forEach((Q,q)=>{ s.push({k:"ask",r,q}); s.push({k:"count",r,q});
-      if(Q.type==="choice"){ s.push({k:"play",r,q}); s.push({k:"reveal",r,q}); }
+      if(Q.type!=="kick" && Q.type!=="guld"){ s.push({k:"play",r,q}); s.push({k:"reveal",r,q}); }
       else { s.push({k:"game",r,q}); s.push({k:"gameres",r,q}); } });
     s.push({k:"score",r}); });
   s.push({k:"end"}); return s; })();
@@ -2679,7 +2681,7 @@ let H=null, HNET=null, pubTimer=0, runTok=0, clipT=[], curEl=null, VOICE=null, h
 const PRES={talk:"quiz%20animation/narrator_1_pratar.gif", cheer:"quiz%20animation/narrator_2_armarna_upp.gif", angry:"quiz%20animation/narrator_3_arg_mot_kameran.gif"};
 const CODECH="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 function genCode(){ let s=""; for(let i=0;i<4;i++) s+=CODECH[Math.floor(Math.random()*CODECH.length)]; return s; }
-function freshH(){ return {code:genCode(), bi:0, players:{}, teams:[], drawn:false, nteams:0, si:-1, deadline:0, phStart:0, votes:{}, locked:{}, res:{}, game:{}, gres:{}, pens:{}, say:"", mood:"idle", paused:false}; }
+function freshH(){ return {code:genCode(), bi:0, players:{}, teams:[], drawn:false, nteams:0, si:-1, deadline:0, phStart:0, votes:{}, locked:{}, res:{}, game:{}, gres:{}, pens:{}, props:{}, lockClue:{}, clue:0, propN:0, say:"", mood:"idle", paused:false}; }
 function saveH(){ LS.set("qc_host",H); }
 function fullCode(){ return H.code+(H.bi?"-"+(H.bi+1):""); }
 function joinUrl(){ let u=APP_URL+"?g="+fullCode(); if(QS.get("broker")) u+="&broker="+encodeURIComponent(QS.get("broker")); if(QS.get("app")) u=QS.get("app")+"?g="+fullCode()+(QS.get("broker")?"&broker="+encodeURIComponent(QS.get("broker")):""); return u; }
@@ -2692,9 +2694,9 @@ function pub(now){ clearTimeout(pubTimer); const go=()=>{ if(HNET && HNET.connec
 function pubState(){ const st=stepAt(H.si), Q=qOf(st), R=st&&st.r!=null?PROGRAM[st.r]:null;
   const players={}; Object.entries(H.players).forEach(([pid,p])=>players[pid]=p.name);
   return {v:2, code:H.code, si:H.si, k:st?st.k:"lobby", drawn:H.drawn, r:st?st.r:null, rid:R?R.id:null, title:R?R.title:null, short:R?R.short:null, intro:R?R.intro:null,
-    type:Q?Q.type:null, text:Q?Q.q:null, opts:Q&&Q.opts?Q.opts:null, pen:Q?Q.pen||0:0, dur:Q?Q.dur||0:0, deadline:H.deadline, start:H.phStart, paused:H.paused,
+    type:Q?Q.type:null, text:Q?Q.q:null, opts:Q&&Q.type==="tf"?Q.opts:null, clueN:Q&&Q.clues?Q.clues.length:0, clues:Q&&Q.clues&&st.k==="play"?Q.clues.slice(0,H.clue||0):(Q&&Q.clues&&st.k==="reveal"?Q.clues:null), clue:H.clue||0, props:H.props||{}, lockClue:H.lockClue||{}, pen:Q?Q.pen||0:0, dur:Q?Q.dur||0:0, deadline:H.deadline, start:H.phStart, paused:H.paused,
     teams:H.teams.map(t=>({id:t.id,name:t.name,members:t.members,score:t.score})), players, votes:H.votes, locked:H.locked,
-    reveal: st&&st.k==="reveal" ? {a:Q.a, res:H.res[H.si]||{}} : null, gres: st&&st.k==="gameres" ? (H.gres[H.si]||{}) : null,
+    reveal: st&&st.k==="reveal" ? {a:facit(Q), res:H.res[H.si]||{}} : null, gres: st&&st.k==="gameres" ? (H.gres[H.si]||{}) : null,
     pens:H.pens, say:H.say, sayPart:H.sayPart||"", mood:H.mood||"idle", qn:qNum(st), qt:QTOTAL, now:Date.now()}; }
 const QTOTAL=PROGRAM.reduce((n,R)=>n+R.qs.length,0);
 function qNum(st){ if(!st||st.q==null) return 0; let n=0; for(let r=0;r<st.r;r++) n+=PROGRAM[r].qs.length; return n+st.q+1; }
@@ -2707,9 +2709,14 @@ function onAct(d){ if(!d||!d.pid||typeof d.pid!=="string") return; const pid=d.p
     saveH(); pub(); renderHost(); return; }
   if(!p) return;
   if(d.t==="vote"){ const st=stepAt(H.si); if(!st||st.k!=="play"||d.si!==H.si) return; const tid=p.team; if(tid==null||H.locked[tid]!=null) return;
-    const Q=qOf(st), o=d.opt; const tv=H.votes[tid]||(H.votes[tid]={});
-    if(o==null || !(o>=0 && o<Q.opts.length) || (tv[pid] && tv[pid].o===o)) delete tv[pid]; else tv[pid]={o, t:Date.now()};
+    const Q=qOf(st), o=d.opt==null?null:String(d.opt); const tv=H.votes[tid]||(H.votes[tid]={});
+    const valid = o!=null && (Q.type==="tf" ? (o==="0"||o==="1") : ((H.props[tid]||[]).some(x=>x.id===o)));
+    if(!valid || (tv[pid] && tv[pid].o===o)) delete tv[pid]; else tv[pid]={o, t:Date.now()};
     checkLock(tid); pub(); renderHost(); return; }
+  if(d.t==="prop"){ const st=stepAt(H.si); if(!st||st.k!=="play"||d.si!==H.si) return; const Q=qOf(st); if(Q.type==="tf") return; const tid=p.team; if(tid==null||H.locked[tid]!=null) return;
+    const text=String(d.text||"").replace(/\s+/g," ").trim().slice(0,40); if(!text) return; const list=H.props[tid]||(H.props[tid]=[]);
+    let pr=list.find(x=>normA(x.text)===normA(text)); if(!pr){ if(list.length>=12) return; pr={id:"p"+(++H.propN), text, by:pid}; list.push(pr); }
+    (H.votes[tid]||(H.votes[tid]={}))[pid]={o:pr.id, t:Date.now()}; checkLock(tid); pub(); renderHost(); return; }
   if(d.t==="name"){ const tm=H.teams.find(t=>t.id===p.team); const n=String(d.name||"").replace(/\s+/g," ").trim().slice(0,24); if(tm && n){ tm.name=n; saveH(); pub(); renderHost(); } return; }
   if(d.t==="game"){ const si=d.si|0, st=stepAt(si); if(!st||st.k!=="game") return; (H.game[si]=H.game[si]||{})[pid]={score:Math.max(0,Math.min(999,d.score|0))};
     if(H.si===si+1 && stepAt(H.si).k==="gameres") computeGres(H.si); renderHostLive(); saveH(); return; }
@@ -2727,10 +2734,18 @@ function removePlayer(pid){ const p=H.players[pid]; if(!p) return; H.teams.forEa
 function need(t){ return Math.floor(t.members.length/2)+1; }
 function checkLock(tid){ const t=H.teams.find(x=>x.id===tid); if(!t) return; const tv=H.votes[tid]||{}, c={};
   Object.entries(tv).forEach(([pid,v])=>{ if(t.members.includes(pid)) c[v.o]=(c[v.o]||0)+1; });
-  Object.entries(c).forEach(([o,n])=>{ if(n>=need(t) && H.locked[tid]==null) H.locked[tid]=+o; }); }
+  Object.entries(c).forEach(([o,n])=>{ if(n>=need(t) && H.locked[tid]==null){ H.locked[tid]=o; H.lockClue[tid]=Math.max(1,H.clue||1); } }); }
 function finalizeLocks(){ H.teams.forEach(t=>{ if(H.locked[t.id]!=null) return; const tv=H.votes[t.id]||{}, c={}, first={};
     Object.entries(tv).forEach(([pid,v])=>{ if(!t.members.includes(pid)) return; c[v.o]=(c[v.o]||0)+1; first[v.o]=Math.min(first[v.o]||1e15,v.t); });
-    const best=Object.keys(c).sort((a,b)=>c[b]-c[a]||first[a]-first[b])[0]; if(best!=null) H.locked[t.id]=+best; }); }
+    const best=Object.keys(c).sort((a,b)=>c[b]-c[a]||first[a]-first[b])[0]; if(best!=null){ H.locked[t.id]=best; H.lockClue[t.id]=Math.max(1,H.clue||5); } }); }
+function normA(x){ return String(x||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/&/g," and ").replace(/[^a-z0-9 ]+/g," ").replace(/\s+/g," ").trim().replace(/^the /,""); }
+function lev(a,b){ const m=a.length,n=b.length; if(Math.abs(m-n)>3) return 9; let prev=Array.from({length:n+1},(_,j)=>j); for(let i=1;i<=m;i++){ const cur=[i]; for(let j=1;j<=n;j++) cur[j]=Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1)); prev=cur; } return prev[n]; }
+function matchAns(text,Q){ const n=normA(text); if(!n) return false;
+  if(Q.year){ const ys=n.match(/\d{4}|\d{2}/g)||[]; return ys.some(y=>(y.length===2?(+y<30?"20":"19")+y:y)===Q.ans); }
+  return (Q.alt||[Q.ans]).some(a0=>{ const a=normA(a0); if(!a) return false; const tol=a.length>=9?2:a.length>=5?1:0;
+    return n===a || n.replace(/ /g,"")===a.replace(/ /g,"") || (a.length>=4 && (" "+n+" ").includes(" "+a+" ")) || lev(n,a)<=tol || lev(n.replace(/ /g,""),a.replace(/ /g,""))<=tol; }); }
+function facit(Q){ return Q.type==="tf" ? Q.opts[Q.a] : Q.ans; }
+function teamAnsText(tid,Q){ const k=H.locked[tid]; if(k==null) return null; if(Q.type==="tf") return Q.opts[+k]; const pr=(H.props[tid]||[]).find(x=>x.id===k); return pr?pr.text:null; }
 function activeTeams(){ return H.teams.filter(t=>t.members.length>0); }
 function allLocked(){ const a=activeTeams(); return a.length>0 && a.every(t=>H.locked[t.id]!=null); }
 
@@ -2812,10 +2827,12 @@ async function runStep(i){ const tok=++runTok; stopSpeak(); const st=stepAt(i); 
   const alive=()=>tok===runTok;
   if(st.k==="welcome"){ setMood("cheer"); await sleep(600); await say(LINES.welcome,"cheer"); await sleep(1200); }
   else if(st.k==="round"){ await say(`${R.short}. ${R.title}.`,"cheer","cheer"); if(!alive()) return; await sleep(400); await say(R.intro,"talk"); await sleep(900); }
-  else if(st.k==="ask"){ const extra = Q.type==="choice" && Q.opts.length===2 ? " Onside eller offside?" : Q.type==="choice" ? " Svarsalternativen finns på era telefoner." : ""; await say(Q.q+extra,"talk"); await sleep(500); }
+  else if(st.k==="ask"){ const extra = Q.type==="tf" ? " Onside eller offside?" : Q.type==="text" ? " Skriv ert svar på telefonen." : Q.type==="clues" ? " Första ledtråden kommer när musiken börjar." : ""; await say(Q.q+extra,"talk"); await sleep(500); }
   else if(st.k==="count"){ H.deadline=Date.now()+3600; pub(true); setMood("cheer"); [0,1000,2000].forEach(ms=>setTimeout(()=>{ if(alive()) beep(660,.12); },ms)); setTimeout(()=>{ if(alive()) beep(990,.3); },3000);
     await waitUntil(tok,()=>Date.now()>=H.deadline); }
-  else if(st.k==="play"){ H.votes={}; H.locked={}; const open=(Q.open||35)*1000, play=Q.play||25; H.deadline=Date.now()+open; pub(true); setMood("dance"); playClips(Q.clips,play);
+  else if(st.k==="play"){ H.votes={}; H.locked={}; H.props={}; H.lockClue={}; H.clue=0; H.propN=H.propN||0; const open=(Q.open||35)*1000, play=Q.play||25; H.deadline=Date.now()+open; pub(true); setMood("dance"); playClips(Q.clips,play);
+    if(Q.clues){ Q.clues.forEach((c,ci)=>setTimeout(()=>{ if(!alive()||stepAt(H.si).k!=="play") return; H.clue=ci+1; pub(true); renderHost();
+        const lockedAll=allLocked(); if(!lockedAll){ H.say=`Ledtråd ${ci+1}: ${c}`; speak(H.say).then(()=>{ if(alive()&&stepAt(H.si).k==="play") setMood("dance"); }); setMood("talk"); } }, ci*(Q.clueEvery||11)*1000+300)); }
     let hurried=false, allAt=0;
     await waitUntil(tok,()=>{ const left=H.deadline-Date.now();
       if(!hurried && left<10500 && !allLocked()){ hurried=true; H.say=rnd(LINES.hurry); setMood("angry"); speak(H.say).then(()=>{ if(alive() && stepAt(H.si).k==="play") setMood("dance"); }); pub(); }
@@ -2835,19 +2852,22 @@ async function runStep(i){ const tok=++runTok; stopSpeak(); const st=stepAt(i); 
 function listNames(a){ return a.length<=1 ? (a[0]||"") : a.slice(0,-1).join(", ")+" och "+a[a.length-1]; }
 function standings(){ return activeTeams().slice().sort((a,b)=>b.score-a.score); }
 async function doReveal(i,tok){ const st=stepAt(i), Q=qOf(st); const fresh=!H.res[i]; const res=H.res[i]||{};
-  activeTeams().forEach(t=>{ if(fresh){ const ans=H.locked[t.id]; const ok=ans===Q.a; res[t.id]={ans:ans==null?null:ans, ok, pts:ok?1:0}; t.score+=ok?1:0;
+  activeTeams().forEach(t=>{ if(fresh){ const txt=teamAnsText(t.id,Q); const ok= txt!=null && (Q.type==="tf" ? H.locked[t.id]===String(Q.a) : matchAns(txt,Q)); const lc=H.lockClue[t.id]||5; const pts= ok ? (Q.type==="clues" ? Math.max(1,6-lc) : 1) : 0; res[t.id]={ans:txt, ok, pts, lc:Q.type==="clues"?lc:0}; t.score+=pts;
       if(Q.pen){ (H.pens[t.id]=H.pens[t.id]||[])[Q.pen-1]=ok; } } });
   H.res[i]=res; saveH(); pub(true); renderHost();
-  const right=activeTeams().filter(t=>res[t.id]&&res[t.id].ok).map(t=>t.name), none=activeTeams().filter(t=>!res[t.id]||res[t.id].ans==null).length;
+  const right=activeTeams().filter(t=>res[t.id]&&res[t.id].ok).map(t=>t.name+(Q.type==="clues"?` med ${res[t.id].pts} poäng`:"")), none=activeTeams().filter(t=>!res[t.id]||res[t.id].ans==null).length;
   const alive=()=>tok===runTok;
   if(Q.pen){ const wrong=activeTeams().filter(t=>!(res[t.id]&&res[t.id].ok)).map(t=>t.name);
     await say(`${Q.fact} ${right.length?rnd(LINES.goal)+" för "+listNames(right)+".":""}`, right.length?"cheer":"angry", right.length?"cheer":"angry"); if(!alive()) return;
     if(wrong.length){ await say(`${rnd(LINES.save)} ${listNames(wrong)} missar.`,"angry","angry"); } await sleep(1800); return; }
-  await say(`Rätt svar: ${Q.opts[Q.a]}. ${Q.fact||""}`,"talk","talk"); if(!alive()) return;
+  await say(`Rätt svar: ${facit(Q)}. ${Q.fact||""}`,"talk","talk"); if(!alive()) return;
   const all=activeTeams().length; let quip = right.length===all&&all>0 ? rnd(LINES.allRight) : right.length ? rnd(LINES.someRight).replace("{T}",listNames(right)) : rnd(LINES.noneRight);
   if(none && right.length<all) quip+=" "+rnd(LINES.noAnswer);
   if(Math.random()<0.45) quip+=" "+rnd(LINES.brag);
   await say(quip, right.length?"cheer":"angry", right.length?"cheer":"angry"); await sleep(1600); }
+function toggleRes(tid){ const st=stepAt(H.si); if(!st||st.k!=="reveal") return; const Q=qOf(st), r=(H.res[H.si]||{})[tid], t=H.teams.find(x=>x.id===tid); if(!r||!t) return;
+  r.ok=!r.ok; const np = r.ok ? (Q.type==="clues"?Math.max(1,6-(r.lc||5)):1) : 0; t.score+=np-r.pts; r.pts=np;
+  if(Q.pen){ (H.pens[tid]=H.pens[tid]||[])[Q.pen-1]=r.ok; } saveH(); pub(true); renderHost(); toast(`${t.name}: ${r.ok?"rätt":"fel"} (ändrat av värden)`); }
 function computeGres(i){ const gs=stepAt(i-1); if(!gs) return; const Q=qOf(gs), rep=H.game[i-1]||{}, out=H.gres[i]||{};
   activeTeams().forEach(t=>{ const sc=t.members.map(pid=>rep[pid]).filter(Boolean).map(x=>x.score); const stars=sc.map(s=>starsFor(Q.type==="kick"?"kick":"guld",s));
     const avg=stars.length?stars.reduce((a,b)=>a+b,0)/stars.length:0, avgScore=sc.length?sc.reduce((a,b)=>a+b,0)/sc.length:0, pts=Math.round(avg);
@@ -2860,13 +2880,16 @@ function togglePause(){ H.paused=!H.paused; if(H.paused){ if(curEl) curEl.pause(
 /* ---------- rita storbilden ---------- */
 function teamBoxes(mode){ const st=stepAt(H.si), si=H.si;
   return `<div class="teamrow">${activeTeams().map(t=>{ let cls="tbox", sub="";
-    if(mode==="play"){ const n=Object.values(H.votes[t.id]||{}).length; if(H.locked[t.id]!=null){ cls+=" lock"; sub="LÅST ✓"; } else sub=n?`${n} röst${n>1?"er":""} …`:"Tänker …"; }
-    else if(mode==="reveal"){ const r=(H.res[si]||{})[t.id]; if(r){ cls+=r.ok?" ok":" no"; sub=r.ans==null?"Inget svar":r.ok?"Rätt! +1":"Fel"; } }
+    if(mode==="play"){ const n=((H.props||{})[t.id]||[]).length, v=Object.values(H.votes[t.id]||{}).length; if(H.locked[t.id]!=null){ cls+=" lock"; sub="LÅST ✓"+((H.lockClue||{})[t.id]&&qOf(st).type==="clues"?` (ledtråd ${H.lockClue[t.id]})`:""); } else sub=v?`${v} röst${v>1?"er":""} …`:n?`${n} förslag …`:"Tänker …"; }
+    else if(mode==="reveal"){ const r=(H.res[si]||{})[t.id]; if(r){ cls+=r.ok?" ok":" no"; sub=(r.ans==null?"Inget svar":"”"+r.ans+"”")+(r.ok?` ✓ +${r.pts}`:" ✕"); } }
     else if(mode==="game"){ const rep=H.game[si]||{}; const sc=t.members.map(p=>rep[p]).filter(Boolean).map(x=>x.score); sub=sc.length?`Snitt ${Math.round(sc.reduce((a,b)=>a+b,0)/sc.length*10)/10}`:"Spelar …"; }
     else if(mode==="gameres"){ const g=(H.gres[si]||{})[t.id]; sub=g?`Snitt ${g.avgScore} · ${"★".repeat(g.pts)}${"☆".repeat(3-g.pts)} +${g.pts}`:"…"; }
     const pens=H.pens[t.id]; const pr = (st&&st.r!=null&&PROGRAM[st.r].id==="straff"&&pens) ? `<div class="pens">${[0,1,2,3,4].map(k=>pens[k]===true?"●":pens[k]===false?"✕":"○").join("")}</div>`:"";
-    return `<div class="${cls}"><span class="n">${esc(t.name)}</span><span class="s">${t.score} p</span>${sub?`<span class="st">${esc(sub)}</span>`:""}${pr}</div>`; }).join("")}</div>`; }
+    return `<div class="${cls}" data-tid="${t.id}"><span class="n">${esc(t.name)}</span><span class="s">${t.score} p</span>${sub?`<span class="st">${esc(sub)}</span>`:""}${pr}</div>`; }).join("")}</div>`; }
 function optsHtml(Q,reveal){ return `<div class="hopts">${Q.opts.map((o,i)=>`<div class="hopt ${reveal?(i===Q.a?"right":"wrong"):""}"><b>${"ABCD"[i]}</b><span>${esc(o)}</span></div>`).join("")}</div>`; }
+function cluesHtml(Q,all){ const n=all?Q.clues.length:(H.clue||0); const left=Q.clues.length-n;
+  return `<div class="hclues">${Q.clues.slice(0,n).map((c,i)=>`<div class="hclue"><b>${i+1}</b><span>${esc(c)}</span><i>${6-(i+1)}p</i></div>`).join("")}${left>0?`<div class="hclue dim"><b>?</b><span>${left} ledtråd${left>1?"ar":""} kvar …</span></div>`:""}</div>`; }
+function bigAns(Q){ return `<div class="hans"><span class="eyebrow">Rätt svar</span><b>${esc(facit(Q))}</b></div>`; }
 function barHtml(){ return `<div class="bar" id="hBar"><i style="width:100%"></i></div>`; }
 function renderHost(){ if(!H) return; const st=stepAt(H.si), b=$("hBoard"); $("hCode").textContent="KOD: "+fullCode(); $("hPauseBtn").textContent=H.paused?"▶ Fortsätt":"❚❚ Paus";
   const started=H.si>=0; $("hPauseBtn").hidden=!started; $("hSkipBtn").hidden=!started; $("hRedoBtn").hidden=!started; $("hNewBtn").hidden=!started;
@@ -2875,15 +2898,15 @@ function renderHost(){ if(!H) return; const st=stepAt(H.si), b=$("hBoard"); $("h
   let h="";
   if(st.k==="welcome") h=`<div style="margin:auto">${LOGO}</div>${teamBoxes()}`;
   else if(st.k==="round") h=`${head}<div class="hq" style="color:var(--sun)">${esc(R.title)}</div><p class="hq" style="font-size:clamp(18px,1.8vw,28px);font-weight:600">${esc(R.intro)}</p>${teamBoxes()}`;
-  else if(st.k==="ask") h=`${head}<div class="hq">${esc(Q.q)}</div>${Q.opts?optsHtml(Q,false):`<p class="hq" style="font-size:24px">Alla spelar på telefonen.</p>`}${teamBoxes()}`;
+  else if(st.k==="ask") h=`${head}<div class="hq">${esc(Q.q)}</div>${Q.type==="tf"?optsHtml(Q,false):Q.type==="text"||Q.type==="clues"?`<p class="hq" style="font-size:24px">Skriv svaret på telefonen.</p>`:`<p class="hq" style="font-size:24px">Alla spelar på telefonen.</p>`}${teamBoxes()}`;
   else if(st.k==="count") h=`${head}<div class="hcount" id="hCount">3</div>`;
-  else if(st.k==="play") h=`${head}<div class="hq">${esc(Q.q)}</div>${optsHtml(Q,false)}${barHtml()}<div class="nowplay" id="hNow"></div>${teamBoxes("play")}`;
-  else if(st.k==="reveal") h=`${head}<div class="hq">${esc(Q.q)}</div>${optsHtml(Q,true)}<div class="nowplay">♪ ${Q.clips.map(c=>esc(c.t+" – "+c.a)).join(" · ")}</div>${teamBoxes("reveal")}`;
+  else if(st.k==="play") h=`${head}<div class="hq">${esc(Q.q)}</div>${Q.type==="tf"?optsHtml(Q,false):Q.type==="clues"?cluesHtml(Q,false):""}${barHtml()}<div class="nowplay" id="hNow"></div>${teamBoxes("play")}`;
+  else if(st.k==="reveal") h=`${head}<div class="hq">${esc(Q.q)}</div>${Q.type==="tf"?optsHtml(Q,true):bigAns(Q)}${Q.type==="clues"?cluesHtml(Q,true):""}<div class="nowplay">♪ ${Q.clips.map(c=>esc(c.t+" – "+c.a)).join(" · ")}</div>${teamBoxes("reveal")}`;
   else if(st.k==="game") h=`${head}<div class="hq">${esc(R.title)}: ${esc(Q.q)}</div><p class="hq" style="font-size:24px">Alla spelar på sina telefoner!</p>${barHtml()}<div class="nowplay" id="hNow"></div>${teamBoxes("game")}`;
   else if(st.k==="gameres") h=`${head}<div class="hq">Resultat: ${esc(R.title)}</div><p class="muted">Lagets poäng = snittet av allas stjärnor.</p>${teamBoxes("gameres")}`;
   else if(st.k==="score"||st.k==="end"){ const s=standings(); h=`${st.k==="end"?`<div style="margin:0 auto">${LOGO}</div><div class="hq" style="text-align:center;color:var(--sun)">Vinnare: ${esc(s.length?s[0].name:"–")}!</div>`:`${head}<div class="hq">Ställningen</div>`}
       <div class="stand h">${s.map((t,i)=>`<div><span>${i+1}. ${esc(t.name)}</span><b>${t.score} p</b></div>`).join("")}</div>`; }
-  b.innerHTML=h; renderPres(); renderHostLive(); }
+  b.innerHTML=h; if(st.k==="reveal"){ b.querySelectorAll(".tbox[data-tid]").forEach(x=>{ x.style.cursor="pointer"; x.title="Klicka för att ändra rätt/fel"; x.onclick=()=>toggleRes(x.dataset.tid); }); const hint=document.createElement("p"); hint.className="muted"; hint.textContent="Klicka på ett lag för att ändra rätt eller fel."; b.appendChild(hint); } renderPres(); renderHostLive(); }
 function renderHostLive(){ const st=stepAt(H.si); if(!st) return; const n=$("hNow"), Q=qOf(st);
   if(n && Q && Q.clips) n.textContent=`♪ Låt ${Math.min(Q.clips.length,(H.clipIdx||0)+1)} av ${Q.clips.length} spelas …`;
   if(st.k==="game"){ const row=document.querySelector("#hBoard .teamrow"); if(row) row.outerHTML=teamBoxes("game"); }
@@ -2926,7 +2949,7 @@ function bindLobby(){ $("hPlist").onclick=e=>{ const s=e.target.closest("[data-p
 function newQuiz(){ runTok++; stopAudio(); stopSpeak(); if(HNET && HNET.connected) HNET.publish(topic(H.code,"s"),"",{retain:true,qos:1}); H=freshH(); saveH(); document.body.dataset.r=""; hostConnect(); renderHost(); }
 
 function initHost(){ $("host").hidden=false; document.title="Värd · QuizChampions 2026";
-  const saved=LS.get("qc_host",null); H = saved && saved.code ? saved : freshH(); H.paused=false; if(!H.res) H.res={}; if(!H.gres) H.gres={}; if(!H.game) H.game={}; if(!H.pens) H.pens={};
+  const saved=LS.get("qc_host",null); H = saved && saved.code ? saved : freshH(); H.paused=false; if(!H.res) H.res={}; if(!H.gres) H.gres={}; if(!H.game) H.game={}; if(!H.pens) H.pens={}; if(!H.props) H.props={}; if(!H.lockClue) H.lockClue={}; if(!H.propN) H.propN=0;
   pickVoice(); setupPres(); hostConnect(); loadSongs();
   $("hPauseBtn").onclick=togglePause; $("hSkipBtn").onclick=skip; $("hRedoBtn").onclick=redo;
   $("hNewBtn").onclick=e=>{ if(e.target.dataset.sure!=="1"){ e.target.dataset.sure="1"; e.target.textContent="Säker?"; setTimeout(()=>{ e.target.dataset.sure=""; e.target.textContent="Avsluta"; },3000); return; } newQuiz(); };
@@ -2981,16 +3004,23 @@ function teamCard(t){ return `<div class="panel"><div class="eyebrow">Ditt lag</
 function standHtml(){ const s=(ST.teams||[]).filter(t=>t.members.length).slice().sort((a,b)=>b.score-a.score); const mt=myTeam();
   return `<div class="stand">${s.map((t,i)=>`<div class="${mt&&t.id===mt.id?"me":""}"><span>${i+1}. ${esc(t.name)}</span><b>${t.score} p</b></div>`).join("")}</div>`; }
 function voteOpts(){ const mt=myTeam(); if(!mt) return ""; const tv=(ST.votes||{})[mt.id]||{}, locked=(ST.locked||{})[mt.id], need=Math.floor(mt.members.length/2)+1;
-  return `<div class="opts">${ST.opts.map((o,i)=>{ const vs=Object.entries(tv).filter(([p,v])=>v.o===i).sort((a,b)=>a[1].t-b[1].t).map(([p])=>p); const mine=tv[ME.pid]&&tv[ME.pid].o===i;
-    let act, cls="opt"; if(locked!=null){ act = i===locked?"LÅST ✓":""; cls+= i===locked?" locked":" dim"; }
-    else if(mine){ act=`DIN RÖST ✓ ${vs.length}/${need}`; cls+=" mine"; } else if(vs.length){ act=`GODKÄNN ${vs.length}/${need}`; } else act="FÖRESLÅ";
-    const who = vs.length ? `${esc(pname(vs[0]))} föreslår${vs.length>1?` · ${vs.slice(1).map(p=>esc(pname(p))).join(", ")} godkänner`:""}` : "";
-    return `<button class="${cls}" data-o="${i}" ${locked!=null?"disabled":""}><span>${esc(o)}</span>${who?`<span class="who">${who}</span>`:""}${act?`<span class="act">${act}</span>`:""}</button>`; }).join("")}</div>`; }
+  const items = ST.type==="tf" ? ST.opts.map((o,i)=>({id:String(i), text:o})) : ((ST.props||{})[mt.id]||[]);
+  if(!items.length) return `<p class="muted">Inga förslag än. Skriv ett!</p>`;
+  return `<div class="opts">${items.map(it=>{ const vs=Object.entries(tv).filter(([p,v])=>String(v.o)===it.id).sort((a,b)=>a[1].t-b[1].t).map(([p])=>p); const mine=tv[ME.pid]&&String(tv[ME.pid].o)===it.id;
+    let act, cls="opt"; if(locked!=null){ act = it.id===String(locked)?"LÅST ✓":""; cls+= it.id===String(locked)?" locked":" dim"; }
+    else if(mine){ act=`DIN RÖST ✓ ${vs.length}/${need}`; cls+=" mine"; } else if(vs.length){ act=`GODKÄNN ${vs.length}/${need}`; } else act= ST.type==="tf"?"FÖRESLÅ":"GODKÄNN";
+    const who = vs.length ? `${esc(pname(vs[0]))} ${ST.type==="tf"?"föreslår":"skrev"}${vs.length>1?` · ${vs.slice(1).map(p=>esc(pname(p))).join(", ")} godkänner`:""}` : (it.by?`${esc(pname(it.by))} skrev`:"");
+    return `<button class="${cls}" data-o="${esc(it.id)}" ${locked!=null?"disabled":""}><span>${esc(it.text)}</span>${who?`<span class="who">${who}</span>`:""}${act?`<span class="act">${act}</span>`:""}</button>`; }).join("")}</div>`; }
+function answerBox(){ const mt=myTeam(); if(!mt||ST.type==="tf"||(ST.locked||{})[mt.id]!=null) return "";
+  return `<div class="ansrow"><input class="input" id="pAns" maxlength="40" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Skriv ert svar …" enterkeyhint="send"><button class="btn primary" id="pAnsBtn">Föreslå</button></div>`; }
+function cluesBox(){ if(ST.type!=="clues") return ""; const cl=ST.clues||[]; const mt=myTeam(); const lockedC = mt && (ST.lockClue||{})[mt.id];
+  return `<div class="opts">${cl.map((c,i)=>`<div class="pclue"><b>${i+1}</b><span>${esc(c)}</span></div>`).join("")}</div><p class="muted">${lockedC?`Låst efter ledtråd ${lockedC}: ${6-lockedC} poäng om det är rätt.`:`Lås nu: ${Math.max(1,6-Math.max(1,cl.length))} poäng om det är rätt. ${ST.clueN-cl.length} ledtrådar kvar.`}</p>`; }
 function renderPlayer(){ const v=$("pView"), top=$("pTop");
   if(!ME){ top.innerHTML=""; v.innerHTML=loginHtml(); bindLogin(); return; }
   const mt=ST?myTeam():null;
   top.innerHTML=`<span>${esc(ME.name)}${mt?` · <b>${esc(mt.name)}</b>`:""}</span><span class="net ${PNET&&PNET.connected?"on":""}"><i></i><span>${PNET&&PNET.connected?"Uppkopplad":"Ansluter …"}</span></span>`;
   if(document.activeElement && document.activeElement.id==="pRename") return;
+  if(document.activeElement && document.activeElement.id==="pAns" && ST && ST.k==="play"){ const pv=$("pVotes"); if(pv) pv.innerHTML=voteOpts(); const pc=$("pClues"); if(pc) pc.innerHTML=cluesBox(); bindVotes(); return; }
   if(!ST){ v.innerHTML=`<div class="panel"><h2>Ansluter till quiz ${esc(ME.code)} …</h2><p class="muted">Kontrollera att du har internet. Har värden inte startat än? Vänta en stund.</p><div class="row"><button class="btn small" id="pOut">Byt namn eller kod</button></div></div>`; $("pOut").onclick=logout; return; }
   if(!ST.players[ME.pid]){ v.innerHTML=`<div class="panel"><h2>Loggar in …</h2><p class="muted">Väntar på värden.</p><div class="row"><button class="btn small" id="pOut">Byt namn eller kod</button></div></div>`; $("pOut").onclick=logout; return; }
   const head = ST.title ? `<div class="eyebrow">${esc(ST.short)} · ${esc(ST.title)}${ST.qn?` · Fråga ${ST.qn} av ${ST.qt}`:""}</div>` : "";
@@ -3003,11 +3033,11 @@ function renderPlayer(){ const v=$("pView"), top=$("pTop");
   else if(!mt){ h+=`<div class="panel"><h2>Du placeras i ett lag …</h2><p class="muted">Värden lägger in dig i det minsta laget.</p></div>`; }
   else if(ST.k==="welcome") h+=`${teamCard(mt)}<div class="panel">${LOGO}<h2>Lyssna på värden!</h2></div>`;
   else if(ST.k==="round") h+=`<div class="panel">${head}<h2>${esc(ST.title)}</h2><p>${esc(ST.intro)}</p></div>`;
-  else if(ST.k==="ask") h+=`<div class="panel">${head}<div class="qtext">${esc(ST.text)}</div>${ST.opts?`<div class="opts">${ST.opts.map(o=>`<button class="opt dim" disabled><span>${esc(o)}</span></button>`).join("")}</div>`:""}<p class="muted">Lyssna på frågan …</p></div>`;
-  else if(ST.k==="count") h+=`<div class="panel">${head}<div class="big" id="pCount">3</div><p class="muted" style="text-align:center">${ST.type==="choice"?"Gör er redo att svara!":"Gör dig redo att spela!"}</p></div>`;
-  else if(ST.k==="play") h+=`<div class="panel">${head}<div class="qtext">${esc(ST.text)}</div><div class="bar" id="pBar"><i style="width:100%"></i></div>${voteOpts()}<p class="muted">Tryck för att föreslå eller godkänna. Mer än halva laget måste godkänna samma svar.</p></div>`;
+  else if(ST.k==="ask") h+=`<div class="panel">${head}<div class="qtext">${esc(ST.text)}</div>${ST.opts?`<div class="opts">${ST.opts.map(o=>`<button class="opt dim" disabled><span>${esc(o)}</span></button>`).join("")}</div>`:""}${ST.type==="text"||ST.type==="clues"?`<p>Ni skriver svaret själva. Den som skriver föreslår, de andra godkänner.</p>`:""}<p class="muted">Lyssna på frågan …</p></div>`;
+  else if(ST.k==="count") h+=`<div class="panel">${head}<div class="big" id="pCount">3</div><p class="muted" style="text-align:center">${ST.type==="kick"||ST.type==="guld"?"Gör dig redo att spela!":"Gör er redo att svara!"}</p></div>`;
+  else if(ST.k==="play") h+=`<div class="panel">${head}<div class="qtext">${esc(ST.text)}</div><div class="bar" id="pBar"><i style="width:100%"></i></div><div id="pClues">${cluesBox()}</div>${answerBox()}<div id="pVotes">${voteOpts()}</div><p class="muted">${ST.type==="tf"?"Tryck för att föreslå eller godkänna.":"Skriv ett förslag, eller tryck på ett förslag för att godkänna det."} Mer än halva laget måste godkänna samma svar.</p></div>`;
   else if(ST.k==="reveal"){ const r=(ST.reveal&&ST.reveal.res||{})[mt.id]; const ok=r&&r.ok;
-    h+=`<div class="panel">${head}<div class="res ${ok?"ok":"no"}">${r&&r.ans==null?"INGET SVAR":ok?(ST.pen?"MÅL! +1":"RÄTT! +1"):(ST.pen?"RÄDDAD!":"FEL!")}</div><p>Rätt svar: <b>${esc(ST.opts[ST.reveal.a])}</b></p>${r&&r.ans!=null&&!ok?`<p class="muted">Ni svarade: ${esc(ST.opts[r.ans])}</p>`:""}<p class="muted">${esc(ST.say||"")}</p></div>${standHtml()}`; }
+    h+=`<div class="panel">${head}<div class="res ${ok?"ok":"no"}">${r&&r.ans==null?"INGET SVAR":ok?(ST.pen?"MÅL! +1":`RÄTT! +${r.pts}`):(ST.pen?"RÄDDAD!":"FEL!")}</div><p>Rätt svar: <b>${esc(ST.reveal.a)}</b></p>${r&&r.ans!=null?`<p class="muted">Ni svarade: ${esc(r.ans)}</p>`:""}<p class="muted">${esc(ST.say||"")}</p></div>${standHtml()}`; }
   else if(ST.k==="game") h+=`<div class="panel">${head}<div class="qtext">${esc(ST.text)}</div><div class="bar" id="pBar"><i style="width:100%"></i></div></div>`;
   else if(ST.k==="gameres"){ const g=(ST.gres||{})[mt.id]; h+=`<div class="panel">${head}<h2>Resultat</h2>${g?`<p>Lagets snitt: <b>${g.avgScore}</b> (${g.n} spelare rapporterade)</p><div class="res ok">${"★".repeat(g.pts)}${"☆".repeat(3-g.pts)} +${g.pts}</div>`:"<p>Räknar ihop …</p>"}<p class="muted">Ditt resultat: ${game.sent>=0?game.sent:"–"}</p></div>${standHtml()}`; }
   else if(ST.k==="score") h+=`<div class="panel">${head}<h2>Ställningen</h2></div>${standHtml()}`;
@@ -3018,9 +3048,12 @@ function bindView(){ const o=$("pOut"); if(o) o.onclick=logout;
   const gb=$("pGb"); if(gb) gb.onclick=()=>{ $("gbFree").srcdoc=b64html(GBFREE_SRC); $("gbModal").hidden=false; document.body.classList.add("noscroll"); };
   const rb=$("pRenameBtn"); if(rb) rb.onclick=()=>{ const n=$("pRename").value.trim(); if(!n){ toast("Skriv ett lagnamn"); return; } send({t:"name",name:n}); $("pRename").blur(); toast("Lagnamnet sparat!"); setTimeout(renderPlayer,300); };
   const ri=$("pRename"); if(ri) ri.onkeydown=e=>{ if(e.key==="Enter"){ e.preventDefault(); rb.click(); } };
-  document.querySelectorAll("#pView .opt[data-o]").forEach(b=>b.onclick=()=>{ const o=+b.dataset.o, mt=myTeam(); if(!mt) return;
-    const tv=(ST.votes[mt.id]=ST.votes[mt.id]||{}); if(tv[ME.pid]&&tv[ME.pid].o===o) delete tv[ME.pid]; else tv[ME.pid]={o,t:Date.now()};
-    send({t:"vote",si:ST.si,opt:o}); renderPlayer(); }); }
+  bindVotes();
+  const ab=$("pAnsBtn"), ai=$("pAns"); if(ab){ const go=()=>{ const t=ai.value.trim(); if(!t){ toast("Skriv ett svar först"); return; } send({t:"prop",si:ST.si,text:t}); ai.value=""; ai.blur(); toast("Förslaget skickat!",1500); setTimeout(renderPlayer,250); };
+    ab.onclick=go; ai.onkeydown=e=>{ if(e.key==="Enter"){ e.preventDefault(); go(); } }; ai.onblur=()=>setTimeout(()=>{ if(document.activeElement!==ai) renderPlayer(); },150); } }
+function bindVotes(){ document.querySelectorAll("#pView .opt[data-o]").forEach(b=>b.onclick=()=>{ const o=b.dataset.o, mt=myTeam(); if(!mt) return;
+    const tv=(ST.votes[mt.id]=ST.votes[mt.id]||{}); if(tv[ME.pid]&&String(tv[ME.pid].o)===o) delete tv[ME.pid]; else tv[ME.pid]={o,t:Date.now()};
+    send({t:"vote",si:ST.si,opt:o}); if(document.activeElement && document.activeElement.id==="pAns"){ const pv=$("pVotes"); if(pv) pv.innerHTML=voteOpts(); bindVotes(); } else renderPlayer(); }); }
 function playerTicker(){ if(!ST) return; const bar=$("pBar"); if(bar && ST.deadline){ const tot=ST.deadline-ST.start, left=Math.max(0,ST.deadline-Date.now()); bar.firstChild.style.width=(tot>0?left/tot*100:0)+"%"; bar.classList.toggle("low",left<10000); }
   const c=$("pCount"); if(c && ST.deadline){ const left=ST.deadline-Date.now(); c.textContent= left>3000?"3":left>2000?"2":left>1000?"1":"KÖR!"; } }
 function loginHtml(){ const g=parseCode(QS.get("g")||""); const last=LS.get("qc_lastname","");

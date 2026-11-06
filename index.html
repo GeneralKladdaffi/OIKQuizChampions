@@ -223,9 +223,65 @@ select.input{font-size:16px}
 .s-title{background:radial-gradient(circle at 50% 45%,#ffd23f,#b8241c 70%,#3a0008)}
 .ttl{position:absolute;left:0;right:0;top:12%;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;font-family:var(--px);z-index:2}
 .ttl .t1{font-size:13px;color:#fff;text-shadow:3px 3px 0 #000;animation:pop .5s .3s both}
-.ttl .t2{font-size:clamp(17px,6vw,26px);line-height:1.3;color:var(--sun);text-shadow:4px 4px 0 #b8241c,8px 8px 0 #000;animation:pop .6s .9s both}
+.ttl .t2{font-size:clamp(17px,6vw,26px);line-height:1.3;color:var(--sun);text-shadow:3px 3px 0 #000;animation:pop .6s .9s both}
 .ttl .t3{font-size:14px;color:var(--mint);text-shadow:3px 3px 0 #000;animation:pop .5s 1.5s both}
 @media (prefers-reduced-motion:reduce){ .sc *,.sc{animation-duration:0s!important;animation-iteration-count:1!important} }
+/* ---- detaljerade introscener ---- */
+.ani .ill{position:absolute;inset:0;width:100%;height:100%;display:block}
+.ani .cam{transform-origin:200px 300px;animation:kb 9s ease-out forwards}
+.ani .z2 .cam{animation-name:kb2} .ani .z3 .cam{animation-name:kb3}
+@keyframes kb{from{transform:scale(1.18) translateY(14px)}to{transform:scale(1.02)}}
+@keyframes kb2{from{transform:scale(1)}to{transform:scale(1.12) translateY(-10px)}}
+@keyframes kb3{from{transform:scale(1.1) translateX(16px)}to{transform:scale(1) translateX(-8px)}}
+.ani .drift{animation:drift 12s linear infinite alternate} @keyframes drift{to{transform:translateX(30px)}}
+.ani .steam{animation:steam 3s ease-out infinite;transform-box:fill-box;transform-origin:center} .ani .steam.d2{animation-delay:1.5s}
+@keyframes steam{from{transform:translateY(0) scale(.6);opacity:.4}to{transform:translateY(-60px) scale(2);opacity:0}}
+.ani .shim{animation:shim 1.6s steps(3) infinite} @keyframes shim{50%{opacity:.4}}
+.ani .flag{animation:flagw .8s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:left center} @keyframes flagw{to{transform:skewY(6deg) scaleX(.94)}}
+.ani .win{animation:shim 2.4s steps(2) infinite}
+.ani .tw{animation:tw 2.4s ease-in-out infinite} @keyframes tw{50%{opacity:.25}}
+.ani .pt{animation:ptup 6s linear infinite} @keyframes ptup{from{transform:translateY(0);opacity:0}20%{opacity:1}to{transform:translateY(-420px);opacity:0}}
+.ani .ring{transform-box:fill-box;transform-origin:center;animation:dash 6s linear infinite} .ani .ring.r2{animation-direction:reverse}
+@keyframes dash{to{stroke-dashoffset:-240}}
+.ani .holo2{animation:flick 1.6s steps(4) infinite}
+.ani .panelL{animation:slideL .8s .6s both} .ani .panelR{animation:slideR .8s 1.4s both}
+@keyframes slideL{from{transform:translateX(-160px);opacity:0}} @keyframes slideR{from{transform:translateX(160px);opacity:0}}
+.ani .load{animation:load 6s ease-in-out forwards} @keyframes load{to{width:86px}}
+.ani .scanl{animation:scan2 2.6s linear infinite} @keyframes scan2{to{transform:translateY(600px)}}
+.ani .mono{font-family:"Press Start 2P",monospace;font-size:8px;fill:#9ff7ff} .ani .mono.s{font-size:6px;fill:#5cf2ff}
+.ani .memb{animation:memb .6s both} @keyframes memb{from{transform:translateY(120px);opacity:0}}
+.ani .tag{font-family:"Press Start 2P",monospace;font-size:8px;fill:#1d1838} .ani .tag.s{font-family:"Pixelify Sans",sans-serif;font-size:10px;font-weight:700}
+.ani .scr{font-family:"Press Start 2P",monospace;font-size:12px;fill:#5cc8ff} .ani .scr.s{font-size:7px;fill:#ff6b6b}
+.ani .blink{animation:shim .8s steps(2) infinite} .ani .march{animation:dash 3s linear infinite}
+.ani .nj{animation:nj 2.6s ease-in-out infinite} @keyframes nj{0%{transform:translate(-60px,80px)}50%{transform:translate(0,-20px)}100%{transform:translate(60px,80px)}}
+.ani .scarf{animation:flagw .3s ease-in-out infinite alternate}
+.ani .sgn{font-family:"Press Start 2P",monospace;font-size:12px;fill:#ffd23f}
+.ani .shur2{animation:shur 1.4s linear infinite} @keyframes shur{from{transform:translate(-40px,0)}to{transform:translate(380px,160px)}}
+.ani .lock{font-family:"Press Start 2P",monospace;font-size:10px;fill:#6c7486}
+.ani .beamP{animation:beamP 2.5s ease-in-out infinite alternate} @keyframes beamP{from{opacity:.55}to{opacity:.95}}
+.ani .dust{animation:ptup 9s linear infinite}
+.ani .shirtF{animation:flt 2.4s ease-in-out infinite} @keyframes flt{50%{transform:translateY(-12px)}}
+.ani .brainH{animation:pop2 .8s 3s both} @keyframes pop2{from{opacity:0;transform:translateY(40px)}}
+.ani .neur{stroke-dasharray:6 4;animation:dash 2s linear infinite}
+.ani .num{font-family:"Press Start 2P",monospace;font-size:40px;fill:#fff6e0;stroke:#000;stroke-width:2}
+.ani .panels{position:absolute;inset:0;display:grid;grid-template-rows:1fr 1fr 1fr;gap:6px;background:#000;padding:6px}
+.ani .pn{position:relative;overflow:hidden;border:3px solid #fff;opacity:0;animation:pnl .5s forwards} .ani .pn.p2{animation-delay:2.4s} .ani .pn.p3{animation-delay:4.8s}
+@keyframes pnl{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:none}}
+.ani .pn .ill{inset:0;width:100%;height:100%}
+.ani .chalk{font-family:serif;font-style:italic;font-size:46px;fill:#fff6e0;opacity:.9}
+.ani .lbl2{font-family:"Press Start 2P",monospace;font-size:16px;fill:#ffd23f}
+.ani .cal{font-family:"Press Start 2P",monospace;font-size:12px;fill:#1d1838} .ani .calb{font-family:"Press Start 2P",monospace;font-size:30px;fill:#e61e1e}
+.ani .hand{transform-origin:320px 120px;animation:spin .6s linear infinite} .ani .hand2{transform-origin:320px 120px;animation:spin 3s linear infinite}
+.ani .raysR{transform-origin:200px 300px;animation:spin 8s linear infinite} .ani .raysR.slow{transform-origin:200px 470px;animation-duration:30s}
+.ani .bolt{animation:bolt 1.1s steps(1) infinite} .ani .bolt.b2{animation-delay:.5s} @keyframes bolt{0%,30%{opacity:1}31%,100%{opacity:0}}
+.ani .spark{animation:ptup 3s linear infinite}
+.ani .robo2{position:absolute;left:50%;bottom:10%;height:66%;transform:translateX(-50%);image-rendering:pixelated;filter:drop-shadow(0 0 22px #ff3b3b) drop-shadow(6px 6px 0 #000);animation:rise2 1s ease-out both}
+.ani .robo2.hero{height:44%;bottom:6%;filter:drop-shadow(0 0 18px #ffd23f) drop-shadow(5px 5px 0 #000)}
+@keyframes rise2{from{transform:translate(-50%,40px);opacity:0}}
+.ani .tiny{font-family:"Press Start 2P",monospace;font-size:6px;fill:#e61e1e}
+.ani .s-boom2,.ani .s-title2{position:absolute;inset:0}
+.ani .s-boom2{animation:shakeAll .2s steps(2) 10}
+.ani .sak{z-index:2}
 
 </style></head><body>
 <div id="host" hidden>
@@ -2759,7 +2815,7 @@ LINES.noAnswer=["Några lag svarade inte ens. Det är också ett val. Ett dålig
 LINES.beer=["Halvtid! Innan vi fortsätter: kan någon vara snäll och hämta en öl till mig? Lagkaptenen behöver vätska. Jag har pratat i en halvtimme, det är mer än jag springer på en match.","Halvtid! Och nu en viktig fråga, som inte ger några poäng: kan någon hämta en öl till mig? Det är lagkaptenens rättighet. Det står i stadgarna. Tror jag."];
 const TEAMNAMES=["Bastuklubben","Offsidefällan","Bänkvärmarna","Hörnflaggorna","Gräsklipparna","Straffkommittén","Målvaktshandskarna","Avbytarbänken","Ribbträffarna","Läktarlejonen"];
 
-/* ================= Introt: "Det slutgiltiga quizet" (animestil) ================= */
+/* ================= Introt: "Det slutgiltiga quizet" (animestil, detaljerade scener) ================= */
 const INTRO=[
  "Våren 2026 fattade Obbolas riksdag ett beslut. Ett topphemligt projekt skulle sjösättas.",
  "För att Obbola IK skulle kunna säkra sin framtida succé behövde öns medborgare en förebild. En AI-förebild.",
@@ -2771,38 +2827,178 @@ const INTRO=[
  "När Obbolas president frågade vad de skulle göra med denna atombomb till robot, var svaret enkelt.",
  "Han ska göra ett quiz. Ett slutgiltigt quiz. Som avgör vilka som faktiskt är bäst i Obbola IK."
 ];
-const SAKURA=()=>Array.from({length:18},(_,i)=>`<i class="sak" style="left:${(i*37)%100}%;animation-delay:${(i*0.37)%4}s;animation-duration:${4+(i%5)}s"></i>`).join("");
-const SPEED='<div class="speed"></div>';
+/* ---------- hjälpfunktioner för illustrationerna ---------- */
+const RNG=seed=>()=>{ seed=(seed*16807)%2147483647; return (seed-1)/2147483646; };
+function firs(y,h,col,n,seed,w){ const r=RNG(seed); let s=""; for(let i=0;i<n;i++){ const x=-20+i*(440/n)+r()*20, hh=h*(0.7+r()*0.6), ww=(w||26)*(0.8+r()*0.5);
+  s+=`<path d="M${x} ${y} L${x+ww/2} ${y-hh} L${x+ww} ${y}Z M${x+ww*0.12} ${y-hh*0.35} L${x+ww/2} ${y-hh*1.0} L${x+ww*0.88} ${y-hh*0.35}Z" fill="${col}"/>`; } return s+`<rect x="-20" y="${y-1}" width="440" height="${600-y}" fill="${col}"/>`; }
+function cloud(x,y,s,col,hi){ return `<g transform="translate(${x} ${y}) scale(${s})"><ellipse cx="0" cy="0" rx="60" ry="18" fill="${col}"/><ellipse cx="-22" cy="-12" rx="28" ry="20" fill="${col}"/><ellipse cx="14" cy="-18" rx="32" ry="24" fill="${col}"/><ellipse cx="40" cy="-6" rx="22" ry="14" fill="${col}"/>
+  <ellipse cx="10" cy="-26" rx="22" ry="10" fill="${hi}" opacity=".7"/><ellipse cx="-24" cy="-20" rx="14" ry="7" fill="${hi}" opacity=".6"/></g>`; }
+function stars(n,seed,h){ const r=RNG(seed); let s=""; for(let i=0;i<n;i++){ const x=r()*400,y=r()*(h||300),z=r()*1.6+0.4; s+=`<circle class="tw" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${z.toFixed(2)}" fill="#fff" style="animation-delay:${(r()*3).toFixed(2)}s"/>`; } return s; }
+function parts(n,seed,col,cls){ const r=RNG(seed); let s=""; for(let i=0;i<n;i++) s+=`<circle class="${cls||"pt"}" cx="${(r()*400).toFixed(0)}" cy="${(300+r()*300).toFixed(0)}" r="${(r()*2+0.6).toFixed(1)}" fill="${col}" style="animation-delay:${(r()*5).toFixed(2)}s;animation-duration:${(4+r()*4).toFixed(1)}s"/>`; return s; }
+const DEFS=`<defs>
+ <radialGradient id="vig" cx="50%" cy="45%" r="75%"><stop offset="55%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity=".75"/></radialGradient>
+ <radialGradient id="glowW" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".4" stop-color="#fff6c8" stop-opacity=".5"/><stop offset="1" stop-color="#fff6c8" stop-opacity="0"/></radialGradient>
+ <radialGradient id="glowC" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#bff9ff" stop-opacity=".9"/><stop offset=".5" stop-color="#3be1ff" stop-opacity=".35"/><stop offset="1" stop-color="#3be1ff" stop-opacity="0"/></radialGradient>
+ <radialGradient id="glowR" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fff" stop-opacity=".9"/><stop offset=".35" stop-color="#ff4b3b" stop-opacity=".6"/><stop offset="1" stop-color="#ff4b3b" stop-opacity="0"/></radialGradient>
+ <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6c8" stop-opacity=".85"/><stop offset="1" stop-color="#fff6c8" stop-opacity="0"/></linearGradient>
+ <pattern id="half" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.2" fill="#000" opacity=".35"/></pattern>
+</defs>`;
+const OVER=`<rect width="400" height="600" fill="url(#vig)"/>`;
+const svg=(inner,cls)=>`<svg class="ill ${cls||""}" viewBox="0 0 400 600" preserveAspectRatio="xMidYMid slice">${DEFS}<g class="cam">${inner}</g>${OVER}</svg>`;
+const SAKURA=()=>Array.from({length:22},(_,i)=>`<i class="sak" style="left:${(i*37)%100}%;animation-delay:${((i*0.37)%5).toFixed(2)}s;animation-duration:${4+(i%5)}s"></i>`).join("");
+
+function sceneDawn(){ return svg(`
+  <linearGradient id="skyD" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b1c5c"/><stop offset=".35" stop-color="#b44d8c"/><stop offset=".62" stop-color="#ff9a6b"/><stop offset=".78" stop-color="#ffd9a0"/></linearGradient>
+  <rect width="400" height="600" fill="url(#skyD)"/>${stars(30,3,160)}
+  <circle cx="250" cy="372" r="120" fill="url(#glowW)"/><circle cx="250" cy="372" r="34" fill="#fff4d6"/>
+  <g class="drift">${cloud(80,150,1.1,"#8b4d8f","#ffb3c7")}${cloud(320,210,0.9,"#a85a8a","#ffc6b0")}${cloud(180,250,0.7,"#c76a85","#ffd6b8")}</g>
+  <g opacity=".85">${firs(380,70,"#5a3a6e",14,7,30)}</g>
+  <g><rect x="12" y="300" width="14" height="80" fill="#4a2f5c"/><rect x="34" y="320" width="10" height="60" fill="#4a2f5c"/><rect x="5" y="340" width="70" height="40" fill="#4a2f5c"/>
+     <ellipse class="steam" cx="19" cy="290" rx="14" ry="10" fill="#fff" opacity=".35"/><ellipse class="steam d2" cx="39" cy="310" rx="10" ry="8" fill="#fff" opacity=".3"/></g>
+  <rect y="380" width="400" height="60" fill="#e9a7a0"/><g class="shim">${[0,1,2,3,4,5].map(k=>`<rect x="${200+((k*37)%60)-30}" y="${386+k*9}" width="${110-k*14}" height="2" fill="#fff6d6" opacity=".7"/>`).join("")}</g>
+  <path d="M0 440 Q120 400 220 420 T400 410 L400 600 L0 600Z" fill="#2c3a2c"/>
+  <g transform="translate(120 330)">
+    <rect x="-6" y="96" width="172" height="10" fill="#1a1428"/><rect x="0" y="86" width="160" height="12" fill="#3a2e52"/>
+    <rect x="10" y="40" width="140" height="48" fill="#e9d9f2"/><rect x="10" y="40" width="140" height="48" fill="url(#half)"/>
+    ${[22,46,70,94,118,138].map(x=>`<rect x="${x}" y="42" width="8" height="44" fill="#fff"/><rect x="${x+6}" y="42" width="2" height="44" fill="#b9a3c9"/>`).join("")}
+    <path d="M0 42 L80 8 L160 42Z" fill="#d6c3e6" stroke="#2a1838" stroke-width="2"/><path d="M80 8 L160 42 L80 42Z" fill="#b9a3c9"/>
+    <ellipse cx="80" cy="6" rx="22" ry="16" fill="#8fd1c8"/><path d="M58 6 A22 16 0 0 1 102 6" fill="#bff0e8"/><rect x="79" y="-30" width="2" height="22" fill="#2a1838"/>
+    <path class="flag" d="M81 -30 Q93 -34 103 -28 Q113 -23 121 -28 L121 -16 Q113 -11 103 -16 Q93 -22 81 -18Z" fill="#18c95a" stroke="#000" stroke-width="1"/>
+    ${[30,54,78,102,126].map(x=>`<rect x="${x}" y="54" width="8" height="12" fill="#ffd27a" class="win"/>`).join("")}
+  </g>
+  <g opacity=".9">${firs(470,90,"#1a2418",9,11,44)}</g>`,"z1"); }
+
+function sceneAI(){ return svg(`
+  <rect width="400" height="600" fill="#030a1c"/>
+  <g opacity=".55">${Array.from({length:14},(_,i)=>`<path d="M${200-(i-7)*8} 330 L${200+(i-7)*90} 600" stroke="#1fd3ff" stroke-width="1"/>`).join("")}${Array.from({length:9},(_,i)=>`<path d="M-50 ${340+i*i*4.2} L450 ${340+i*i*4.2}" stroke="#1fd3ff" stroke-width="1"/>`).join("")}</g>
+  <ellipse cx="200" cy="470" rx="130" ry="26" fill="url(#glowC)"/><ellipse cx="200" cy="470" rx="110" ry="20" fill="none" stroke="#5cf2ff" stroke-width="2"/>
+  <ellipse class="ring" cx="200" cy="300" rx="150" ry="38" fill="none" stroke="#5cf2ff" stroke-width="2" stroke-dasharray="14 10" opacity=".8"/>
+  <ellipse class="ring r2" cx="200" cy="230" rx="110" ry="26" fill="none" stroke="#9ff7ff" stroke-width="1.5" stroke-dasharray="4 8"/>
+  <g class="holo2">
+    <circle cx="200" cy="170" r="42" fill="url(#glowC)"/>
+    <path d="M200 128 C176 128 162 146 162 170 C162 196 180 214 200 214 C220 214 238 196 238 170 C238 146 224 128 200 128Z" fill="#5cf2ff22" stroke="#9ff7ff" stroke-width="2"/>
+    <path d="M178 160 Q186 154 194 160 M206 160 Q214 154 222 160 M186 192 Q200 200 214 192" stroke="#9ff7ff" stroke-width="2" fill="none"/>
+    <path d="M200 214 L200 232 M130 450 Q128 300 200 236 Q272 300 270 450Z" fill="#5cf2ff1a" stroke="#9ff7ff" stroke-width="2"/>
+    <path d="M200 240 L200 450 M150 300 L250 300 M140 360 L260 360 M146 420 L254 420 M165 260 L235 330 M235 260 L165 330" stroke="#5cf2ff" stroke-width="1" opacity=".5"/>
+    ${[[200,240],[150,300],[250,300],[140,360],[260,360],[200,330],[175,410],[225,410]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="3" fill="#fff"/>`).join("")}
+  </g>
+  <g class="panelL"><rect x="14" y="70" width="110" height="74" fill="#0a2a44cc" stroke="#5cf2ff" stroke-width="1.5"/><text x="22" y="90" class="mono">AI-FÖREBILD</text><text x="22" y="106" class="mono s">v0.1 · OBBOLA IK</text><rect x="22" y="116" width="86" height="6" fill="#123"/><rect class="load" x="22" y="116" width="10" height="6" fill="#5cf2ff"/></g>
+  <g class="panelR"><rect x="276" y="96" width="110" height="64" fill="#0a2a44cc" stroke="#5cf2ff" stroke-width="1.5"/><text x="284" y="116" class="mono">SKILL: ∞</text><text x="284" y="132" class="mono s">EGO: ÖVERFLÖD</text><text x="284" y="148" class="mono s">STATUS: HEMLIG</text></g>
+  <rect class="scanl" x="0" y="0" width="400" height="4" fill="#9ff7ff" opacity=".6"/>
+  ${parts(30,5,"#9ff7ff","pt")}`,"z2"); }
+
+function sceneCommittee(){ const fig=(x,body,head,extra,lab,sub,c,k)=>`<g class="memb" style="animation-delay:${0.3+k*0.85}s">
+    <ellipse cx="${x}" cy="452" rx="40" ry="8" fill="#000" opacity=".5"/>
+    <path d="M${x-36} 452 Q${x-38} 360 ${x} 352 Q${x+38} 360 ${x+36} 452Z" fill="${body}"/>
+    <path d="M${x-36} 452 Q${x-38} 360 ${x} 352 L${x} 452Z" fill="#000" opacity=".25"/>
+    <circle cx="${x}" cy="330" r="22" fill="${head}"/><path d="M${x} 308 A22 22 0 0 1 ${x+22} 330 L${x} 330Z" fill="#fff" opacity=".12"/>
+    ${extra}
+    <rect x="${x-42}" y="462" width="84" height="40" fill="${c}" stroke="#000" stroke-width="3"/><text x="${x}" y="479" class="tag" text-anchor="middle">${lab}</text><text x="${x}" y="494" class="tag s" text-anchor="middle">${sub}</text></g>`;
+  return svg(`<linearGradient id="room" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#14101f"/><stop offset="1" stop-color="#2d1f33"/></linearGradient><rect width="400" height="600" fill="url(#room)"/>
+  <rect x="40" y="60" width="320" height="170" fill="#0c1a2e" stroke="#5cc8ff" stroke-width="3"/><rect x="40" y="60" width="320" height="170" fill="url(#glowC)" opacity=".25"/>
+  <text x="200" y="88" class="scr" text-anchor="middle">OPERATION BROVALLEN</text>
+  <path d="M90 200 Q110 120 170 130 Q210 100 260 140 Q320 150 300 200 Q250 214 200 200 Q150 220 90 200Z" fill="#1e7a3a" stroke="#4be0a0" stroke-width="2"/>
+  <circle class="blink" cx="232" cy="168" r="6" fill="#ff3b3b"/><text x="242" y="164" class="scr s">BROVALLEN</text><path d="M120 190 L232 168" stroke="#ffd23f" stroke-width="2" stroke-dasharray="6 5" class="march"/>
+  <path d="M0 420 L400 420 L400 600 L0 600Z" fill="#1a1222"/><path d="M-20 520 L120 440 L280 440 L420 520Z" fill="#3b2a1e"/><path d="M-20 520 L120 440 L280 440 L420 520" fill="none" stroke="#000" stroke-width="3"/>
+  ${fig(62,"#e8e8f0","#f2c08f",`<rect x="44" y="322" width="36" height="8" fill="none" stroke="#000" stroke-width="3"/><path d="M48 360 L48 410" stroke="#5cc8ff" stroke-width="4"/>`,"FORSKARE","Universitetet","#ffd23f",0)}
+  ${fig(152,"#1b1b22","#e8b38a",`<rect x="134" y="322" width="36" height="9" fill="#000"/><path d="M174 326 Q182 340 176 352" stroke="#ccc" stroke-width="2" fill="none"/>`,"AGENT","Obbola-Säpo","#5cc8ff",1)}
+  ${fig(244,"#f4f4f4","#c99a6e",`<rect x="224" y="320" width="40" height="12" fill="#4be0a0" stroke="#000" stroke-width="2" opacity=".85"/><path d="M262 380 L270 410 L254 410Z" fill="#4be0a0" stroke="#000" stroke-width="2"/>`,"KEMIST","Fabriken","#4be0a0",2)}
+  ${fig(334,"#2b2b3a","#2b2b3a",`<path d="M312 326 Q334 300 356 326 L352 342 L316 342Z" fill="#14141c"/><rect x="314" y="394" width="40" height="26" fill="#111" stroke="#5f5" stroke-width="2"/><rect x="314" y="394" width="40" height="26" fill="#5f5" opacity=".25" class="blink"/>`,"HACKER","Undre världen","#b98bff",3)}`,"z1"); }
+
+function sceneNinja(){ const nin=(x,y,s,k)=>`<g class="nj" style="animation-delay:${k*0.6}s"><g transform="translate(${x} ${y}) scale(${s})">
+   <path class="scarf" d="M-6 -30 Q-40 -40 -70 -26 Q-50 -34 -36 -24 Q-60 -22 -80 -10" stroke="#e61e1e" stroke-width="5" fill="none" stroke-linecap="round"/>
+   <circle cx="0" cy="-34" r="11" fill="#0b0b14"/><rect x="-10" y="-38" width="20" height="5" fill="#f2c08f"/><circle cx="-4" cy="-36" r="1.4" fill="#000"/><circle cx="4" cy="-36" r="1.4" fill="#000"/>
+   <path d="M0 -24 L-6 6 L10 6Z" fill="#0b0b14"/><path d="M-2 -18 L-26 -30 M2 -16 L24 -4 M-4 4 L-22 26 M6 4 L28 18" stroke="#0b0b14" stroke-width="7" stroke-linecap="round"/>
+   <path d="M24 -4 L40 -18" stroke="#c9d1e6" stroke-width="2.5"/></g></g>`;
+  return svg(`<linearGradient id="nsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#03041a"/><stop offset=".6" stop-color="#1b2160"/><stop offset="1" stop-color="#36306e"/></linearGradient>
+  <rect width="400" height="600" fill="url(#nsky)"/>${stars(70,9,380)}
+  <circle cx="240" cy="190" r="150" fill="url(#glowW)" opacity=".7"/><circle cx="240" cy="190" r="92" fill="#fff6d8"/>
+  <circle cx="210" cy="160" r="16" fill="#e8dcb4"/><circle cx="268" cy="214" r="22" fill="#ebe0bb"/><circle cx="262" cy="150" r="9" fill="#e8dcb4"/><circle cx="212" cy="230" r="8" fill="#e8dcb4"/>
+  <g class="drift">${cloud(90,260,1,"#2c2e6a","#4a4c96")}${cloud(330,110,0.8,"#2c2e6a","#4a4c96")}</g>
+  <g><rect x="40" y="250" width="6" height="180" fill="#111"/><rect x="26" y="240" width="34" height="18" fill="#222" stroke="#000"/><rect x="28" y="242" width="30" height="14" fill="#fff6c8" opacity=".25"/>
+     <rect x="354" y="230" width="6" height="200" fill="#111"/><rect x="340" y="220" width="34" height="18" fill="#222"/></g>
+  <path d="M0 430 L60 400 L340 400 L400 430 L400 600 L0 600Z" fill="#0d0f24"/><rect x="60" y="400" width="280" height="10" fill="#1d2048"/>
+  ${Array.from({length:12},(_,i)=>`<rect x="${70+i*22}" y="412" width="16" height="10" fill="${i%3===1?"#ffd27a":"#161a3a"}"/>`).join("")}
+  <rect x="120" y="440" width="160" height="40" fill="#0a0c1c" stroke="#ffd23f" stroke-width="2"/><text x="200" y="465" class="sgn" text-anchor="middle">BROVALLEN</text>
+  ${nin(150,250,1.6,0)}${nin(260,170,1.25,1)}${nin(320,300,1.1,2)}
+  <g class="shur2"><path d="M80 120 l6 -14 l6 14 l14 6 l-14 6 l-6 14 l-6 -14 l-14 -6Z" fill="#c9d1e6"/></g>`,"z3"); }
+
+function sceneArtifact(){ return svg(`<rect width="400" height="600" fill="#0f0d14"/>
+  ${Array.from({length:7},(_,i)=>`<g><rect x="${i*60-10}" y="150" width="56" height="300" fill="#2a2f3a" stroke="#000" stroke-width="3"/><rect x="${i*60-4}" y="160" width="44" height="6" fill="#151820"/><rect x="${i*60-4}" y="172" width="44" height="6" fill="#151820"/><rect x="${i*60+36}" y="290" width="4" height="22" fill="#9aa"/><text x="${i*60+18}" y="230" class="lock" text-anchor="middle">${i+4}</text></g>`).join("")}
+  <rect x="0" y="450" width="400" height="150" fill="#1b1a22"/><rect x="0" y="450" width="400" height="150" fill="url(#half)" opacity=".5"/>
+  <path d="M160 0 L240 0 L330 600 L70 600Z" fill="url(#beam)" class="beamP"/>
+  ${parts(40,13,"#fff6c8","dust")}
+  <ellipse cx="200" cy="300" rx="150" ry="150" fill="url(#glowW)" opacity=".6"/>
+  <g class="shirtF"><g transform="translate(200 280)">
+   <path d="M-48 -92 L-104 -62 L-86 -14 L-62 -26 L-62 96 L62 96 L62 -26 L86 -14 L104 -62 L48 -92 Q0 -66 -48 -92Z" fill="#0d0d10" stroke="#000" stroke-width="4"/>
+   ${[-70,-46,-22,2,26,50,74].map(y=>`<path d="M-62 ${y} L62 ${y} L62 ${y+12} L-62 ${y+12}Z" fill="#18c95a"/>`).join("")}
+   <path d="M-62 -26 L-62 96 L-40 96 L-46 -20Z" fill="#000" opacity=".3"/><path d="M30 -80 Q50 0 40 96 L62 96 L62 -26Z" fill="#fff" opacity=".07"/>
+   <path d="M-20 -88 Q0 -74 20 -88" stroke="#18c95a" stroke-width="5" fill="none"/>
+   <text x="0" y="30" class="num" text-anchor="middle">7</text>
+   ${["#e61e1e","#ff8c00","#ffe600","#00aa3c","#145aff","#82209f"].map((c,k)=>`<rect x="70" y="${-58+k*4}" width="26" height="4" fill="${c}" transform="rotate(26 83 -48)"/>`).join("")}
+  </g></g>
+  <g class="brainH"><g transform="translate(200 480)">
+   <ellipse cx="0" cy="0" rx="110" ry="40" fill="url(#glowC)"/>
+   <path d="M0 -60 C-50 -70 -84 -40 -78 -8 C-82 22 -50 44 -10 36 L0 30 L10 36 C50 44 82 22 78 -8 C84 -40 50 -70 0 -60Z" fill="#ff9ec733" stroke="#ff9ec7" stroke-width="2.5"/>
+   <path d="M0 -58 L0 28 M-60 -30 Q-40 -16 -56 4 M60 -30 Q40 -16 56 4 M-30 -50 Q-20 -30 -36 -16 M30 -50 Q20 -30 36 -16 M-40 18 Q-20 6 -8 20 M40 18 Q20 6 8 20" stroke="#ffc4dd" stroke-width="2" fill="none" class="neur"/>
+  </g></g>`,"z1"); }
+
+function sceneLab(){ return `<div class="panels">
+  <div class="pn p1">${svg(`<rect width="400" height="600" fill="#0e3b2a"/><rect width="400" height="600" fill="url(#half)" opacity=".4"/>
+    <text x="30" y="120" class="chalk">e<tspan dy="-18" font-size="40">iπ</tspan><tspan dy="18"> + 1 = 0</tspan></text><text x="40" y="230" class="chalk">∑ 1/n² = π²/6</text><text x="60" y="330" class="chalk">∫ öl dx = ∞</text><text x="30" y="440" class="chalk">Joel ≥ Zlatan ?</text>
+    <path d="M40 470 Q200 520 360 450" stroke="#fff" stroke-width="4" fill="none" opacity=".7"/><circle cx="330" cy="140" r="40" fill="none" stroke="#fff" stroke-width="3" opacity=".7"/>`)}</div>
+  <div class="pn p2">${svg(`<rect width="400" height="600" fill="#2b1a0a"/><ellipse cx="200" cy="420" rx="180" ry="80" fill="url(#glowW)" opacity=".4"/>
+    <path d="M120 120 L120 300 L60 500 Q60 540 100 540 L300 540 Q340 540 340 500 L280 300 L280 120Z" fill="#ffffff22" stroke="#fff" stroke-width="5"/>
+    <path d="M86 420 L314 420 L334 500 Q334 530 300 530 L100 530 Q66 530 66 500Z" fill="#e8a43a"/><path d="M86 420 Q200 400 314 420" fill="#fff6e0"/>
+    ${[0,1,2,3,4,5,6].map(k=>`<circle class="bub" cx="${110+k*30}" cy="510" r="${5+(k%3)*2}" fill="#fff6e0" style="animation-delay:${k*0.25}s"/>`).join("")}
+    <path d="M140 460 l20 -8 l14 12 l-18 10Z M230 480 l16 -10 l12 14 l-20 6Z" fill="#d9cbb0"/><text x="200" y="90" class="lbl2" text-anchor="middle">PAPPERSMASSA + STARKÖL</text>`)}</div>
+  <div class="pn p3">${svg(`<rect width="400" height="600" fill="#cfc6b8"/><rect width="400" height="600" fill="url(#half)" opacity=".5"/><rect x="0" y="440" width="400" height="160" fill="#8a7b66"/>
+    <path d="M150 440 Q148 330 200 318 Q252 330 250 440Z" fill="#1e3a8a"/><circle cx="200" cy="292" r="34" fill="#3a2a1a"/><path d="M168 300 Q200 330 232 300" stroke="#2a1a0a" stroke-width="6" fill="none"/>
+    <circle cx="320" cy="120" r="44" fill="#fff" stroke="#000" stroke-width="5"/><path class="hand" d="M320 120 L320 88" stroke="#000" stroke-width="5"/><path class="hand2" d="M320 120 L344 120" stroke="#e61e1e" stroke-width="3"/>
+    <rect x="30" y="70" width="110" height="80" fill="#fff6e0" stroke="#000" stroke-width="4"/><text x="85" y="98" class="cal" text-anchor="middle">DAG</text><text id="iDays" x="85" y="136" class="calb" text-anchor="middle">1</text>`)}</div></div>`; }
+
+function sceneBoom(src){ return `<div class="sc s-boom2">${svg(`<rect width="400" height="600" fill="#12030a"/>
+  <g class="raysR">${Array.from({length:18},(_,i)=>`<path d="M200 300 L${(200+600*Math.cos(i/18*6.283)).toFixed(0)} ${(300+600*Math.sin(i/18*6.283)).toFixed(0)} L${(200+600*Math.cos((i+0.5)/18*6.283)).toFixed(0)} ${(300+600*Math.sin((i+0.5)/18*6.283)).toFixed(0)}Z" fill="#ff2a2a" opacity=".35"/>`).join("")}</g>
+  <circle cx="200" cy="330" r="200" fill="url(#glowR)"/>
+  <rect x="110" y="120" width="180" height="400" rx="80" fill="#9ff7ff22" stroke="#9ff7ff" stroke-width="3"/><rect x="96" y="500" width="208" height="40" fill="#333" stroke="#000" stroke-width="4"/><rect x="96" y="96" width="208" height="30" fill="#333" stroke="#000" stroke-width="4"/>
+  <path class="bolt" d="M60 60 L110 170 L80 172 L130 300" stroke="#fff" stroke-width="5" fill="none"/><path class="bolt b2" d="M350 40 L300 160 L330 164 L270 290" stroke="#bff9ff" stroke-width="5" fill="none"/>
+  ${parts(40,21,"#ffd23f","spark")}`)}<img class="robo2" src="${src}" alt=""><div class="flash"></div><div class="sfx big">ゴゴゴゴ</div><div class="lbl">AI-LAGKAPTENEN ÄR FÖDD</div></div>`; }
+
+function scenePresident(){ return svg(`<linearGradient id="off" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1d1410"/><stop offset="1" stop-color="#3e2a1c"/></linearGradient><rect width="400" height="600" fill="url(#off)"/>
+  <rect x="70" y="40" width="260" height="250" fill="#0b1236" stroke="#2a1a10" stroke-width="12"/>
+  ${Array.from({length:25},(_,i)=>`<circle cx="${80+((i*53)%240)}" cy="${50+((i*29)%120)}" r="1" fill="#fff"/>`).join("")}
+  <circle cx="280" cy="90" r="24" fill="#fff6d8"/><path d="M70 230 L110 200 L140 214 L180 190 L220 210 L260 196 L330 220 L330 290 L70 290Z" fill="#141a3a"/>
+  ${Array.from({length:16},(_,i)=>`<rect x="${84+i*15}" y="${232+(i%3)*12}" width="5" height="5" fill="#ffd27a"/>`).join("")}<rect x="196" y="40" width="8" height="250" fill="#2a1a10"/><rect x="70" y="160" width="260" height="8" fill="#2a1a10"/>
+  <rect x="340" y="80" width="4" height="260" fill="#8a6a3a"/><path class="flag" d="M344 84 Q370 78 392 90 L392 150 Q370 140 344 146Z" fill="#18c95a" stroke="#000" stroke-width="2"/><path d="M344 108 L392 116 M344 128 L392 134" stroke="#0d0d10" stroke-width="8"/>
+  <path d="M120 300 Q120 230 200 226 Q280 230 280 300 L280 380 L120 380Z" fill="#5a1a1a" stroke="#000" stroke-width="4"/>
+  <path d="M140 400 Q140 330 200 322 Q260 330 260 400Z" fill="#1e2a5a"/><path d="M188 326 L200 360 L212 326Z" fill="#fff6e0"/><rect x="197" y="330" width="6" height="30" fill="#e61e1e"/>
+  <circle cx="200" cy="296" r="28" fill="#f2c08f" stroke="#000" stroke-width="3"/><path d="M172 290 Q200 254 228 290 Q214 276 200 280 Q186 276 172 290Z" fill="#c9c9c9" stroke="#000" stroke-width="2"/>
+  <path d="M186 296 L194 296 M206 296 L214 296" stroke="#000" stroke-width="3"/><path d="M188 312 Q200 306 212 312" stroke="#000" stroke-width="2.5" fill="none"/>
+  <path d="M0 390 L400 390 L400 600 L0 600Z" fill="#5a3a22"/><path d="M0 390 L400 390 L400 410 L0 410Z" fill="#7a5232"/>
+  <path d="M60 390 L80 330 L120 330 L100 390Z" fill="#d6b24a" stroke="#000" stroke-width="3"/><ellipse cx="90" cy="400" rx="80" ry="30" fill="url(#glowW)" opacity=".35"/>
+  <rect x="250" y="370" width="70" height="20" fill="#fff6e0" stroke="#000" stroke-width="2"/><text x="285" y="384" class="tiny" text-anchor="middle">TOPPHEMLIGT</text>`,"z1")+`<div class="bub1">”Vad ska vi göra med den här atombomben till robot?”</div><div class="lbl">OBBOLAS PRESIDENT</div>`; }
+
+function sceneTitle(src){ return `<div class="sc s-title2">${svg(`<linearGradient id="tsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a0630"/><stop offset=".5" stop-color="#b8241c"/><stop offset="1" stop-color="#ffd23f"/></linearGradient>
+  <rect width="400" height="600" fill="url(#tsky)"/>${stars(40,41,200)}
+  <g class="raysR slow">${Array.from({length:24},(_,i)=>`<path d="M200 470 L${(200+800*Math.cos(i/24*6.283)).toFixed(0)} ${(470+800*Math.sin(i/24*6.283)).toFixed(0)} L${(200+800*Math.cos((i+0.4)/24*6.283)).toFixed(0)} ${(470+800*Math.sin((i+0.4)/24*6.283)).toFixed(0)}Z" fill="#fff6c8" opacity=".18"/>`).join("")}</g>
+  <circle cx="200" cy="470" r="170" fill="url(#glowW)"/>
+  <path d="M0 560 Q100 520 200 530 Q300 520 400 560 L400 600 L0 600Z" fill="#1e7a3a"/><path d="M0 560 Q100 520 200 530 Q300 520 400 560" stroke="#fff6e0" stroke-width="4" fill="none"/>
+  ${parts(30,51,"#ffd23f","spark")}`)}<img class="robo2 hero" src="${src}" alt=""><div class="flash"></div>
+  <div class="ttl"><span class="t1">DET SLUTGILTIGA QUIZET</span><span class="t2">OBBOLA IK<br>QUIZCHAMPIONS</span><span class="t3">★ 2026 ★</span></div></div>`; }
+
 function introScene(i){
-  const presCheer = typeof PRES_B64!=="undefined" ? "data:image/gif;base64,"+PRES_B64[1] : "";
-  const presAngry = typeof PRES_B64!=="undefined" ? "data:image/gif;base64,"+PRES_B64[2] : "";
+  const pc = typeof PRES_B64!=="undefined" ? "data:image/gif;base64,"+PRES_B64[1] : "";
+  const pa = typeof PRES_B64!=="undefined" ? "data:image/gif;base64,"+PRES_B64[2] : "";
   switch(i){
-  case 0: return `<div class="sc s-dawn">${SAKURA()}
-    <svg class="bld" viewBox="0 0 200 120"><rect x="20" y="60" width="160" height="50" fill="#2a1838" stroke="#000" stroke-width="3"/><polygon points="10,62 100,20 190,62" fill="#3d2350" stroke="#000" stroke-width="3"/>
-    ${[40,70,100,130,160].map(x=>`<rect x="${x-6}" y="66" width="12" height="44" fill="#f5d9ff" stroke="#000" stroke-width="2"/>`).join("")}<rect x="96" y="2" width="3" height="20" fill="#000"/><rect x="99" y="2" width="22" height="13" fill="#ff6b6b" stroke="#000" stroke-width="2"/></svg>
-    <div class="lbl">OBBOLAS RIKSDAG · VÅREN 2026</div><div class="stamp">TOPPHEMLIGT</div></div>`;
-  case 1: return `<div class="sc s-grid"><div class="scan"></div>
-    <svg class="holo" viewBox="0 0 100 160"><circle cx="50" cy="30" r="20" fill="none" stroke="#5cf2ff" stroke-width="3"/><path d="M15 150 Q15 70 50 62 Q85 70 85 150" fill="none" stroke="#5cf2ff" stroke-width="3"/><path d="M30 90 L70 90 M50 62 L50 150" stroke="#5cf2ff" stroke-width="1.5" opacity=".6"/></svg>
-    <div class="lbl cy">PROJEKT: AI-FÖREBILD</div></div>`;
-  case 2: return `<div class="sc s-red">${SPEED}<div class="cards">
-    ${[["FORSKARE","Obbola universitet","🎓","#ffd23f"],["AGENTER","Obbola-Säpo","🕶","#5cc8ff"],["KEMISTER","Fabriken","⚗","#4be0a0"],["HACKERS","Undre världen","⌨","#b98bff"]].map((c,k)=>`<div class="card" style="--c:${c[3]};animation-delay:${k*0.9}s"><b>${c[2]}</b><span>${c[0]}</span><small>${c[1]}</small></div>`).join("")}</div>
-    <div class="sfx">ゴゴゴ</div></div>`;
-  case 3: return `<div class="sc s-night"><div class="moon"></div>
-    ${[0,1,2].map(k=>`<svg class="ninja n${k}" viewBox="0 0 60 60"><circle cx="30" cy="14" r="10" fill="#111"/><rect x="20" y="12" width="20" height="4" fill="#ff6b6b"/><path d="M30 24 L14 50 M30 24 L46 50 M30 24 L30 40 M30 30 L8 22 M30 30 L52 34" stroke="#111" stroke-width="7" stroke-linecap="round"/></svg>`).join("")}
-    <div class="shur s1">✦</div><div class="shur s2">✦</div><div class="sign">BROVALLEN · OMKLÄDNINGSRUM</div><div class="sfx w">シュッ!</div></div>`;
-  case 4: return `<div class="sc s-gold"><div class="rays"></div>
-    <svg class="shirt" viewBox="0 0 100 100"><path d="M30 8 L10 22 L18 40 L28 34 L28 92 L72 92 L72 34 L82 40 L90 22 L70 8 Q50 20 30 8Z" fill="#111" stroke="#000" stroke-width="3"/>
-    ${[20,34,48,62,76].map(y=>`<rect x="28" y="${y}" width="44" height="7" fill="#18c95a"/>`).join("")}<text x="50" y="62" font-size="22" text-anchor="middle" fill="#fff6e0" font-family="'Press Start 2P',monospace" stroke="#000" stroke-width="1">7</text>
-    ${["#e61e1e","#ff8c00","#ffe600","#00aa3c","#145aff","#82209f"].map((c,k)=>`<rect x="78" y="${24+k*2}" width="11" height="2" fill="${c}"/>`).join("")}</svg>
-    <svg class="brain" viewBox="0 0 100 80"><path d="M50 10 C20 5 5 30 15 50 C20 70 45 75 50 65 C55 75 80 70 85 50 C95 30 80 5 50 10Z" fill="#ff9ec7" stroke="#000" stroke-width="3"/><path d="M50 12 L50 64 M30 25 Q40 35 30 45 M70 25 Q60 35 70 45 M22 40 L40 40 M60 40 L78 40" stroke="#c43a7a" stroke-width="2.5" fill="none"/></svg>
-    <div class="lbl dk">DEN OVÄRDERLIGA ARTEFAKTEN</div></div>`;
-  case 5: return `<div class="sc s-board">${["π","∑","∫","e<sup>iπ</sup>","√2","∞","φ","Δ"].map((m,k)=>`<i class="math" style="left:${8+k*11}%;animation-delay:${k*0.4}s">${m}</i>`).join("")}
-    <svg class="beer" viewBox="0 0 60 80"><rect x="10" y="20" width="34" height="54" fill="#ffb02e" stroke="#000" stroke-width="3"/><path d="M44 30 h8 v28 h-8" fill="none" stroke="#000" stroke-width="4"/><rect x="8" y="10" width="38" height="14" rx="6" fill="#fff6e0" stroke="#000" stroke-width="3"/>${[0,1,2,3].map(k=>`<circle class="bub" cx="${18+k*7}" cy="66" r="2.5" fill="#fff6e0" style="animation-delay:${k*0.3}s"/>`).join("")}</svg>
-    <div class="days"><span>DAG</span><b id="iDays">1</b><small>av 120</small></div><div class="lbl">PAPPERSMASSA + STARKÖL</div></div>`;
-  case 6: return `<div class="sc s-boom"><div class="rays red"></div><div class="flash"></div><img class="robo" src="${presAngry}" alt=""><div class="sfx big">ゴゴゴゴ</div><div class="lbl">AI-LAGKAPTENEN ÄR FÖDD</div></div>`;
-  case 7: return `<div class="sc s-office"><svg class="pres" viewBox="0 0 120 100"><rect x="0" y="70" width="120" height="30" fill="#5a3a22" stroke="#000" stroke-width="3"/><path d="M36 72 Q36 46 60 44 Q84 46 84 72Z" fill="#1e3a8a" stroke="#000" stroke-width="3"/><path d="M54 46 L60 64 L66 46Z" fill="#fff6e0"/><rect x="58" y="48" width="4" height="16" fill="#e61e1e"/><circle cx="60" cy="30" r="14" fill="#f2c08f" stroke="#000" stroke-width="3"/><path d="M46 26 Q60 10 74 26" fill="#bbb" stroke="#000" stroke-width="2"/><circle cx="55" cy="31" r="1.8" fill="#000"/><circle cx="65" cy="31" r="1.8" fill="#000"/><path d="M54 38 Q60 35 66 38" stroke="#000" stroke-width="2" fill="none"/></svg>
-    <div class="bub1">Vad ska vi göra med den här atombomben till robot?</div><div class="lbl">OBBOLAS PRESIDENT</div></div>`;
-  case 8: return `<div class="sc s-title">${SPEED}<div class="flash"></div><img class="robo sm" src="${presCheer}" alt=""><div class="ttl"><span class="t1">DET SLUTGILTIGA QUIZET</span><span class="t2">OBBOLA IK<br>QUIZCHAMPIONS</span><span class="t3">★ 2026 ★</span></div></div>`;
+  case 0: return `<div class="sc">${sceneDawn()}${SAKURA()}<div class="lbl">OBBOLAS RIKSDAG · VÅREN 2026</div><div class="stamp">TOPPHEMLIGT</div></div>`;
+  case 1: return `<div class="sc">${sceneAI()}<div class="lbl cy">PROJEKT: AI-FÖREBILD</div></div>`;
+  case 2: return `<div class="sc">${sceneCommittee()}<div class="sfx">ゴゴゴ</div></div>`;
+  case 3: return `<div class="sc">${sceneNinja()}<div class="sfx w">シュッ!</div></div>`;
+  case 4: return `<div class="sc">${sceneArtifact()}<div class="lbl">DEN OVÄRDERLIGA ARTEFAKTEN</div></div>`;
+  case 5: return `<div class="sc">${sceneLab()}</div>`;
+  case 6: return sceneBoom(pa);
+  case 7: return `<div class="sc">${scenePresident()}</div>`;
+  case 8: return sceneTitle(pc);
   } return ""; }
 
 /* ================= gemensamt ================= */

@@ -2704,6 +2704,12 @@ function qNum(st){ if(!st||st.q==null) return 0; let n=0; for(let r=0;r<st.r;r++
 /* ---------- spelare och lag ---------- */
 function onAct(d){ if(!d||!d.pid||typeof d.pid!=="string") return; const pid=d.pid.slice(0,20); let p=H.players[pid];
   if(d.t==="join"){ const name=String(d.name||"").replace(/\s+/g," ").trim().slice(0,16); if(!name) return;
+    if(!p){ const dup=Object.entries(H.players).find(([id,x])=>x.name.toLowerCase()===name.toLowerCase());
+      if(dup){ const [oid,op]=dup; H.players[pid]=op; delete H.players[oid]; p=op; p.name=name;
+        H.teams.forEach(t=>{ t.members=t.members.map(m=>m===oid?pid:m); });
+        Object.values(H.votes||{}).forEach(tv=>{ if(tv[oid]){ tv[pid]=tv[oid]; delete tv[oid]; } });
+        Object.values(H.game||{}).forEach(g=>{ if(g[oid]){ g[pid]=g[oid]; delete g[oid]; } });
+        saveH(); pub(); renderHost(); return; } }
     if(!p){ p=H.players[pid]={name, team:null}; if(H.drawn) assignLate(pid); if(H.si<0 && Object.keys(H.players).length%4===0 && !speakingNow) say(rnd(LINES.lobby),"angry"); }
     else p.name=name;
     saveH(); pub(); renderHost(); return; }
@@ -3063,7 +3069,7 @@ function loginHtml(){ const g=parseCode(QS.get("g")||""); const last=LS.get("qc_
     <button class="btn primary" id="lGo">Gå med</button></div>`; }
 function bindLogin(){ bindInstall(); const go=()=>{ const name=$("lName").value.replace(/\s+/g," ").trim().slice(0,16), c=parseCode($("lCode").value);
     if(!name){ toast("Skriv ditt namn"); $("lName").focus(); return; } if(!c){ toast("Koden har fyra tecken, t.ex. ABCD"); $("lCode").focus(); return; }
-    const old=LS.get("qc_me",null); ME={pid:(old&&old.pid)||rid(12), name, code:c.code, bi:c.bi}; LS.set("qc_me",ME); LS.set("qc_lastname",name); playerConnect(); renderPlayer(); };
+    const old=LS.get("qc_me",null); ME={pid:(old&&old.pid)||LS.get("qc_pidkeep",null)||rid(12), name, code:c.code, bi:c.bi}; LS.set("qc_me",ME); LS.set("qc_lastname",name); playerConnect(); renderPlayer(); };
   $("lGo").onclick=go; $("lCode").onkeydown=e=>{ if(e.key==="Enter") go(); }; $("lName").onkeydown=e=>{ if(e.key==="Enter") $("lCode").focus(); }; }
 function logout(){ if(PNET){ try{ PNET.end(true); }catch(e){} PNET=null; } const pid=ME&&ME.pid; ME=null; ST=null; LS.set("qc_me",null); if(pid) LS.set("qc_pidkeep",pid); renderPlayer(); }
 

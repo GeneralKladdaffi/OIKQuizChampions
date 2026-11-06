@@ -88,6 +88,14 @@ label.lab{font-family:var(--px);font-size:8px;color:var(--soft)}
 #gbFree{flex:1;width:100%;border:0;background:transparent}
 .install b{color:var(--sun)}
 
+.ppres{display:flex;gap:10px;align-items:flex-end;min-height:120px}
+.ppres .pimg{flex:none;width:32%;max-width:150px;aspect-ratio:270/440;position:relative}
+.ppres img,.ppres canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(4px 4px 0 #000)}
+.ppres.talk img{animation:bob .5s steps(2) infinite} .ppres.cheer img{animation:jump .6s steps(3) infinite}
+.ppres.angry img{animation:lean 1.6s steps(8) forwards} .ppres.dance img{animation:dance .9s steps(4) infinite}
+.pbub{position:relative;flex:1;align-self:center;background:var(--cream);color:var(--ink);border:4px solid #000;box-shadow:5px 5px 0 #000;padding:10px 12px;font-size:17px;font-weight:600;line-height:1.3;min-height:56px}
+.pbub::before{content:"";position:absolute;left:-20px;top:40%;border:8px solid transparent;border-right-color:#000;border-top-color:#000}
+.pbub:empty::after{content:"…";opacity:.5}
 /* ============ VÄRD (storbild) ============ */
 #host{min-height:100vh;display:grid;grid-template-rows:auto 1fr auto;gap:14px;padding:14px 22px 76px}
 .htop{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
@@ -95,7 +103,8 @@ label.lab{font-family:var(--px);font-size:8px;color:var(--soft)}
 .htop .logo small{display:block;font-size:9px;color:var(--cream)}
 .htop .ctl{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 .codechip{font-family:var(--px);font-size:12px;background:var(--sun);color:var(--ink);border:4px solid #000;box-shadow:4px 4px 0 #000;padding:8px 10px}
-.stage{display:grid;grid-template-columns:minmax(260px,34%) 1fr;gap:22px;align-items:stretch;min-height:0}
+#host .presbox{display:none}
+.stage{display:grid;grid-template-columns:1fr;gap:22px;align-items:stretch;min-height:0}
 .presbox{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-height:420px}
 .pres{position:relative;width:100%;max-width:420px;aspect-ratio:540/880;display:flex;align-items:flex-end;justify-content:center}
 .pres img,.pres canvas{width:100%;height:100%;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(8px 8px 0 #000)}
@@ -167,6 +176,7 @@ select.input{font-size:16px}
 
 <div id="player" hidden>
   <div class="ptop" id="pTop"></div>
+  <div class="ppres idle" id="pPres" hidden><div class="pimg"><img id="pPresImg" alt="Quizvärden, lagkapten"></div><div class="pbub" id="pSay"></div></div>
   <div id="pView"></div>
   <div id="pGames" hidden>
     <div class="gwrap" id="kbWrap" hidden><iframe id="kbFrame" title="Kick Beat" scrolling="no"></iframe></div>
@@ -2602,7 +2612,7 @@ const PROGRAM=[
 
 /* värdens repliker: dryg men kärleksfull */
 const LINES={
- welcome:"Välkomna till Obbola IK QuizChampions 2026! Jag är er värd ikväll. Jag är snyggare i verkligheten. Ni spelar i lag, men alla svarar. När mer än halva laget har godkänt samma svar så låses det. Ingen googling. Jag ser er.",
+ welcome:"Välkomna till Obbola IK QuizChampions 2026! Jag är er quizvärd ikväll. Och lagkapten. Ja, det är därför jag har bindeln. Jag är fruktansvärt duktig på fotboll, och ännu bättre på musik, men ikväll får ni en chans. Ni spelar i lag, men alla svarar. När mer än halva laget har godkänt samma svar så låses det. Ingen googling. Jag ser er.",
  lobby:["Kom igen nu, logga in. Jag har inte hela kvällen. Jo, det har jag.","Skriv ditt namn. Ditt riktiga. Inte Zlatan.","Fler spelare, tack. Det här är ett lagquiz, inte en terapisession."],
  teams:"Lagen är lottade. Döp ert lag nu. Något roligt, tack. Inte lag ett.",
  count:["Tre, två, ett.","Nu kör vi."],
@@ -2617,8 +2627,10 @@ const LINES={
  goal:["Mål!","Mål! Bollen i nät!","Den sitter!"],
  save:["Räddad!","Målvakten tar den!","Nej, nej, nej!"],
  noSong:"Låten vägrade spela. Typiskt. Svara ändå.",
- end:"Det var allt för ikväll. Grattis {W}, ni är Obbola IK QuizChampions 2026! Ni andra: det finns alltid nästa år. Tack för att ni spelade. Gå hem försiktigt."
+ end:"Det var allt för ikväll. Grattis {W}, ni är Obbola IK QuizChampions 2026! Jag hade vunnit om jag fick vara med, men någon måste vara värd. Och lagkapten. Ni andra: det finns alltid nästa år. Tack för att ni spelade. Gå hem försiktigt."
 };
+LINES.brag=["Jag hade klarat den med förbundna ögon. Lagkapten, ni vet.","Som lagkapten kan jag säga att det där var svagt.","Jag har kaptensbindel. Ni har inte kaptensbindel. Det säger allt.","Jag var bäst i Obbola IK på den frågan. Och på alla andra.","Fruktansvärt duktig, det är vad jag är. Det är en börda.","Kaptensbindeln sitter inte där av en slump.","När jag var i er ålder hade jag redan vunnit det här quizet. Två gånger.","Jag tränar varje dag. På att vara bättre än er."];
+LINES.teams="Lagen är lottade. Döp ert lag nu. Något roligt, tack. Inte Lag ett. Och ingen får heta Lagkaptenen, det namnet är upptaget.";
 const TEAMNAMES=["Bastuklubben","Offsidefällan","Bänkvärmarna","Hörnflaggorna","Gräsklipparna","Straffkommittén","Målvaktshandskarna","Avbytarbänken","Ribbträffarna","Läktarlejonen"];
 
 /* ================= gemensamt ================= */
@@ -2682,7 +2694,7 @@ function pubState(){ const st=stepAt(H.si), Q=qOf(st), R=st&&st.r!=null?PROGRAM[
     type:Q?Q.type:null, text:Q?Q.q:null, opts:Q&&Q.opts?Q.opts:null, pen:Q?Q.pen||0:0, dur:Q?Q.dur||0:0, deadline:H.deadline, start:H.phStart, paused:H.paused,
     teams:H.teams.map(t=>({id:t.id,name:t.name,members:t.members,score:t.score})), players, votes:H.votes, locked:H.locked,
     reveal: st&&st.k==="reveal" ? {a:Q.a, res:H.res[H.si]||{}} : null, gres: st&&st.k==="gameres" ? (H.gres[H.si]||{}) : null,
-    pens:H.pens, say:H.say, qn:qNum(st), qt:QTOTAL, now:Date.now()}; }
+    pens:H.pens, say:H.say, sayPart:H.sayPart||"", mood:H.mood||"idle", qn:qNum(st), qt:QTOTAL, now:Date.now()}; }
 const QTOTAL=PROGRAM.reduce((n,R)=>n+R.qs.length,0);
 function qNum(st){ if(!st||st.q==null) return 0; let n=0; for(let r=0;r<st.r;r++) n+=PROGRAM[r].qs.length; return n+st.q+1; }
 
@@ -2765,7 +2777,7 @@ function voices(){ return ("speechSynthesis" in window) ? speechSynthesis.getVoi
 function pickVoice(){ const vs=voices(), saved=LS.get("qc_voice",""); VOICE=vs.find(v=>v.name===saved)||vs.find(v=>/oskar/i.test(v.name))||vs.find(v=>/alva/i.test(v.name))||vs[0]||null; }
 if("speechSynthesis" in window){ speechSynthesis.onvoiceschanged=()=>{ pickVoice(); if(H && H.si<0) renderHost(); }; }
 function estMs(t){ return Math.max(1500, t.split(/\s+/).length*400); }
-let curPart=""; function setPart(t){ curPart=t; const b=$("hSay"); if(b) b.textContent=t; }
+let curPart=""; function setPart(t){ curPart=t; if(H){ H.sayPart=t; pub(); } const b=$("hSay"); if(b) b.textContent=t; }
 function speak(text){ return new Promise(res=>{ const tok=++speakTok; speakingNow=true; duck(true);
     const fin=()=>{ if(tok!==speakTok) return; speakTok++; speakingNow=false; duck(false); clearTimeout(guard); res(); };
     const guard=setTimeout(fin, estMs(text)*1.9+4000);
@@ -2780,7 +2792,7 @@ async function say(text,mood,after){ H.say=text; setMood("talk"); pub(); renderP
 
 /* ---------- presentatören ---------- */
 let presMood="idle", idleCanvas=null, presMissing=false;
-function setMood(m){ presMood=m; H.mood=m; renderPres(); }
+function setMood(m){ presMood=m; H.mood=m; renderPres(); pub(); }
 function renderPres(){ const box=$("hPres"); if(!box) return; 
   const src = presMood==="angry"?PRES.angry : (presMood==="cheer"||presMood==="dance")?PRES.cheer : PRES.talk;
   box.className="pres "+presMood; const img=$("hPresImg");
@@ -2814,9 +2826,9 @@ async function runStep(i){ const tok=++runTok; stopSpeak(); const st=stepAt(i); 
     await waitUntil(tok,()=>Date.now()>=H.deadline); if(!alive()) return; stopAudio(); }
   else if(st.k==="gameres"){ H.say="Räknar ihop …"; pub(true); renderPres(); await sleep(3000); if(!alive()) return; computeGres(i); pub(true); renderHost();
     const g=H.gres[i]||{}, good=activeTeams().filter(t=>(g[t.id]||{}).pts>=2).map(t=>t.name);
-    if(good.length) await say(rnd(LINES.gameGood).replace("{T}",listNames(good)),"cheer"); else await say(rnd(LINES.gameBad),"angry"); await sleep(2500); }
+    if(good.length) await say(rnd(LINES.gameGood).replace("{T}",listNames(good)),"cheer"); else await say(rnd(LINES.gameBad)+" "+rnd(LINES.brag),"angry"); await sleep(2500); }
   else if(st.k==="score"){ const s=standings(); const L=s.length?s[0].name:"", B=s.length?s[s.length-1].name:"";
-    await say(rnd(LINES.score).replace("{L}",L).replace("{B}",B), s.length>1?"cheer":"talk"); await sleep(3500); }
+    await say(rnd(LINES.score).replace("{L}",L).replace("{B}",B)+" "+rnd(LINES.brag), s.length>1?"cheer":"talk"); await sleep(3500); }
   else if(st.k==="end"){ const s=standings(); await say(LINES.end.replace("{W}",s.length?s[0].name:"alla"),"cheer"); setMood("cheer"); return; }
   if(!alive()) return; if(!(await gate(tok))) return; runStep(i+1); }
 function listNames(a){ return a.length<=1 ? (a[0]||"") : a.slice(0,-1).join(", ")+" och "+a[a.length-1]; }
@@ -2833,6 +2845,7 @@ async function doReveal(i,tok){ const st=stepAt(i), Q=qOf(st); const fresh=!H.re
   await say(`Rätt svar: ${Q.opts[Q.a]}. ${Q.fact||""}`,"talk","talk"); if(!alive()) return;
   const all=activeTeams().length; let quip = right.length===all&&all>0 ? rnd(LINES.allRight) : right.length ? rnd(LINES.someRight).replace("{T}",listNames(right)) : rnd(LINES.noneRight);
   if(none && right.length<all) quip+=" "+rnd(LINES.noAnswer);
+  if(Math.random()<0.45) quip+=" "+rnd(LINES.brag);
   await say(quip, right.length?"cheer":"angry", right.length?"cheer":"angry"); await sleep(1600); }
 function computeGres(i){ const gs=stepAt(i-1); if(!gs) return; const Q=qOf(gs), rep=H.game[i-1]||{}, out=H.gres[i]||{};
   activeTeams().forEach(t=>{ const sc=t.members.map(pid=>rep[pid]).filter(Boolean).map(x=>x.score); const stars=sc.map(s=>starsFor(Q.type==="kick"?"kick":"guld",s));
@@ -2935,7 +2948,15 @@ function onState(prevK,prevSi){
   if(game.si>=0 && (ST.si!==game.si)) stopGame();
   if(ST.k==="game" && game.si!==ST.si && myTeam()) startGame();
   document.body.dataset.r=ST.rid||"";
-  renderPlayer(); }
+  renderPlayer(); updatePres(); }
+const PPRES={talk:"quiz%20animation/m_1_pratar.gif", cheer:"quiz%20animation/m_2_armarna_upp.gif", angry:"quiz%20animation/m_3_arg_mot_kameran.gif"};
+let pIdle=null, pMissing=false;
+function updatePres(){ const box=$("pPres"); if(!box) return; const show = ME && ST && ST.players && ST.players[ME.pid] && ST.k!=="game" && !pMissing; box.hidden=!show; if(!show) return;
+  const m=ST.mood||"idle", img=$("pPresImg"); box.className="ppres "+m; const s=$("pSay"); if(s.textContent!==(ST.sayPart||ST.say||"")) s.textContent=ST.sayPart||ST.say||"";
+  if(m==="idle" && pIdle){ img.hidden=true; pIdle.hidden=false; return; }
+  if(pIdle) pIdle.hidden=true; img.hidden=false; const src = m==="angry"?PPRES.angry : (m==="cheer"||m==="dance")?PPRES.cheer : PPRES.talk; if(img.dataset.src!==src){ img.dataset.src=src; img.src=src; } }
+function setupPPres(){ const img=$("pPresImg"); img.onerror=()=>{ pMissing=true; updatePres(); };
+  const t=new Image(); t.onload=()=>{ try{ const c=document.createElement("canvas"); c.width=t.naturalWidth; c.height=t.naturalHeight; c.getContext("2d").drawImage(t,0,0); c.hidden=true; img.after(c); pIdle=c; updatePres(); }catch(e){} }; t.src=PPRES.talk; }
 
 /* ---------- spelen ---------- */
 const GAMESRC={};
@@ -3023,7 +3044,7 @@ function bindInstall(){ const b=$("iBtn"); if(b) b.onclick=async()=>{ if(!deferr
 function initPlayer(){ $("player").hidden=false; if(document.querySelector('link[rel="manifest"]') && "serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});
   const g=parseCode(QS.get("g")||""); if(ME && g && (g.code!==ME.code || g.bi!==ME.bi)){ ME.code=g.code; ME.bi=g.bi; LS.set("qc_me",ME); }
   $("gbClose").onclick=()=>{ $("gbModal").hidden=true; $("gbFree").removeAttribute("srcdoc"); $("gbFree").src="about:blank"; document.body.classList.remove("noscroll"); };
-  if(ME) playerConnect(); renderPlayer(); setInterval(playerTicker,200); }
+  setupPPres(); if(ME) playerConnect(); renderPlayer(); setInterval(playerTicker,200); }
 
 if(isHost()) initHost(); else initPlayer();
 </script>

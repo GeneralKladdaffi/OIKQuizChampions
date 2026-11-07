@@ -3015,6 +3015,7 @@ const rid=n=>{ const A="abcdefghijkmnpqrstuvwxyz23456789"; let s=""; for(let i=0
 const LS={ get(k,d){ try{ const v=localStorage.getItem(k); return v==null?d:JSON.parse(v); }catch(e){ return d; } }, set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} } };
 let toastT=0; function toast(t,ms){ const el=$("toast"); el.textContent=t; el.hidden=false; clearTimeout(toastT); toastT=setTimeout(()=>el.hidden=true, ms||2600); }
 function b64html(s){ const bin=atob(s), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); return new TextDecoder().decode(u); }
+const FIXED_CODE="OIK7";
 const APP_URL="https://generalkladdaffi.github.io/OIKQuizChampions/";
 const BALL='<svg class="pxball" viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true"><path fill="#000" d="M4 0h4v1h2v1h1v2h1v4h-1v2h-1v1H8v1H4v-1H2v-1H1V8H0V4h1V2h1V1h2z"/><path fill="#fff6e0" d="M4 1h4v1h2v2h1v4h-1v2H8v1H4v-1H2V8H1V4h1V2h2z"/><path fill="#1d1838" d="M5 4h2v1h1v2H7v1H5V7H4V5h1zM2 4h1v2H2zM9 4h1v2H9zM5 1h2v1H5zM5 10h2v1H5z"/></svg>';
 const CREST='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABQCAYAAACpv3NFAAADyElEQVR4nO1cO24iQRB9IEIsmQQnG/oKvgLB3sF38V24wwYcYBNusCLcYCEZJAiR2GDVbLmp6m/VDG14kiUP0910vXpVXcP0zAgBTOfP59D5VnDc7UfSOfHEdP58/vbx3WZGBH9+/jL/jtNqI5IwiXXuY4JDYjz0BIZGVAEO3XJtOQ91zN7fktqxceHi38m/W67ZAVNISZmI1Ti0j5QH7j4EHgQMPYGh8SDA/yA1AbYAmhQni1e2sr17BSTXARyeXmYqk3h6meGw7a7G5D6TMFm8Fn13tQIO2+7yR4/986H2Ds5QiQyuH+1fgk8ElMa/7yHqUelYwmHbXbWnfXJVF8sDJjnAGSEdp/QPHZeOy8GEgJgCpD7c/9xxzrgxqBDAeSykAK59zBCtmPdRtQoAcW+VHpe2y0UVASne0LgaPGw7s2LsEgJfqQL0EVoJqkPAIadYOa02xX25/qVFEKBEgF/ASG1Oq81lslxbaRxKkDM+p0oMoXoVSDGenve9lwPfeA2YLIO17azHoBgD+gnw6WV2+dNCjXIAORGaXQ5re8pqzLv/PaAZAkKrRg2aIUBCTQ0ANEKAlfeBRgiQUOt9ABhzS+Cto9T73FLYrAI0vA80GAKaxRXQIAGAnveBRgmoLYspmiPA5GKoRWipoEkCbu73gKGgoYImCOCWPi0VNEFACLUqaIYAKxWYEaBdsVlB7b4AhcVPV4DOzVAfKgpI9XaNKjTLXwqVHSJA3Dh3vtYQ7dCaHHf70e+PH2c3sdn7W/ZvAu72d2xy1PhQW+ncZPGK02pTTAK3dVYtB0ixyd1f8FWQs1dYOxSaWQat8CAA+PdMDa2oSvLArUPaOm9SB/iIlauxpGZVVwA9EEBvaXO30mv2FGrgkgMswyB2Y8NfQrXvLIeeHOklCcYuZLhtchqbIFPwiYC+kiHnYcnrtfEfe26oFwVwG5xLNkta4CoJHnf70XS1uSqNa3eM5BxLn+Ui5akx81UgpXQdsuZgQ+ArFEYp3gcCOaBlElKNBx7XAmECWlRBjveBBAW0QoK/UqUYDySGwK2TUGo8kJEDOBJuATXGA5lJ8JZI6JbrauOBgkKIqxTdhPoCV5mWGA8ULoO+EoB+1MB5HSg3Hgi8RSYF0/nzmSt1qRq03iAhjVVjPFBZCDkl9KEGzuu1xgOVCqCIqSFESkgBFl6nUCMA+P/mqdyw4AiQDAfCb4bKhSoBDpIaHCSPh1Si6XUKEwKAsBpyYOF1CjMCHEqJsDbcwZwAh09Pawpk0NXE2nCH3gigkF7T15fRFH8BZdu+vPAov+8AAAAASUVORK5CYII=';
@@ -3134,7 +3135,7 @@ let H=null, HNET=null, pubTimer=0, runTok=0, clipT=[], curEl=null, VOICE=null, h
 const PRES={talk:"quiz%20animation/narrator_1_pratar.gif", cheer:"quiz%20animation/narrator_2_armarna_upp.gif", angry:"quiz%20animation/narrator_3_arg_mot_kameran.gif"};
 const CODECH="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 function genCode(){ let s=""; for(let i=0;i<4;i++) s+=CODECH[Math.floor(Math.random()*CODECH.length)]; return s; }
-function freshH(){ return {code:genCode(), bi:0, players:{}, teams:[], drawn:false, nteams:0, si:-1, deadline:0, phStart:0, votes:{}, locked:{}, res:{}, game:{}, gres:{}, pens:{}, props:{}, lockClue:{}, clue:0, propN:0, say:"", mood:"idle", paused:false}; }
+function freshH(){ return {code:FIXED_CODE, bi:0, players:{}, teams:[], drawn:false, nteams:0, si:-1, deadline:0, phStart:0, votes:{}, locked:{}, res:{}, game:{}, gres:{}, pens:{}, props:{}, lockClue:{}, clue:0, propN:0, say:"", mood:"idle", paused:false}; }
 function saveH(){ LS.set("qc_host",H); }
 function fullCode(){ return H.code+(H.bi?"-"+(H.bi+1):""); }
 function joinUrl(){ let u=APP_URL+"?g="+fullCode(); if(QS.get("broker")) u+="&broker="+encodeURIComponent(QS.get("broker")); if(QS.get("app")) u=QS.get("app")+"?g="+fullCode()+(QS.get("broker")?"&broker="+encodeURIComponent(QS.get("broker")):""); return u; }
@@ -3431,7 +3432,7 @@ function bindLobby(){ recStatus(); $("hPlist").onclick=e=>{ const s=e.target.clo
 function newQuiz(){ runTok++; stopAudio(); stopSpeak(); if(HNET && HNET.connected) HNET.publish(topic(H.code,"s"),"",{retain:true,qos:1}); H=freshH(); saveH(); document.body.dataset.r=""; hostConnect(); renderHost(); }
 
 function initHost(){ $("host").hidden=false; $("hCrest").src=CREST; document.title="Värd · QuizChampions 2026";
-  const saved=LS.get("qc_host",null); H = saved && saved.code ? saved : freshH(); H.paused=false; if(!H.res) H.res={}; if(!H.gres) H.gres={}; if(!H.game) H.game={}; if(!H.pens) H.pens={}; setProgram(!!H.test); calcQ(); if(!H.props) H.props={}; if(!H.lockClue) H.lockClue={}; if(!H.propN) H.propN=0;
+  const saved=LS.get("qc_host",null); H = saved && saved.code ? saved : freshH(); H.code=FIXED_CODE; H.paused=false; if(!H.res) H.res={}; if(!H.gres) H.gres={}; if(!H.game) H.game={}; if(!H.pens) H.pens={}; setProgram(!!H.test); calcQ(); if(!H.props) H.props={}; if(!H.lockClue) H.lockClue={}; if(!H.propN) H.propN=0;
   pickVoice(); setupPres(); hostConnect(); loadSongs(); recProbe();
   $("hPauseBtn").onclick=togglePause; $("hSkipBtn").onclick=skip; $("hRedoBtn").onclick=redo;
   $("hNewBtn").onclick=e=>{ if(e.target.dataset.sure!=="1"){ e.target.dataset.sure="1"; e.target.textContent="Säker?"; setTimeout(()=>{ e.target.dataset.sure=""; e.target.textContent="Avsluta"; },3000); return; } newQuiz(); };
@@ -3556,7 +3557,7 @@ function playerTicker(){ if(!ST) return; const bar=$("pBar"); if(bar && ST.deadl
 function loginHtml(){ const g=parseCode(QS.get("g")||""); const last=LS.get("qc_lastname","");
   return `${installHtml()}<div class="panel">${LOGO}<h2>Logga in</h2><p>Skriv ditt namn. Du lottas sedan in i ett lag med 3–5 spelare.</p>
     <label class="lab" for="lName">Ditt namn</label><input class="input" id="lName" maxlength="16" autocomplete="off" autocapitalize="words" placeholder="T.ex. Joel" value="${esc(last)}">
-    <label class="lab" for="lCode">Kod från storbildsskärmen</label><input class="input code" id="lCode" maxlength="6" autocomplete="off" placeholder="ABCD" value="${g?esc(g.code+(g.bi?"-"+(g.bi+1):"")):""}">
+    <label class="lab" for="lCode">Kod från storbildsskärmen</label><input class="input code" id="lCode" maxlength="6" autocomplete="off" placeholder="ABCD" value="${g?esc(g.code+(g.bi?"-"+(g.bi+1):"")):FIXED_CODE}">
     <button class="btn primary" id="lGo">Gå med</button></div>`; }
 function bindLogin(){ bindInstall(); const go=()=>{ const name=$("lName").value.replace(/\s+/g," ").trim().slice(0,16), c=parseCode($("lCode").value);
     if(!name){ toast("Skriv ditt namn"); $("lName").focus(); return; } if(!c){ toast("Koden har fyra tecken, t.ex. ABCD"); $("lCode").focus(); return; }
@@ -3573,7 +3574,7 @@ function installHtml(){ if(!document.querySelector('link[rel="manifest"]')) retu
 function bindInstall(){ const b=$("iBtn"); if(b) b.onclick=async()=>{ if(!deferredInstall) return; deferredInstall.prompt(); try{ await deferredInstall.userChoice; }catch(e){} deferredInstall=null; b.hidden=true; }; }
 
 function initPlayer(){ $("player").hidden=false; if(document.querySelector('link[rel="manifest"]') && "serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{});
-  const g=parseCode(QS.get("g")||""); if(ME && g && (g.code!==ME.code || g.bi!==ME.bi)){ ME.code=g.code; ME.bi=g.bi; LS.set("qc_me",ME); }
+  const g=parseCode(QS.get("g")||"")||{code:FIXED_CODE,bi:(ME&&ME.code===FIXED_CODE)?ME.bi:0}; if(ME && (g.code!==ME.code || g.bi!==ME.bi)){ ME.code=g.code; ME.bi=g.bi; LS.set("qc_me",ME); }
   $("gbClose").onclick=()=>{ $("gbModal").hidden=true; $("gbFree").removeAttribute("srcdoc"); $("gbFree").src="about:blank"; document.body.classList.remove("noscroll"); };
   setupPPres(); if(ME) playerConnect(); renderPlayer(); setInterval(playerTicker,200); }
 

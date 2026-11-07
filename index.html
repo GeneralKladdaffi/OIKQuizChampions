@@ -2642,7 +2642,7 @@ var qrcode = function() {
    Varje artist förekommer bara en gång under kvällen. */
 const OS=["ONSIDE (sant)","OFFSIDE (falskt)"];
 const P=(label,ans,alt,extra)=>Object.assign({label,ans,alt:alt||[ans.toLowerCase()]},extra||{});
-const PROGRAM=[
+let PROGRAM=[
  {id:"kick", title:"Kick Beat", short:"Omgång 1",
   intro:"Omgång ett: Kick Beat. Alla spelar på sin egen telefon. Tryck för att hoppa över motståndarna, tryck igen i luften för dubbelhopp, och plocka noter i takt med musiken. Lagets poäng blir ert snitt. Efteråt kommer en dubbelfråga om låten, så lyssna medan ni dribblar.",
   qs:[
@@ -3024,13 +3024,27 @@ function stepAt(i){ return STEPS[i]||null; }
 function qOf(st){ return st && st.q!=null ? PROGRAM[st.r].qs[st.q] : null; }
 
 /* ---------- kvällens steg ---------- */
-const STEPS=(()=>{ const s=[{k:"intro"},{k:"welcome"}];
+let FULL_PROGRAM=null;
+/* testomgång: en fråga av varje sort, kortare spel */
+function testProgram(){ const P=FULL_PROGRAM, by=id=>P.find(R=>R.id===id), cp=o=>JSON.parse(JSON.stringify(o));
+  const lakt=cp(by("lakt")); lakt.qs=[lakt.qs[0], lakt.qs.find(q=>q.type==="text2")];
+  const vem=cp(by("vem")); vem.qs[0].play=40; vem.qs[0].open=44; vem.qs[0].clueEvery=7;
+  const off=cp(by("off")); off.qs=[off.qs[0]];
+  const guld=cp(by("guld")); guld.qs[0].dur=45;
+  const kick=cp(by("kick")); kick.qs=[kick.qs[0]]; kick.qs[0].dur=20;
+  const st=cp(by("straff")); st.qs=[st.qs[0],st.qs[1],st.qs[st.qs.length-1]]; st.qs[1].pen=2; st.qs.forEach(q=>{ if(q.open) q.open=22; });
+  [lakt,vem,off,guld,kick,st].forEach(R=>{ R.short="Test"; });
+  return [kick,lakt,vem,off,guld,st]; }
+function buildSteps(){ const s=[{k:"intro"},{k:"welcome"}];
   PROGRAM.forEach((R,r)=>{ s.push({k:"round",r});
     R.qs.forEach((Q,q)=>{ s.push({k:"ask",r,q}); s.push({k:"count",r,q});
       if(Q.type!=="kick" && Q.type!=="guld" && Q.type!=="pk"){ s.push({k:"play",r,q}); s.push({k:"reveal",r,q}); }
       else { s.push({k:"game",r,q}); s.push({k:"gameres",r,q}); } });
     s.push({k:"score",r}); });
-  s.push({k:"end"}); return s; })();
+  s.push({k:"end"}); return s; }
+let STEPS=[];
+function setProgram(test){ if(!FULL_PROGRAM) FULL_PROGRAM=PROGRAM; PROGRAM = test ? testProgram() : FULL_PROGRAM; STEPS=buildSteps(); }
+setProgram(false);
 
 /* ---------- nätet (MQTT via öppen server) ---------- */
 const BROKERS=["wss://broker.hivemq.com:8884/mqtt","wss://broker.emqx.io:8084/mqtt","wss://test.mosquitto.org:8081"];
@@ -3136,8 +3150,8 @@ function pubState(){ const st=stepAt(H.si), Q=qOf(st), R=st&&st.r!=null?PROGRAM[
     type:Q?Q.type:null, text:Q?Q.q:null, opts:Q&&Q.type==="tf"?Q.opts:null, clueN:Q&&Q.clues?Q.clues.length:0, clues:Q&&Q.clues&&st.k==="play"?Q.clues.slice(0,H.clue||0):(Q&&Q.clues&&st.k==="reveal"?Q.clues:null), clue:H.clue||0, props:H.props||{}, lockClue:H.lockClue||{}, pen:Q?Q.pen||0:0, dur:Q?Q.dur||0:0, deadline:H.deadline, start:H.phStart, paused:H.paused,
     teams:H.teams.map(t=>({id:t.id,name:t.name,members:t.members,score:t.score})), players, votes:H.votes, locked:H.locked,
     reveal: st&&st.k==="reveal" ? {a:facit(Q), fact:Q.fact||"", max:maxPts(Q), res:H.res[H.si]||{}} : null, labels:Q&&Q.parts?Q.parts.map(p=>p.label):null, gres: st&&st.k==="gameres" ? (H.gres[H.si]||{}) : null,
-    pens:H.pens, introScene:H.introScene||0, say:H.say, sayPart:H.sayPart||"", mood:H.mood||"idle", qn:qNum(st), qt:QTOTAL, now:Date.now()}; }
-const QTOTAL=PROGRAM.reduce((n,R)=>n+R.qs.length,0);
+    pens:H.pens, introScene:H.introScene||0, say:H.say, sayPart:H.sayPart||"", mood:H.mood||"idle", qn:qNum(st), qt:QTOTAL, test:!!H.test, now:Date.now()}; }
+let QTOTAL=0; function calcQ(){ QTOTAL=PROGRAM.reduce((n,R)=>n+R.qs.length,0); } calcQ();
 function qNum(st){ if(!st||st.q==null) return 0; let n=0; for(let r=0;r<st.r;r++) n+=PROGRAM[r].qs.length; return n+st.q+1; }
 
 /* ---------- spelare och lag ---------- */
@@ -3392,7 +3406,7 @@ function lobbyHtml(){ const ps=Object.entries(H.players); const vs=voices();
       ${teams}
       <div class="row"><label class="lab" for="hK">Antal lag</label><select class="input" id="hK" style="width:auto">${[0,1,2,3,4,5,6].map(k=>`<option value="${k}" ${H.nteams===k?"selected":""}>${k?k+" lag":"Auto (3–5 per lag)"}</option>`).join("")}</select>
         <button class="btn primary" id="hDraw">${H.drawn?"Lotta om lagen":"Lotta lagen"}</button>
-        <button class="btn star" id="hStart" ${H.drawn&&activeTeams().length?"":"disabled"}>Starta quizet ▶</button></div>
+        <button class="btn star" id="hStart" ${H.drawn&&activeTeams().length?"":"disabled"}>Starta quizet ▶</button><button class="btn" id="hTest" ${H.drawn&&activeTeams().length?"":"disabled"}>Testomgång (ca 8 min)</button></div>
       <details class="panel setup"><summary class="eyebrow" style="cursor:pointer">Inställningar: röst, ljud och server</summary>
         <div class="muted" id="hSongs">${esc(songStatus())}</div><div class="muted" id="hRec"></div>
         <div class="row"><label class="lab" for="hVoice">Röst</label><select class="input" id="hVoice" style="width:auto">${vs.length?vs.map(v=>`<option ${VOICE&&VOICE.name===v.name?"selected":""}>${esc(v.name)}</option>`).join(""):"<option>Ingen svensk röst hittades</option>"}</select>
@@ -3405,7 +3419,8 @@ function lobbyHtml(){ const ps=Object.entries(H.players); const vs=voices();
 function bindLobby(){ recStatus(); $("hPlist").onclick=e=>{ const s=e.target.closest("[data-pid]"); if(s) removePlayer(s.dataset.pid); };
   $("hK").onchange=e=>{ H.nteams=+e.target.value; saveH(); };
   $("hDraw").onclick=()=>{ drawTeams(); };
-  $("hStart").onclick=()=>{ primeAudio(); musSet("pause"); speak(""); runStep(0); };
+  $("hStart").onclick=()=>{ H.test=false; setProgram(false); calcQ(); saveH(); primeAudio(); musSet("pause"); speak(""); runStep(0); };
+  $("hTest").onclick=()=>{ H.test=true; setProgram(true); calcQ(); saveH(); primeAudio(); musSet("pause"); speak(""); runStep(0); };
   $("hVoice").onchange=e=>{ LS.set("qc_voice",e.target.value); pickVoice(); };
   $("hRate").onchange=e=>{ LS.set("qc_rate",+e.target.value); };
   $("hTestV").onclick=()=>{ say("Hej! Jag är er quizvärd ikväll. Det här kommer att gå bra. För mig.","cheer"); };
@@ -3415,7 +3430,7 @@ function bindLobby(){ recStatus(); $("hPlist").onclick=e=>{ const s=e.target.clo
 function newQuiz(){ runTok++; stopAudio(); stopSpeak(); if(HNET && HNET.connected) HNET.publish(topic(H.code,"s"),"",{retain:true,qos:1}); H=freshH(); saveH(); document.body.dataset.r=""; hostConnect(); renderHost(); }
 
 function initHost(){ $("host").hidden=false; $("hCrest").src=CREST; document.title="Värd · QuizChampions 2026";
-  const saved=LS.get("qc_host",null); H = saved && saved.code ? saved : freshH(); H.paused=false; if(!H.res) H.res={}; if(!H.gres) H.gres={}; if(!H.game) H.game={}; if(!H.pens) H.pens={}; if(!H.props) H.props={}; if(!H.lockClue) H.lockClue={}; if(!H.propN) H.propN=0;
+  const saved=LS.get("qc_host",null); H = saved && saved.code ? saved : freshH(); H.paused=false; if(!H.res) H.res={}; if(!H.gres) H.gres={}; if(!H.game) H.game={}; if(!H.pens) H.pens={}; setProgram(!!H.test); calcQ(); if(!H.props) H.props={}; if(!H.lockClue) H.lockClue={}; if(!H.propN) H.propN=0;
   pickVoice(); setupPres(); hostConnect(); loadSongs(); recProbe();
   $("hPauseBtn").onclick=togglePause; $("hSkipBtn").onclick=skip; $("hRedoBtn").onclick=redo;
   $("hNewBtn").onclick=e=>{ if(e.target.dataset.sure!=="1"){ e.target.dataset.sure="1"; e.target.textContent="Säker?"; setTimeout(()=>{ e.target.dataset.sure=""; e.target.textContent="Avsluta"; },3000); return; } newQuiz(); };

@@ -3082,8 +3082,8 @@ const REC_OK={}; let recChecked=0;
 function recProbe(){ const exts=["wav","mp3","m4a"]; recChecked=0;
   REC.forEach(r=>{ let k=0; const tryNext=()=>{ if(k>=exts.length){ recChecked++; recStatus(); return; } const src="rost/"+r.file+"."+exts[k++]; const a=new Audio(); a.preload="auto";
       a.oncanplaythrough=()=>{ if(!REC_OK[r.file]){ REC_OK[r.file]=src; recChecked++; recStatus(); } a.oncanplaythrough=null; }; a.onerror=tryNext; a.src=src; }; tryNext(); }); }
-function recStatus(){ const el=$("hRec"); if(el){ const n=Object.keys(REC_OK).length; el.textContent = n ? `Egen röst: ${n} av ${REC.length} inspelade repliker hittade i mappen rost.` : `Egen röst: inga inspelningar hittade (lägg dem i mappen rost bredvid värdfilen).`; } }
-function recSegments(text){ const segs=[]; let rest=text;
+function recStatus(){ const el=$("hRec"); if(el){ const n=Object.keys(REC_OK).length; el.textContent = n ? `${n} av ${REC.length} inspelade repliker hittade i mappen rost.` : `Egen röst: inga inspelningar hittade (lägg dem i mappen rost bredvid värdfilen).`; } }
+function recSegments(text){ if(!LS.get("qc_rec",false)) return [{tts:text}]; const segs=[]; let rest=text;
   while(rest.trim()){ let best=null;
     for(const r of REC){ if(!REC_OK[r.file]) continue; const m=r.re.exec(rest); if(m && (!best || m.index<best.m.index || (m.index===best.m.index && m[0].length>best.m[0].length))) best={r,m}; }
     if(!best){ segs.push({tts:rest}); break; }
@@ -3255,7 +3255,7 @@ function beep(f,d){ try{ const a=getAC(), o=a.createOscillator(), g=a.createGain
 /* ---------- röst ---------- */
 let speakingNow=false, speakTok=0;
 function voices(){ return ("speechSynthesis" in window) ? speechSynthesis.getVoices().filter(v=>/^sv/i.test(v.lang)) : []; }
-function pickVoice(){ const vs=voices(), saved=LS.get("qc_voice",""); VOICE=vs.find(v=>v.name===saved)||vs.find(v=>/oskar/i.test(v.name))||vs.find(v=>/alva/i.test(v.name))||vs[0]||null; }
+function pickVoice(){ const vs=voices(), saved=LS.get("qc_voice2",""); VOICE=vs.find(v=>v.name===saved)||vs.find(v=>/oskar/i.test(v.name))||vs.find(v=>/alva/i.test(v.name))||vs[0]||null; }
 if("speechSynthesis" in window){ speechSynthesis.onvoiceschanged=()=>{ pickVoice(); if(H && H.si<0) renderHost(); }; }
 function estMs(t){ return Math.max(1500, t.split(/\s+/).length*400); }
 let curPart=""; function setPart(t){ curPart=t; if(H){ H.sayPart=t; pub(); } const b=$("hSay"); if(b) b.textContent=t; }
@@ -3408,7 +3408,7 @@ function lobbyHtml(){ const ps=Object.entries(H.players); const vs=voices();
         <button class="btn primary" id="hDraw">${H.drawn?"Lotta om lagen":"Lotta lagen"}</button>
         <button class="btn star" id="hStart" ${H.drawn&&activeTeams().length?"":"disabled"}>Starta quizet ▶</button><button class="btn" id="hTest" ${H.drawn&&activeTeams().length?"":"disabled"}>Testomgång (ca 8 min)</button></div>
       <details class="panel setup"><summary class="eyebrow" style="cursor:pointer">Inställningar: röst, ljud och server</summary>
-        <div class="muted" id="hSongs">${esc(songStatus())}</div><div class="muted" id="hRec"></div>
+        <div class="muted" id="hSongs">${esc(songStatus())}</div><label class="row muted" for="hRecOn" style="gap:10px;cursor:pointer"><input type="checkbox" id="hRecOn" ${LS.get("qc_rec",false)?"checked":""} style="width:20px;height:20px"> Använd mina inspelningar (mappen rost) i stället för datorrösten</label><div class="muted" id="hRec"></div>
         <div class="row"><label class="lab" for="hVoice">Röst</label><select class="input" id="hVoice" style="width:auto">${vs.length?vs.map(v=>`<option ${VOICE&&VOICE.name===v.name?"selected":""}>${esc(v.name)}</option>`).join(""):"<option>Ingen svensk röst hittades</option>"}</select>
           <label class="lab" for="hRate">Tempo</label><select class="input" id="hRate" style="width:auto">${[0.9,1,1.05,1.1,1.2].map(r=>`<option value="${r}" ${LS.get("qc_rate",1.05)==r?"selected":""}>${r}</option>`).join("")}</select>
           <button class="btn small" id="hTestV">Testa rösten</button><button class="btn small" id="hTestA">Testa ljudet</button></div>
@@ -3421,7 +3421,8 @@ function bindLobby(){ recStatus(); $("hPlist").onclick=e=>{ const s=e.target.clo
   $("hDraw").onclick=()=>{ drawTeams(); };
   $("hStart").onclick=()=>{ H.test=false; setProgram(false); calcQ(); saveH(); primeAudio(); musSet("pause"); speak(""); runStep(0); };
   $("hTest").onclick=()=>{ H.test=true; setProgram(true); calcQ(); saveH(); primeAudio(); musSet("pause"); speak(""); runStep(0); };
-  $("hVoice").onchange=e=>{ LS.set("qc_voice",e.target.value); pickVoice(); };
+  $("hVoice").onchange=e=>{ LS.set("qc_voice2",e.target.value); pickVoice(); };
+  $("hRecOn").onchange=e=>{ LS.set("qc_rec",e.target.checked); };
   $("hRate").onchange=e=>{ LS.set("qc_rate",+e.target.value); };
   $("hTestV").onclick=()=>{ say("Hej! Jag är er quizvärd ikväll. Det här kommer att gå bra. För mig.","cheer"); };
   $("hTestA").onclick=()=>{ primeAudio(); const c=allClips()[0]; const el=H_els[tkey(c)]; if(!el){ toast("Låtarna är inte hämtade än"); return; } el.currentTime=0; el.play(); curEl=el; setTimeout(()=>{ el.pause(); },5000); };

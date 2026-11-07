@@ -283,10 +283,16 @@ select.input{font-size:16px}
 .ani .s-boom2{animation:shakeAll .2s steps(2) 10}
 .ani .sak{z-index:2}
 
+.crest{width:84px;height:auto;image-rendering:pixelated;filter:drop-shadow(5px 5px 0 #000);animation:crestIn .5s ease-out}
+.crest.sm{width:40px;animation:none;filter:drop-shadow(3px 3px 0 #000)}
+.crest.big{width:96px;animation:pop .6s .2s both}
+.hlogo{display:flex;align-items:center;gap:12px}
+@keyframes crestIn{from{transform:scale(.6);opacity:0}}
+
 </style></head><body>
 <div id="host" hidden>
   <div class="htop">
-    <div class="logo">QuizChampions 2026<small>Obbola IK · värd</small></div>
+    <div class="logo hlogo"><img class="crest sm" id="hCrest" alt="Obbola IK"><div>QuizChampions 2026<small>Obbola IK · värd</small></div></div>
     <div class="ctl">
       <span class="codechip" id="hCode">KOD</span>
       <span class="net"><i></i><span>Ansluter …</span></span>
@@ -2984,7 +2990,7 @@ function sceneTitle(src){ return `<div class="sc s-title2">${svg(`<linearGradien
   <circle cx="200" cy="470" r="170" fill="url(#glowW)"/>
   <path d="M0 560 Q100 520 200 530 Q300 520 400 560 L400 600 L0 600Z" fill="#1e7a3a"/><path d="M0 560 Q100 520 200 530 Q300 520 400 560" stroke="#fff6e0" stroke-width="4" fill="none"/>
   ${parts(30,51,"#ffd23f","spark")}`)}<img class="robo2 hero" src="${src}" alt=""><div class="flash"></div>
-  <div class="ttl"><span class="t1">DET SLUTGILTIGA QUIZET</span><span class="t2">OBBOLA IK<br>QUIZCHAMPIONS</span><span class="t3">★ 2026 ★</span></div></div>`; }
+  <div class="ttl"><img class="crest big" src="${typeof CREST!=="undefined"?CREST:""}" alt=""><span class="t1">DET SLUTGILTIGA QUIZET</span><span class="t2">OBBOLA IK<br>QUIZCHAMPIONS</span><span class="t3">★ 2026 ★</span></div></div>`; }
 
 function introScene(i){
   const pc = typeof PRES_B64!=="undefined" ? "data:image/gif;base64,"+PRES_B64[1] : "";
@@ -3011,7 +3017,8 @@ let toastT=0; function toast(t,ms){ const el=$("toast"); el.textContent=t; el.hi
 function b64html(s){ const bin=atob(s), u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); return new TextDecoder().decode(u); }
 const APP_URL="https://generalkladdaffi.github.io/OIKQuizChampions/";
 const BALL='<svg class="pxball" viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true"><path fill="#000" d="M4 0h4v1h2v1h1v2h1v4h-1v2h-1v1H8v1H4v-1H2v-1H1V8H0V4h1V2h1V1h2z"/><path fill="#fff6e0" d="M4 1h4v1h2v2h1v4h-1v2H8v1H4v-1H2V8H1V4h1V2h2z"/><path fill="#1d1838" d="M5 4h2v1h1v2H7v1H5V7H4V5h1zM2 4h1v2H2zM9 4h1v2H9zM5 1h2v1H5zM5 10h2v1H5z"/></svg>';
-const LOGO='<div class="pxlogo">'+BALL+'<span class="l1">OBBOLA IK</span><span class="l2">QUIZ<br>CHAMPIONS</span><span class="l3">★ 2026 ★</span></div>';
+const CREST='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABQCAYAAACpv3NFAAADyElEQVR4nO1cO24iQRB9IEIsmQQnG/oKvgLB3sF38V24wwYcYBNusCLcYCEZJAiR2GDVbLmp6m/VDG14kiUP0910vXpVXcP0zAgBTOfP59D5VnDc7UfSOfHEdP58/vbx3WZGBH9+/jL/jtNqI5IwiXXuY4JDYjz0BIZGVAEO3XJtOQ91zN7fktqxceHi38m/W67ZAVNISZmI1Ti0j5QH7j4EHgQMPYGh8SDA/yA1AbYAmhQni1e2sr17BSTXARyeXmYqk3h6meGw7a7G5D6TMFm8Fn13tQIO2+7yR4/986H2Ds5QiQyuH+1fgk8ElMa/7yHqUelYwmHbXbWnfXJVF8sDJjnAGSEdp/QPHZeOy8GEgJgCpD7c/9xxzrgxqBDAeSykAK59zBCtmPdRtQoAcW+VHpe2y0UVASne0LgaPGw7s2LsEgJfqQL0EVoJqkPAIadYOa02xX25/qVFEKBEgF/ASG1Oq81lslxbaRxKkDM+p0oMoXoVSDGenve9lwPfeA2YLIO17azHoBgD+gnw6WV2+dNCjXIAORGaXQ5re8pqzLv/PaAZAkKrRg2aIUBCTQ0ANEKAlfeBRgiQUOt9ABhzS+Cto9T73FLYrAI0vA80GAKaxRXQIAGAnveBRgmoLYspmiPA5GKoRWipoEkCbu73gKGgoYImCOCWPi0VNEFACLUqaIYAKxWYEaBdsVlB7b4AhcVPV4DOzVAfKgpI9XaNKjTLXwqVHSJA3Dh3vtYQ7dCaHHf70e+PH2c3sdn7W/ZvAu72d2xy1PhQW+ncZPGK02pTTAK3dVYtB0ixyd1f8FWQs1dYOxSaWQat8CAA+PdMDa2oSvLArUPaOm9SB/iIlauxpGZVVwA9EEBvaXO30mv2FGrgkgMswyB2Y8NfQrXvLIeeHOklCcYuZLhtchqbIFPwiYC+kiHnYcnrtfEfe26oFwVwG5xLNkta4CoJHnf70XS1uSqNa3eM5BxLn+Ui5akx81UgpXQdsuZgQ+ArFEYp3gcCOaBlElKNBx7XAmECWlRBjveBBAW0QoK/UqUYDySGwK2TUGo8kJEDOBJuATXGA5lJ8JZI6JbrauOBgkKIqxTdhPoCV5mWGA8ULoO+EoB+1MB5HSg3Hgi8RSYF0/nzmSt1qRq03iAhjVVjPFBZCDkl9KEGzuu1xgOVCqCIqSFESkgBFl6nUCMA+P/mqdyw4AiQDAfCb4bKhSoBDpIaHCSPh1Si6XUKEwKAsBpyYOF1CjMCHEqJsDbcwZwAh09Pawpk0NXE2nCH3gigkF7T15fRFH8BZdu+vPAov+8AAAAASUVORK5CYII=';
+const LOGO='<div class="pxlogo"><img class="crest" src="'+CREST+'" alt="Obbola IK">'+'<span class="l1">OBBOLA IK</span><span class="l2">QUIZ<br>CHAMPIONS</span><span class="l3">★ 2026 ★</span></div>';
 function starsFor(kind,score){ const th = kind==="kick" ? [8,16,24] : [4,9,14]; return score>=th[2]?3:score>=th[1]?2:score>=th[0]?1:0; }
 function stepAt(i){ return STEPS[i]||null; }
 function qOf(st){ return st && st.q!=null ? PROGRAM[st.r].qs[st.q] : null; }
@@ -3372,7 +3379,7 @@ function bindLobby(){ $("hPlist").onclick=e=>{ const s=e.target.closest("[data-p
   $("hReset").onclick=e=>{ if(e.target.dataset.sure!=="1"){ e.target.dataset.sure="1"; e.target.textContent="Säker? Tryck igen"; return; } newQuiz(); }; }
 function newQuiz(){ runTok++; stopAudio(); stopSpeak(); if(HNET && HNET.connected) HNET.publish(topic(H.code,"s"),"",{retain:true,qos:1}); H=freshH(); saveH(); document.body.dataset.r=""; hostConnect(); renderHost(); }
 
-function initHost(){ $("host").hidden=false; document.title="Värd · QuizChampions 2026";
+function initHost(){ $("host").hidden=false; $("hCrest").src=CREST; document.title="Värd · QuizChampions 2026";
   const saved=LS.get("qc_host",null); H = saved && saved.code ? saved : freshH(); H.paused=false; if(!H.res) H.res={}; if(!H.gres) H.gres={}; if(!H.game) H.game={}; if(!H.pens) H.pens={}; if(!H.props) H.props={}; if(!H.lockClue) H.lockClue={}; if(!H.propN) H.propN=0;
   pickVoice(); setupPres(); hostConnect(); loadSongs();
   $("hPauseBtn").onclick=togglePause; $("hSkipBtn").onclick=skip; $("hRedoBtn").onclick=redo;
